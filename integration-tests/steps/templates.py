@@ -6,7 +6,7 @@ import yaml
 from botocore.exceptions import ClientError
 from sceptre.plan.plan import SceptrePlan
 from sceptre.context import SceptreContext
-from sceptre.cli.helpers import CfnYamlLoader
+from sceptre.helpers import CfnYamlLoader
 
 
 def set_template_path(context, stack_name, template_name):

@@ -13,10 +13,8 @@ with open("CHANGELOG.md") as history_file:
 
 install_requirements = [
     "boto3>=1.3,<2.0",
-    "click==7.0",
     "PyYaml>=5.1,<6.0",
     "Jinja2>=2.8,<3",
-    "colorama==0.3.9",
     "packaging==16.8",
     "six>=1.11.0,<2.0.0",
     "networkx==2.1"
@@ -36,7 +34,7 @@ setup_requirements = [
 ]
 
 setup(
-    name="sceptre",
+    name="sceptre-core",
     version=__version__,
     description="Cloud Provisioning Tool",
     long_description=readme,
@@ -51,9 +49,6 @@ setup(
     },
     py_modules=["sceptre"],
     entry_points={
-        "console_scripts": [
-            'sceptre = sceptre.cli:cli'
-        ],
         "sceptre.hooks": [
             "asg_scheduled_actions ="
             "sceptre.hooks.asg_scaling_processes:ASGScalingProcesses",

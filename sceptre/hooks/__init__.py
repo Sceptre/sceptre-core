@@ -2,10 +2,17 @@ import abc
 import logging
 from functools import wraps
 
+from sceptre.context import SceptreContext
 from sceptre.helpers import _call_func_on_values
 
 
-class Hook(object):
+class HookData(object):
+    def __init__(self, context):
+        if isinstance(context, SceptreContext):
+            self.context = context
+
+
+class Hook(HookData):
     """
     Hook is an abstract base class that should be inherited by all hooks.
 

@@ -1,5 +1,6 @@
 behave==1.2.5
 bumpversion==0.5.3
+click==7.0
 coverage==4.4.2
 flake8==3.5.0
 flake8-per-file-ignores==0.4
