@@ -112,29 +112,39 @@ class ConfigReader(object):
         self.logger = logging.getLogger(__name__)
         self.context = context
         self.full_config_path = self.context.full_config_path()
+        if not self.context.user_variables:
+            self.context.user_variables = {}
+        self.templating_vars = {"var": self.context.user_variables}
 
         # Check is valid sceptre project folder
         self._check_valid_project_path(self.full_config_path)
 
+        # Load plugins
+        self._hooks = self._load_entry_points('sceptre.hooks')
+        self._resolvers = self._load_entry_points('sceptre.resolvers')
+        self._providers = self._load_entry_points('sceptre.providers')
+
         # Add Resolver and Hook classes to PyYAML loader
-        self._add_yaml_constructors(["sceptre.hooks", "sceptre.resolvers"])
-        if not self.context.user_variables:
-            self.context.user_variables = {}
+        self._add_yaml_constructors([self._hooks, self._resolvers])
 
-        self.templating_vars = {"var": self.context.user_variables}
+    def _load_entry_points(self, entry_point_name):
+        points = {}
+        for entry_point in iter_entry_points(entry_point_name):
+            points[entry_point.name] = entry_point.load()
+        return points
 
-    def _add_yaml_constructors(self, entry_point_groups):
+    def _add_yaml_constructors(self, entry_points):
         """
         Adds PyYAML constructor functions for all classes found registered at
         the given entry point groups. Classes are registered whereby the node
         tag is the entry point name.
 
-        :param entry_point_groups: Names of entry point groups.
-        :type entry_point_groups: list
+        :param entry_points: Names of entry point groups.
+        :type entry_points: list
         """
         self.logger.debug(
             "Adding yaml constructors for the entry point groups {0}".format(
-                entry_point_groups
+                entry_points
             )
         )
 
@@ -156,13 +166,11 @@ class ConfigReader(object):
 
             return class_constructor
 
-        for group in entry_point_groups:
-            for entry_point in iter_entry_points(group):
-                # Retrieve name and class from entry point
-                node_tag = u'!' + entry_point.name
-                node_class = entry_point.load()
+        for entry_point in entry_points:
+            for entry_point_name in entry_point:
+                node_tag = u'!' + entry_point_name
+                node_class = entry_point.get(entry_point_name)
                 node_class.context = self.context
-                # Add constructor to PyYAML loader
                 yaml.SafeLoader.add_constructor(
                     node_tag, constructor_factory(node_class)
                 )
