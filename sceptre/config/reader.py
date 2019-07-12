@@ -122,7 +122,6 @@ class ConfigReader(object):
         # Load plugins
         self._hooks = self._load_entry_points('sceptre.hooks')
         self._resolvers = self._load_entry_points('sceptre.resolvers')
-        self._providers = self._load_entry_points('sceptre.providers')
 
         # Add Resolver and Hook classes to PyYAML loader
         self._add_yaml_constructors([self._hooks, self._resolvers])

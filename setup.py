@@ -12,12 +12,18 @@ with open("CHANGELOG.md") as history_file:
     history = history_file.read()
 
 install_requirements = [
+    "sceptre-aws-stackoutput-resolver>=1.0.0,<2.0.0",
+    "sceptre-aws-stackoutput-external-resolver>=1.0.0,<2.0.0",
+    "sceptre-environment-variable-resolver>=1.0.0,<2.0.0",
+    "sceptre-file-contents-resolver>=1.0.0,<2.0.0",
+    "sceptre-aws-asg-scaling-processes-hook>=1.0.0,<2.0.0",
+    "sceptre-cmd-hook>=1.0.0,<2.0.0"
     "boto3>=1.3,<2.0",
     "PyYaml>=5.1,<6.0",
     "Jinja2>=2.8,<3",
     "packaging==16.8",
     "six>=1.11.0,<2.0.0",
-    "networkx==2.1"
+    "networkx==2.1",
 ]
 
 test_requirements = [
@@ -48,21 +54,6 @@ setup(
         "sceptre": "sceptre"
     },
     py_modules=["sceptre"],
-    entry_points={
-        "sceptre.hooks": [
-            "asg_scheduled_actions ="
-            "sceptre.hooks.asg_scaling_processes:ASGScalingProcesses",
-            "cmd = sceptre.hooks.cmd:Cmd"
-        ],
-        "sceptre.resolvers": [
-            "environment_variable ="
-            "sceptre.resolvers.environment_variable:EnvironmentVariable",
-            "file_contents = sceptre.resolvers.file_contents:FileContents",
-            "stack_output = sceptre.resolvers.stack_output:StackOutput",
-            "stack_output_external ="
-            "sceptre.resolvers.stack_output:StackOutputExternal"
-        ]
-    },
     data_files=[
         (path.join("sceptre", "stack_policies"), [
             path.join("sceptre", "stack_policies", "lock.json"),
