@@ -4,6 +4,32 @@ Categories: Added, Removed, Changed, Fixed, Nonfunctional, Deprecated
 
 ## Unreleased
 
+### Removed
+
+- Sceptre CLI from core repository
+
+### Changed
+
+- Treat core Resolvers and Hooks as external plugins
+- Load plugins at config reader
+
+### Fixed
+
+- Remove code after raising AttributeError
+
+### Nonfunctional
+
+- Move CircleCi Dockerfile to own repo
+- Update sonar properties
+- Separate CLI from core repository
+- Change example url to sceptre homepage
+- Update CONTRIBUTING docs for test coverage level
+- Update CircleCI test results output dir
+- Set test coverage fail level to 92%
+- Add exclusions to sonarqube
+- Add sonar badges
+- Add sonar-project properties file.
+
 ## 2.1.5 (2019.06.28)
 
 ### Fixed
