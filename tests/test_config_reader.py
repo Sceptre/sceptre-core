@@ -134,7 +134,7 @@ class TestConfigReader(object):
         config_reader.templating_vars["stack_group_config"] = {
             "region": "region_region",
             "project_code": "account_project_code",
-            "required_version": "'>1.0'",
+            "required_version": "'>=0.0.1'",
             "template_bucket_name": "stack_group_template_bucket_name"
         }
         os.environ["TEST_ENV_VAR"] = "environment_variable_value"
@@ -150,14 +150,14 @@ class TestConfigReader(object):
                 "param2": "environment_variable_value",
                 "param3": "region_region",
                 "param4": "account_project_code",
-                "param5": ">1.0",
+                "param5": ">=0.0.1",
                 "param6": "stack_group_template_bucket_name"
             }
         }
 
     def test_aborts_on_incompatible_version_requirement(self):
         config = {
-            'required_version': '<0'
+            'required_version': '<0.0.0'
         }
         with pytest.raises(VersionIncompatibleError):
             ConfigReader(self.context)._check_version(config)
@@ -190,15 +190,15 @@ class TestConfigReader(object):
             }
         ),
         (
-                "name",
-                {
-                    "template_bucket_name": "bucket-name",
-                },
-                {
-                    "bucket_name": "bucket-name",
-                    "bucket_key": "name/2012-01-01-00-00-00-000000Z.json",
-                    "bucket_region": None,
-                }
+            "name",
+            {
+                "template_bucket_name": "bucket-name",
+            },
+            {
+                "bucket_name": "bucket-name",
+                "bucket_key": "name/2012-01-01-00-00-00-000000Z.json",
+                "bucket_region": None,
+            }
         ),
         (
             "name", {}, None
@@ -225,7 +225,7 @@ class TestConfigReader(object):
             name="account/stack-group/region/vpc",
             project_code="account_project_code",
             template_path=os.path.join(
-                self.context.project_path, "templates/path/to/template"
+                self.context.project_path, self.context.templates_path, "vpc.json"
             ),
             region="region_region",
             profile="account_profile",
@@ -241,7 +241,7 @@ class TestConfigReader(object):
             notifications=None,
             on_failure=None,
             stack_timeout=0,
-            required_version='>1.0',
+            required_version='>=0.0.1',
             template_bucket_name='stack_group_template_bucket_name',
             template_key_prefix=None,
             stack_group_config={

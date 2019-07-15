@@ -1,4 +1,4 @@
 profile: account_profile
 project_code: account_project_code
 region: account_region
-required_version: ">1.0"
+required_version: '>=0.0.1'

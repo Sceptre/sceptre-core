@@ -1,5 +1,5 @@
-template_path: path/to/template
+template_path: vpc.json
 parameters:
   param1: val1
 dependencies:
-  - "child/level"
+  - 'child/level'
