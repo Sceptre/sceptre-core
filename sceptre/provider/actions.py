@@ -17,7 +17,7 @@ import botocore
 import json
 from dateutil.tz import tzutc
 
-from sceptre.connection_manager import ConnectionManager
+from sceptre.provider.connection_manager import ConnectionManager
 from sceptre.hooks import add_stack_hooks
 from sceptre.provider.stack_status import StackStatus
 from sceptre.provider.stack_status import StackChangeSetStatus

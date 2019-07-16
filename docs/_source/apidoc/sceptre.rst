@@ -23,7 +23,7 @@ Submodules
 sceptre.connection\_manager module
 ----------------------------------
 
-.. automodule:: sceptre.connection_manager
+.. automodule:: sceptre.provider.connection_manager
     :members:
     :undoc-members:
     :show-inheritance:

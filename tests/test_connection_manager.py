@@ -8,7 +8,7 @@ from moto import mock_s3
 from boto3.session import Session
 from botocore.exceptions import ClientError, UnknownServiceError
 
-from sceptre.connection_manager import ConnectionManager, _retry_boto_call
+from sceptre.provider.connection_manager import ConnectionManager, _retry_boto_call
 from sceptre.exceptions import RetryLimitExceededError
 
 
@@ -64,7 +64,7 @@ class TestConnectionManager(object):
         self.connection_manager.profile = "profile"
         self.connection_manager.region = "region"
         response = self.connection_manager.__repr__()
-        assert response == "sceptre.connection_manager.ConnectionManager(" \
+        assert response == "sceptre.provider.connection_manager.ConnectionManager(" \
             "region='region', profile='profile', stack_name='stack')"
 
     def test_boto_session_with_cache(self):
@@ -73,7 +73,7 @@ class TestConnectionManager(object):
         boto_session = self.connection_manager._boto_sessions["test"]
         assert boto_session == sentinel.boto_session
 
-    @patch("sceptre.connection_manager.boto3.session.Session")
+    @patch("sceptre.provider.connection_manager.boto3.session.Session")
     def test_boto_session_with_no_profile(
             self, mock_Session
     ):
@@ -93,7 +93,7 @@ class TestConnectionManager(object):
             aws_session_token=ANY
         )
 
-    @patch("sceptre.connection_manager.boto3.session.Session")
+    @patch("sceptre.provider.connection_manager.boto3.session.Session")
     def test_boto_session_with_profile(self, mock_Session):
         self.connection_manager._boto_sessions = {}
         self.connection_manager.profile = "profile"
@@ -111,7 +111,7 @@ class TestConnectionManager(object):
             aws_session_token=ANY
         )
 
-    @patch("sceptre.connection_manager.boto3.session.Session")
+    @patch("sceptre.provider.connection_manager.boto3.session.Session")
     def test_two_boto_sessions(self, mock_Session):
         self.connection_manager._boto_sessions = {
             "one": mock_Session,
@@ -122,7 +122,7 @@ class TestConnectionManager(object):
         boto_session_2 = self.connection_manager._boto_sessions["two"]
         assert boto_session_1 == boto_session_2
 
-    @patch("sceptre.connection_manager.boto3.session.Session.get_credentials")
+    @patch("sceptre.provider.connection_manager.boto3.session.Session.get_credentials")
     def test_get_client_with_no_pre_existing_clients(
         self, mock_get_credentials
     ):
@@ -137,7 +137,7 @@ class TestConnectionManager(object):
         expected_client = Session().client(service)
         assert str(type(client)) == str(type(expected_client))
 
-    @patch("sceptre.connection_manager.boto3.session.Session.get_credentials")
+    @patch("sceptre.provider.connection_manager.boto3.session.Session.get_credentials")
     def test_get_client_with_invalid_client_type(self, mock_get_credentials):
         service = "invalid_type"
         region = "eu-west-1"
@@ -149,7 +149,7 @@ class TestConnectionManager(object):
                 service, region, profile, stack
             )
 
-    @patch("sceptre.connection_manager.boto3.session.Session.get_credentials")
+    @patch("sceptre.provider.connection_manager.boto3.session.Session.get_credentials")
     def test_get_client_with_exisiting_client(self, mock_get_credentials):
         service = "cloudformation"
         region = "eu-west-1"
@@ -164,7 +164,7 @@ class TestConnectionManager(object):
         )
         assert client_1 == client_2
 
-    @patch("sceptre.connection_manager.boto3.session.Session.get_credentials")
+    @patch("sceptre.provider.connection_manager.boto3.session.Session.get_credentials")
     def test_get_client_with_exisiting_client_and_profile_none(
             self, mock_get_credentials
     ):
@@ -216,7 +216,7 @@ class TestRetry():
 
         assert response == sentinel.response
 
-    @patch("sceptre.connection_manager.time.sleep")
+    @patch("sceptre.provider.connection_manager.time.sleep")
     def test_retry_boto_call_pauses_when_request_limit_hit(
             self, mock_sleep
     ):
@@ -258,7 +258,7 @@ class TestRetry():
         assert e.value.response["Error"]["Code"] == 500
         assert e.value.response["Error"]["Message"] == "Boom!"
 
-    @patch("sceptre.connection_manager.time.sleep")
+    @patch("sceptre.provider.connection_manager.time.sleep")
     def test_retry_boto_call_raises_retry_limit_exceeded_exception(
             self, mock_sleep
     ):
