@@ -51,9 +51,9 @@ setup(
     },
     py_modules=["sceptre"],
     data_files=[
-        (path.join("sceptre", "stack_policies"), [
-            path.join("sceptre", "stack_policies", "lock.json"),
-            path.join("sceptre", "stack_policies", "unlock.json")
+        (path.join("sceptre", "provider", "stack_policies"), [
+            path.join("sceptre", "provider", "stack_policies", "lock.json"),
+            path.join("sceptre", "provider", "stack_policies", "unlock.json")
         ])
     ],
     include_package_data=True,

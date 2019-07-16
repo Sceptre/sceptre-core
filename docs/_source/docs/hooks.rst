@@ -144,7 +144,7 @@ custom_hook.py
         argument: str
             The argument is available from the base class and contains the
             argument defined in the Sceptre config file (see below)
-        stack: sceptre.stack.Stack
+        stack: sceptre.provider.stack.Stack
              The associated stack of the hook.
         connection_manager: sceptre.connection_manager.ConnectionManager
             Boto3 Connection Manager - can be used to call boto3 api.

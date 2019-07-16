@@ -4,7 +4,7 @@ import importlib
 
 from mock import sentinel, MagicMock
 from sceptre.resolvers import Resolver
-from sceptre.stack import Stack
+from sceptre.provider.stack import Stack
 from sceptre.template import Template
 
 
@@ -88,7 +88,7 @@ class TestStack(object):
 
     def test_stack_repr(self):
         assert self.stack.__repr__() == \
-            "sceptre.stack.Stack(" \
+            "sceptre.provider.stack.Stack(" \
             "name='dev/app/stack', " \
             "project_code=sentinel.project_code, " \
             "template_path=sentinel.template_path, " \
