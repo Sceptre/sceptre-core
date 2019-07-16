@@ -10,7 +10,7 @@ import logging
 
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from sceptre.provider.actions import StackActions
-from sceptre.stack_status import StackStatus
+from sceptre.provider.stack_status import StackStatus
 
 
 class SceptrePlanExecutor(object):

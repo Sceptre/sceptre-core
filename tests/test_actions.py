@@ -8,11 +8,11 @@ from dateutil.tz import tzutc
 
 from botocore.exceptions import ClientError
 
-from sceptre.stack import Stack
+from sceptre.provider.stack import Stack
 from sceptre.provider.actions import StackActions
 from sceptre.template import Template
-from sceptre.stack_status import StackStatus
-from sceptre.stack_status import StackChangeSetStatus
+from sceptre.provider.stack_status import StackStatus
+from sceptre.provider.stack_status import StackChangeSetStatus
 from sceptre.exceptions import CannotUpdateFailedStackError
 from sceptre.exceptions import UnknownStackStatusError
 from sceptre.exceptions import UnknownStackChangeSetStatusError
@@ -49,7 +49,7 @@ class TestStackActions(object):
     def teardown_method(self, test_method):
         self.patcher_connection_manager.stop()
 
-    @patch("sceptre.stack.Template")
+    @patch("sceptre.provider.stack.Template")
     def test_template_loads_template(self, mock_Template):
         self.stack._template = None
         mock_Template.return_value = sentinel.template

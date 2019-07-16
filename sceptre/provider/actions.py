@@ -19,8 +19,8 @@ from dateutil.tz import tzutc
 
 from sceptre.connection_manager import ConnectionManager
 from sceptre.hooks import add_stack_hooks
-from sceptre.stack_status import StackStatus
-from sceptre.stack_status import StackChangeSetStatus
+from sceptre.provider.stack_status import StackStatus
+from sceptre.provider.stack_status import StackChangeSetStatus
 
 from sceptre.exceptions import CannotUpdateFailedStackError
 from sceptre.exceptions import UnknownStackStatusError
@@ -35,7 +35,7 @@ class StackActions(object):
     deleting the Stack.
 
     :param stack: A Stack object
-    :type stack: sceptre.stack.Stack
+    :type stack: sceptre.provider.stack.Stack
     """
 
     def __init__(self, stack):
@@ -52,7 +52,7 @@ class StackActions(object):
         Creates a Stack.
 
         :returns: The Stack's status.
-        :rtype: sceptre.stack_status.StackStatus
+        :rtype: sceptre.provider.stack_status.StackStatus
         """
         self._protect_execution()
         self.logger.info("%s - Creating Stack", self.stack.name)
@@ -104,7 +104,7 @@ class StackActions(object):
         Updates the Stack.
 
         :returns: The Stack's status.
-        :rtype: sceptre.stack_status.StackStatus
+        :rtype: sceptre.provider.stack_status.StackStatus
         """
         self._protect_execution()
         self.logger.info("%s - Updating Stack", self.stack.name)
@@ -156,7 +156,7 @@ class StackActions(object):
         Cancels a Stack update.
 
         :returns: The cancelled Stack status.
-        :rtype: sceptre.stack_status.StackStatus
+        :rtype: sceptre.provider.stack_status.StackStatus
         """
         self.logger.warning(
             "%s - Update Stack time exceeded the specified timeout",
@@ -182,7 +182,7 @@ class StackActions(object):
         performed, launch exits gracefully.
 
         :returns: The Stack's status.
-        :rtype: sceptre.stack_status.StackStatus
+        :rtype: sceptre.provider.stack_status.StackStatus
         """
         self._protect_execution()
         self.logger.info("%s - Launching Stack", self.stack.name)
@@ -227,7 +227,7 @@ class StackActions(object):
         Deletes the Stack.
 
         :returns: The Stack's status.
-        :rtype: sceptre.stack_status.StackStatus
+        :rtype: sceptre.provider.stack_status.StackStatus
         """
         self._protect_execution()
 
@@ -266,7 +266,7 @@ class StackActions(object):
         policy_path = path.join(
             # need to get to the base install path. __file__ will take us into
             # sceptre/actions so need to walk up the path.
-            path.abspath(path.join(__file__, "..", "..")),
+            path.abspath(path.join(__file__, "..")),
             "stack_policies/lock.json"
         )
         self.set_policy(policy_path)
@@ -279,7 +279,7 @@ class StackActions(object):
         policy_path = path.join(
             # need to get to the base install path. __file__ will take us into
             # sceptre/actions so need to walk up the path.
-            path.abspath(path.join(__file__, "..", "..")),
+            path.abspath(path.join(__file__, "..")),
             "stack_policies/unlock.json"
         )
         self.set_policy(policy_path)
@@ -619,7 +619,7 @@ class StackActions(object):
         Returns the Stack's status.
 
         :returns: The Stack's status.
-        :rtype: sceptre.stack_status.StackStatus
+        :rtype: sceptre.provider.stack_status.StackStatus
         """
         try:
             return self._get_status()
@@ -699,7 +699,7 @@ class StackActions(object):
         :param timeout: Timeout before returning, in minutes.
 
         :returns: The final Stack status.
-        :rtype: sceptre.stack_status.StackStatus
+        :rtype: sceptre.provider.stack_status.StackStatus
         """
         timeout = 60 * timeout
 
@@ -743,7 +743,7 @@ class StackActions(object):
         Returns the simplified Stack Status.
 
         The simplified Stack status is represented by the struct
-        ``sceptre.StackStatus()`` and can take one of the following options:
+        ``sceptre.provider.stack_status.StackStatus()`` and can take one of the following options:
 
         * complete
         * in_progress
@@ -752,7 +752,7 @@ class StackActions(object):
         :param status: The CloudFormation Stack status to simplify.
         :type status: str
         :returns: The Stack's simplified status
-        :rtype: sceptre.stack_status.StackStatus
+        :rtype: sceptre.provider.stack_status.StackStatus
         """
         if status.endswith("ROLLBACK_COMPLETE"):
             return StackStatus.FAILED
@@ -794,7 +794,7 @@ class StackActions(object):
         :param change_set_name: The name of the Change Set.
         :type change_set_name: str
         :returns: The Change Set's status.
-        :rtype: sceptre.stack_status.StackChangeSetStatus
+        :rtype: sceptre.provider.stack_status.StackChangeSetStatus
         """
         while True:
             status = self._get_cs_status(change_set_name)
@@ -811,7 +811,7 @@ class StackActions(object):
         :param change_set_name: The name of the Change Set.
         :type change_set_name: str
         :returns: The Change Set's status.
-        :rtype: sceptre.stack_status.StackChangeSetStatus
+        :rtype: sceptre.provider.stack_status.StackChangeSetStatus
         """
         cs_description = self.describe_change_set(change_set_name)
 

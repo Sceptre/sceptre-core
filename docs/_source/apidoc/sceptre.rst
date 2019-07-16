@@ -52,26 +52,26 @@ sceptre.helpers module
     :undoc-members:
     :show-inheritance:
 
-sceptre.stack module
+sceptre.provider.stack module
 --------------------
 
-.. automodule:: sceptre.stack
+.. automodule:: sceptre.provider.stack
     :members:
     :undoc-members:
     :show-inheritance:
 
-sceptre.stack\_status module
+sceptre.provider.stack\_status module
 ----------------------------
 
-.. automodule:: sceptre.stack_status
+.. automodule:: sceptre.provider.stack_status
     :members:
     :undoc-members:
     :show-inheritance:
 
-sceptre.stack\_status\_colourer module
+sceptre.provider.stack\_status\_colourer module
 --------------------------------------
 
-.. automodule:: sceptre.stack_status_colourer
+.. automodule:: sceptre.provider.stack_status_colourer
     :members:
     :undoc-members:
     :show-inheritance:
@@ -83,5 +83,3 @@ sceptre.template module
     :members:
     :undoc-members:
     :show-inheritance:
-
-

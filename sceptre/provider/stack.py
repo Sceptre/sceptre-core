@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 """
-sceptre.stack
+sceptre.provider.stack
 
 This module implements a Stack class, which stores a Stack's data.
 
@@ -148,7 +148,7 @@ class Stack(object):
 
     def __repr__(self):
         return (
-            "sceptre.stack.Stack("
+            "sceptre.provider.stack.Stack("
             "name='{name}', "
             "project_code={project_code}, "
             "template_path={template_path}, "
