@@ -4,7 +4,15 @@ Categories: Added, Removed, Changed, Fixed, Nonfunctional, Deprecated
 
 ## Unreleased
 
+### Fixed
+
+- `sceptre_user_data` resolver infinite recursion
+
 ## 0.0.1 (2019.07.16)
+
+### Added
+
+- SceptreContext to Hooks and Resolvers
 
 ### Removed
 
