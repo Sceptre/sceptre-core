@@ -11,8 +11,8 @@ from mock import patch, sentinel, Mock
 from freezegun import freeze_time
 from botocore.exceptions import ClientError
 
-import sceptre.template
-from sceptre.template import Template
+import sceptre.provider.template
+from sceptre.provider.template import Template
 from sceptre.connection_manager import ConnectionManager
 from sceptre.exceptions import UnsupportedTemplateFileTypeError
 from sceptre.exceptions import TemplateSceptreHandlerError
@@ -43,7 +43,7 @@ class TestTemplate(object):
 
     def test_repr(self):
         representation = self.template.__repr__()
-        assert representation == "sceptre.template.Template(" \
+        assert representation == "sceptre.provider.template.Template(" \
             "name='template', path='/folder/template.py'"\
             ", sceptre_user_data={}, s3_details=None)"
 
@@ -53,7 +53,7 @@ class TestTemplate(object):
         assert body == sentinel.body
 
     @freeze_time("2012-01-01")
-    @patch("sceptre.template.Template._bucket_exists")
+    @patch("sceptre.provider.template.Template._bucket_exists")
     def test_upload_to_s3_with_valid_s3_details(self, mock_bucket_exists):
         self.template._body = '{"template": "mock"}'
         mock_bucket_exists.return_value = True
@@ -153,7 +153,7 @@ class TestTemplate(object):
             kwargs={"Bucket": "bucket-name"}
         )
 
-    @patch("sceptre.template.Template.upload_to_s3")
+    @patch("sceptre.provider.template.Template.upload_to_s3")
     def test_get_boto_call_parameter_with_s3_details(self, mock_upload_to_s3):
         # self.stack._template = Mock(spec=Template)
         mock_upload_to_s3.return_value = sentinel.template_url
@@ -336,7 +336,7 @@ def test_render_jinja_template(filename, sceptre_user_data, expected):
         os.getcwd(),
         "tests/fixtures/templates"
     )
-    result = sceptre.template.Template._render_jinja_template(
+    result = sceptre.provider.template.Template._render_jinja_template(
         template_dir=jinja_template_dir,
         filename=filename,
         jinja_vars={"sceptre_user_data": sceptre_user_data}

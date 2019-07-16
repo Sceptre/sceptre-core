@@ -17,7 +17,7 @@ from os import environ
 from botocore.exceptions import ClientError
 
 from .helpers import mask_key
-from .exceptions import InvalidAWSCredentialsError, RetryLimitExceededError
+from sceptre.exceptions import InvalidAWSCredentialsError, RetryLimitExceededError
 
 
 def _retry_boto_call(func):
