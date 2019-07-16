@@ -13,7 +13,7 @@ from botocore.exceptions import ClientError
 
 import sceptre.provider.template
 from sceptre.provider.template import Template
-from sceptre.connection_manager import ConnectionManager
+from sceptre.provider.connection_manager import ConnectionManager
 from sceptre.exceptions import UnsupportedTemplateFileTypeError
 from sceptre.exceptions import TemplateSceptreHandlerError
 

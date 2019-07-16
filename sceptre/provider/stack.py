@@ -10,7 +10,7 @@ This module implements a Stack class, which stores a Stack's data.
 import logging
 from typing import Mapping, Sequence
 
-from sceptre.connection_manager import ConnectionManager
+from sceptre.provider.connection_manager import ConnectionManager
 from sceptre.helpers import get_external_stack_name
 from sceptre.helpers import sceptreise_path
 
