@@ -5,7 +5,7 @@ import importlib
 from mock import sentinel, MagicMock
 from sceptre.resolvers import Resolver
 from sceptre.provider.stack import Stack
-from sceptre.template import Template
+from sceptre.provider.template import Template
 
 
 def stack_factory(**kwargs):

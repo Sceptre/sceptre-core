@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 """
-sceptre.template
+sceptre.provider.template
 
 This module implements a Template class, which stores a CloudFormation template
 and implements methods for uploading it to S3.
@@ -15,8 +15,8 @@ import threading
 
 import botocore
 import jinja2
-from .exceptions import UnsupportedTemplateFileTypeError
-from .exceptions import TemplateSceptreHandlerError
+from sceptre.exceptions import UnsupportedTemplateFileTypeError
+from sceptre.exceptions import TemplateSceptreHandlerError
 
 
 class Template(object):
@@ -57,7 +57,7 @@ class Template(object):
 
     def __repr__(self):
         return (
-            "sceptre.template.Template(name='{0}', path='{1}', "
+            "sceptre.provider.template.Template(name='{0}', path='{1}', "
             "sceptre_user_data={2}, s3_details={3})".format(
                 self.name, self.path, self.sceptre_user_data, self.s3_details
             )

@@ -76,10 +76,10 @@ sceptre.provider.stack\_status\_colourer module
     :undoc-members:
     :show-inheritance:
 
-sceptre.template module
+sceptre.provider.template module
 -----------------------
 
-.. automodule:: sceptre.template
+.. automodule:: sceptre.provider.template
     :members:
     :undoc-members:
     :show-inheritance:

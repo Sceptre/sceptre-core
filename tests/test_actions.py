@@ -10,7 +10,7 @@ from botocore.exceptions import ClientError
 
 from sceptre.provider.stack import Stack
 from sceptre.provider.actions import StackActions
-from sceptre.template import Template
+from sceptre.provider.template import Template
 from sceptre.provider.stack_status import StackStatus
 from sceptre.provider.stack_status import StackChangeSetStatus
 from sceptre.exceptions import CannotUpdateFailedStackError

@@ -16,7 +16,7 @@ from sceptre.helpers import sceptreise_path
 
 from sceptre.hooks import HookProperty
 from sceptre.resolvers import ResolvableProperty
-from sceptre.template import Template
+from sceptre.provider.template import Template
 
 
 class Stack(object):
