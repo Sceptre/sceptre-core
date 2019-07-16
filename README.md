@@ -24,34 +24,6 @@ building better infrastructure.
 More information on installing sceptre can be found in our
 [Installation Guide](https://sceptre.cloudreach.com/latest/docs/install.html)
 
-# Use Docker Image
-
-View our [Docker repository](https://hub.docker.com/r/cloudreach/sceptre).
-Images available from version 2.0.0 onward.
-
-To use our Docker image follow these instructions:
-
-1. Pull the image `docker pull cloudreach/sceptre:[SCEPTRE_VERSION_NUMBER]` e.g.
-   `docker pull cloudreach/sceptre-core:x.x.x`. Leave out the version number if
-   you wish to run `latest` or run `docker pull cloudreach/sceptre-core:latest`.
-
-2. Run the image. You will need to mount the working directory where your
-   project resides to a directory called `project`. You will also need to mount
-   a volume with your AWS config to your docker container. E.g.
-
-`docker run -v $(pwd):/project -v /Users/me/.aws/:/root/.aws/:ro cloudreach/sceptre-core:latest --help`
-
-If you want to use a custom ENTRYPOINT simply amend the Docker command:
-
-`docker run -ti --entrypoint='' cloudreach/sceptre-core:latest sh`
-
-The above command will enter you into the shell of the Docker container where
-you can execute sceptre commands - useful for development.
-
-If you have any other environment variables in your non-docker shell you will
-need to pass these in on the Docker CLI using the `-e` flag. See Docker
-documentation on how to achieve this.
-
 # Example
 
 Sceptre organises Stacks into "Stack Groups". Each Stack is represented by a
@@ -100,6 +72,32 @@ plan.launch()
 
 Full API reference documentation can be found in the
 [Documentation](https://sceptre.cloudreach.com/)
+
+# Use Docker Image
+
+View our [Docker repository](https://hub.docker.com/r/cloudreach/sceptre-core).
+
+To use our Docker image follow these instructions:
+
+1. Pull the image `docker pull cloudreach/sceptre-core:[SCEPTRE_VERSION_NUMBER]`
+   e.g. `docker pull cloudreach/sceptre-core:x.x.x`. Leave out the version
+   number if you wish to run `latest` or run
+   `docker pull cloudreach/sceptre-core:latest`.
+
+2. Run the image. You will need to mount the working directory where your
+   project resides to a directory called `project`. You will also need to mount
+   a volume with your AWS config to your docker container. E.g.
+
+If you want to use a custom ENTRYPOINT simply amend the Docker command:
+
+`docker run -ti --entrypoint='' cloudreach/sceptre-core:latest sh`
+
+The above command will enter you into the shell of the Docker container where
+you can execute sceptre commands - useful for development.
+
+If you have any other environment variables in your non-docker shell you will
+need to pass these in on the Docker CLI using the `-e` flag. See Docker
+documentation on how to achieve this.
 
 ## Tutorial and Documentation
 
