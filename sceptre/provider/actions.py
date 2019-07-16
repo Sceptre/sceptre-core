@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 """
-sceptre.plan.actions
+sceptre.provider.actions
 
 This module implements the StackActions class which provides the functionality
 available to a Stack.
