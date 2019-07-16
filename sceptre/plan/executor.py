@@ -9,7 +9,7 @@ executing the command specified in a SceptrePlan.
 import logging
 
 from concurrent.futures import ThreadPoolExecutor, as_completed
-from sceptre.plan.actions import StackActions
+from sceptre.provider.actions import StackActions
 from sceptre.stack_status import StackStatus
 
 
