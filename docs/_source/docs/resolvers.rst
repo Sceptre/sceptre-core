@@ -157,7 +157,7 @@ custom_resolver.py
             ----------
             argument: str
                 The argument of the resolver.
-            stack: sceptre.provider.stack.Stack
+            stack: sceptre.providers.stack.Stack
                 The associated stack of the resolver.
 
             """

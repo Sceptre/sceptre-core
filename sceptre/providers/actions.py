@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 """
-sceptre.provider.actions
+sceptre.providers.actions
 
 This module implements the StackActions class which provides the functionality
 available to a Stack.
@@ -18,10 +18,10 @@ import botocore
 import json
 from dateutil.tz import tzutc
 
-from sceptre.provider.connection_manager import ConnectionManager
+from sceptre.providers.connection_manager import ConnectionManager
 from sceptre.hooks import add_stack_hooks
-from sceptre.provider.stack_status import StackStatus
-from sceptre.provider.stack_status import StackChangeSetStatus
+from sceptre.providers.stack_status import StackStatus
+from sceptre.providers.stack_status import StackChangeSetStatus
 
 from sceptre.exceptions import CannotUpdateFailedStackError
 from sceptre.exceptions import UnknownStackStatusError
@@ -37,7 +37,7 @@ class StackActions(object):
     deleting the Stack.
 
     :param stack: A Stack object
-    :type stack: sceptre.provider.stack.Stack
+    :type stack: sceptre.providers.stack.Stack
     """
 
     __metaclass__ = abc.ABCMeta
@@ -56,7 +56,7 @@ class StackActions(object):
         Creates a Stack.
 
         :returns: The Stack's status.
-        :rtype: sceptre.provider.stack_status.StackStatus
+        :rtype: sceptre.providers.stack_status.StackStatus
         """
         pass  # pragma: no cover
 
@@ -66,7 +66,7 @@ class StackActions(object):
         Updates the Stack.
 
         :returns: The Stack's status.
-        :rtype: sceptre.provider.stack_status.StackStatus
+        :rtype: sceptre.providers.stack_status.StackStatus
         """
         pass  # pragma: no cover
 
@@ -76,7 +76,7 @@ class StackActions(object):
         Deletes the Stack.
 
         :returns: The Stack's status.
-        :rtype: sceptre.provider.stack_status.StackStatus
+        :rtype: sceptre.providers.stack_status.StackStatus
         """
         pass  # pragma: no cover
 
@@ -90,7 +90,7 @@ class StackActions(object):
         performed, launch exits gracefully.
 
         :returns: The Stack's status.
-        :rtype: sceptre.provider.stack_status.StackStatus
+        :rtype: sceptre.providers.stack_status.StackStatus
         """
         pass  # pragma: no cover
 
@@ -99,7 +99,7 @@ class StackActions(object):
         Cancels a Stack update.
 
         :returns: The cancelled Stack status.
-        :rtype: sceptre.provider.stack_status.StackStatus
+        :rtype: sceptre.providers.stack_status.StackStatus
         """
         pass  # pragma: no cover
 
@@ -259,7 +259,7 @@ class StackActions(object):
         Returns the Stack's status.
 
         :returns: The Stack's status.
-        :rtype: sceptre.provider.stack_status.StackStatus
+        :rtype: sceptre.providers.stack_status.StackStatus
         """
         pass  # pragma: no cover
 
@@ -785,7 +785,7 @@ class AwsStackActions(StackActions):
         :param timeout: Timeout before returning, in minutes.
 
         :returns: The final Stack status.
-        :rtype: sceptre.provider.stack_status.StackStatus
+        :rtype: sceptre.providers.stack_status.StackStatus
         """
         timeout = 60 * timeout
 
@@ -829,7 +829,7 @@ class AwsStackActions(StackActions):
         Returns the simplified Stack Status.
 
         The simplified Stack status is represented by the struct
-        ``sceptre.provider.stack_status.StackStatus()`` and can take one of the following options:
+        ``sceptre.providers.stack_status.StackStatus()`` and can take one of the following options:
 
         * complete
         * in_progress
@@ -838,7 +838,7 @@ class AwsStackActions(StackActions):
         :param status: The CloudFormation Stack status to simplify.
         :type status: str
         :returns: The Stack's simplified status
-        :rtype: sceptre.provider.stack_status.StackStatus
+        :rtype: sceptre.providers.stack_status.StackStatus
         """
         if status.endswith("ROLLBACK_COMPLETE"):
             return StackStatus.FAILED
@@ -880,7 +880,7 @@ class AwsStackActions(StackActions):
         :param change_set_name: The name of the Change Set.
         :type change_set_name: str
         :returns: The Change Set's status.
-        :rtype: sceptre.provider.stack_status.StackChangeSetStatus
+        :rtype: sceptre.providers.stack_status.StackChangeSetStatus
         """
         while True:
             status = self._get_cs_status(change_set_name)
@@ -897,7 +897,7 @@ class AwsStackActions(StackActions):
         :param change_set_name: The name of the Change Set.
         :type change_set_name: str
         :returns: The Change Set's status.
-        :rtype: sceptre.provider.stack_status.StackChangeSetStatus
+        :rtype: sceptre.providers.stack_status.StackChangeSetStatus
         """
         cs_description = self.describe_change_set(change_set_name)
 

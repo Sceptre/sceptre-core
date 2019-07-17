@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 """
-sceptre.provider.stack
+sceptre.providers.stack
 
 This module implements a Stack class, which stores a Stack's data.
 
@@ -10,13 +10,13 @@ This module implements a Stack class, which stores a Stack's data.
 import logging
 from typing import Mapping, Sequence
 
-from sceptre.provider.connection_manager import ConnectionManager
+from sceptre.providers.connection_manager import ConnectionManager
 from sceptre.helpers import get_external_stack_name
 from sceptre.helpers import sceptreise_path
 
 from sceptre.hooks import HookProperty
 from sceptre.resolvers import ResolvableProperty
-from sceptre.provider.template import Template
+from sceptre.providers.template import Template
 
 
 class Stack(object):
@@ -148,7 +148,7 @@ class Stack(object):
 
     def __repr__(self):
         return (
-            "sceptre.provider.stack.Stack("
+            "sceptre.providers.stack.Stack("
             "name='{name}', "
             "project_code={project_code}, "
             "template_path={template_path}, "

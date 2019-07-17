@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 """
-sceptre.provider.connection_manager
+sceptre.providers.connection_manager
 
 This module implements a ConnectionManager class, which simplifies and manages
 Boto3 calls.
@@ -90,7 +90,7 @@ class ConnectionManager(object):
 
     def __repr__(self):
         return (
-            "sceptre.provider.connection_manager.ConnectionManager(region='{0}', "
+            "sceptre.providers.connection_manager.ConnectionManager(region='{0}', "
             "profile='{1}', stack_name='{2}')".format(
                 self.region, self.profile, self.stack_name
             )
