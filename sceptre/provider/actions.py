@@ -6,9 +6,10 @@ sceptre.provider.actions
 This module implements the StackActions class which provides the functionality
 available to a Stack.
 """
-
+import abc
 import logging
 import time
+import six
 
 from os import path
 from datetime import datetime, timedelta
@@ -29,6 +30,7 @@ from sceptre.exceptions import StackDoesNotExistError
 from sceptre.exceptions import ProtectedStackError
 
 
+@six.add_metaclass(abc.ABCMeta)
 class StackActions(object):
     """
     StackActions stores the operations a Stack can take, such as creating or
@@ -37,6 +39,8 @@ class StackActions(object):
     :param stack: A Stack object
     :type stack: sceptre.provider.stack.Stack
     """
+
+    __metaclass__ = abc.ABCMeta
 
     def __init__(self, stack):
         self.stack = stack
@@ -54,6 +58,223 @@ class StackActions(object):
         :returns: The Stack's status.
         :rtype: sceptre.provider.stack_status.StackStatus
         """
+        pass  # pragma: no cover
+
+    @add_stack_hooks
+    def update(self):
+        """
+        Updates the Stack.
+
+        :returns: The Stack's status.
+        :rtype: sceptre.provider.stack_status.StackStatus
+        """
+        pass  # pragma: no cover
+
+    @add_stack_hooks
+    def delete(self):
+        """
+        Deletes the Stack.
+
+        :returns: The Stack's status.
+        :rtype: sceptre.provider.stack_status.StackStatus
+        """
+        pass  # pragma: no cover
+
+    def launch(self):
+        """
+        Launches the Stack.
+
+        If the Stack status is create_failed or rollback_complete, the
+        Stack is deleted. Launch then tries to create or update the Stack,
+        depending if it already exists. If there are no updates to be
+        performed, launch exits gracefully.
+
+        :returns: The Stack's status.
+        :rtype: sceptre.provider.stack_status.StackStatus
+        """
+        pass  # pragma: no cover
+
+    def cancel_stack_update(self):
+        """
+        Cancels a Stack update.
+
+        :returns: The cancelled Stack status.
+        :rtype: sceptre.provider.stack_status.StackStatus
+        """
+        pass  # pragma: no cover
+
+    def lock(self):
+        """
+        Locks the Stack by applying a deny-all updates Stack Policy.
+        """
+        pass  # pragma: no cover
+
+    def unlock(self):
+        """
+        Unlocks the Stack by applying an allow-all updates Stack Policy.
+        """
+        pass  # pragma: no cover
+
+    def describe(self):
+        """
+        Returns the a description of the Stack.
+
+        :returns: A Stack description.
+        :rtype: dict
+        """
+        pass  # pragma: no cover
+
+    def describe_events(self):
+        """
+        Returns the CloudFormation events for a Stack.
+
+        :returns: CloudFormation events for a Stack.
+        :rtype: dict
+        """
+        pass  # pragma: no cover
+
+    def describe_resources(self):
+        """
+        Returns the logical and physical resource IDs of the Stack's resources.
+
+        :returns: Information about the Stack's resources.
+        :rtype: dict
+        """
+        pass  # pragma: no cover
+
+    def describe_outputs(self):
+        """
+        Returns the Stack's outputs.
+
+        :returns: The Stack's outputs.
+        :rtype: list
+        """
+        pass  # pragma: no cover
+
+    def continue_update_rollback(self):
+        """
+        Rolls back a Stack in the UPDATE_ROLLBACK_FAILED state to
+        UPDATE_ROLLBACK_COMPLETE.
+        """
+        pass  # pragma: no cover
+
+    def set_policy(self):
+        """
+        Applies a Stack Policy.
+
+        :param policy_path: The relative path of JSON file containing\
+                the AWS Policy to apply.
+        :type policy_path: str
+        """
+        pass  # pragma: no cover
+
+    def get_policy(self):
+        """
+        Returns a Stack's Policy.
+
+        :returns: The Stack's Stack Policy.
+        :rtype: str
+        """
+        pass  # pragma: no cover
+
+    def create_change_set(self):
+        """
+        Creates a Change Set with the name ``change_set_name``.
+
+        :param change_set_name: The name of the Change Set.
+        :type change_set_name: str
+        """
+        pass  # pragma: no cover
+
+    def delete_change_set(self):
+        """
+        Deletes the Change Set ``change_set_name``.
+
+        :param change_set_name: The name of the Change Set.
+        :type change_set_name: str
+        """
+        pass  # pragma: no cover
+
+    def describe_change_set(self):
+        """
+        Describes the Change Set ``change_set_name``.
+
+        :param change_set_name: The name of the Change Set.
+        :type change_set_name: str
+        :returns: The description of the Change Set.
+        :rtype: dict
+        """
+        pass  # pragma: no cover
+
+    def execute_change_set(self):
+        """
+        Executes the Change Set ``change_set_name``.
+
+        :param change_set_name: The name of the Change Set.
+        :type change_set_name: str
+        :returns: The Stack status
+        :rtype: str
+        """
+        pass  # pragma: no cover
+
+    def list_change_sets(self):
+        """
+        Lists the Stack's Change Sets.
+
+        :returns: The Stack's Change Sets.
+        :rtype: dict or list
+        """
+        pass  # pragma: no cover
+
+    def generate(self):
+        """
+        Returns the Template for the Stack
+        """
+        pass  # pragma: no cover
+
+    def validate(self):
+        """
+        Validates the Stack's CloudFormation Template.
+
+        Raises an error if the Template is invalid.
+
+        :returns: Validation information about the Template.
+        :rtype: dict
+        :raises: botocore.exceptions.ClientError
+        """
+        pass  # pragma: no cover
+
+    def estimate_cost(self):
+        """
+        Estimates a Stack's cost.
+
+        :returns: An estimate of the Stack's cost.
+        :rtype: dict
+        :raises: botocore.exceptions.ClientError
+        """
+        pass  # pragma: no cover
+
+    def get_status(self):
+        """
+        Returns the Stack's status.
+
+        :returns: The Stack's status.
+        :rtype: sceptre.provider.stack_status.StackStatus
+        """
+        pass  # pragma: no cover
+
+
+class AwsStackActions(StackActions):
+    def __init__(self, stack):
+        self.stack = stack
+        self.name = self.stack.name
+        self.logger = logging.getLogger(__name__)
+        self.connection_manager = ConnectionManager(
+            self.stack.region, self.stack.profile, self.stack.external_name
+        )
+
+    @add_stack_hooks
+    def create(self):
         self._protect_execution()
         self.logger.info("%s - Creating Stack", self.stack.name)
         create_stack_kwargs = {
@@ -100,12 +321,6 @@ class StackActions(object):
 
     @add_stack_hooks
     def update(self):
-        """
-        Updates the Stack.
-
-        :returns: The Stack's status.
-        :rtype: sceptre.provider.stack_status.StackStatus
-        """
         self._protect_execution()
         self.logger.info("%s - Updating Stack", self.stack.name)
         try:
@@ -152,12 +367,6 @@ class StackActions(object):
                 raise
 
     def cancel_stack_update(self):
-        """
-        Cancels a Stack update.
-
-        :returns: The cancelled Stack status.
-        :rtype: sceptre.provider.stack_status.StackStatus
-        """
         self.logger.warning(
             "%s - Update Stack time exceeded the specified timeout",
             self.stack.name
@@ -173,17 +382,6 @@ class StackActions(object):
         return self._wait_for_completion()
 
     def launch(self):
-        """
-        Launches the Stack.
-
-        If the Stack status is create_failed or rollback_complete, the
-        Stack is deleted. Launch then tries to create or update the Stack,
-        depending if it already exists. If there are no updates to be
-        performed, launch exits gracefully.
-
-        :returns: The Stack's status.
-        :rtype: sceptre.provider.stack_status.StackStatus
-        """
         self._protect_execution()
         self.logger.info("%s - Launching Stack", self.stack.name)
         try:
@@ -223,12 +421,6 @@ class StackActions(object):
 
     @add_stack_hooks
     def delete(self):
-        """
-        Deletes the Stack.
-
-        :returns: The Stack's status.
-        :rtype: sceptre.provider.stack_status.StackStatus
-        """
         self._protect_execution()
 
         self.logger.info("%s - Deleting stack", self.stack.name)
@@ -260,9 +452,6 @@ class StackActions(object):
         return status
 
     def lock(self):
-        """
-        Locks the Stack by applying a deny-all updates Stack Policy.
-        """
         policy_path = path.join(
             # need to get to the base install path. __file__ will take us into
             # sceptre/actions so need to walk up the path.
@@ -273,9 +462,6 @@ class StackActions(object):
         self.logger.info("%s - Successfully locked Stack", self.stack.name)
 
     def unlock(self):
-        """
-        Unlocks the Stack by applying an allow-all updates Stack Policy.
-        """
         policy_path = path.join(
             # need to get to the base install path. __file__ will take us into
             # sceptre/actions so need to walk up the path.
@@ -286,12 +472,6 @@ class StackActions(object):
         self.logger.info("%s - Successfully unlocked Stack", self.stack.name)
 
     def describe(self):
-        """
-        Returns the a description of the Stack.
-
-        :returns: A Stack description.
-        :rtype: dict
-        """
         try:
             return self.connection_manager.call(
                 service="cloudformation",
@@ -304,12 +484,6 @@ class StackActions(object):
             raise
 
     def describe_events(self):
-        """
-        Returns the CloudFormation events for a Stack.
-
-        :returns: CloudFormation events for a Stack.
-        :rtype: dict
-        """
         return self.connection_manager.call(
             service="cloudformation",
             command="describe_stack_events",
@@ -317,12 +491,6 @@ class StackActions(object):
         )
 
     def describe_resources(self):
-        """
-        Returns the logical and physical resource IDs of the Stack's resources.
-
-        :returns: Information about the Stack's resources.
-        :rtype: dict
-        """
         self.logger.debug("%s - Describing stack resources", self.stack.name)
         try:
             response = self.connection_manager.call(
@@ -350,12 +518,6 @@ class StackActions(object):
         return formatted_response
 
     def describe_outputs(self):
-        """
-        Returns the Stack's outputs.
-
-        :returns: The Stack's outputs.
-        :rtype: list
-        """
         self.logger.debug("%s - Describing stack outputs", self.stack.name)
 
         try:
@@ -366,10 +528,6 @@ class StackActions(object):
         return {self.stack.name: response["Stacks"][0].get("Outputs", [])}
 
     def continue_update_rollback(self):
-        """
-        Rolls back a Stack in the UPDATE_ROLLBACK_FAILED state to
-        UPDATE_ROLLBACK_COMPLETE.
-        """
         self.logger.debug("%s - Continuing update rollback", self.stack.name)
         continue_update_rollback_kwargs = {
             "StackName": self.stack.external_name
@@ -386,13 +544,6 @@ class StackActions(object):
         )
 
     def set_policy(self, policy_path):
-        """
-        Applies a Stack Policy.
-
-        :param policy_path: The relative path of JSON file containing\
-                the AWS Policy to apply.
-        :type policy_path: str
-        """
         with open(policy_path) as f:
             policy = f.read()
 
@@ -413,12 +564,6 @@ class StackActions(object):
         self.logger.info("%s - Successfully set Stack Policy", self.stack.name)
 
     def get_policy(self):
-        """
-        Returns a Stack's Policy.
-
-        :returns: The Stack's Stack Policy.
-        :rtype: str
-        """
         self.logger.debug("%s - Getting Stack Policy", self.stack.name)
         response = self.connection_manager.call(
             service="cloudformation",
@@ -432,12 +577,6 @@ class StackActions(object):
         return {self.stack.name: json_formatting}
 
     def create_change_set(self, change_set_name):
-        """
-        Creates a Change Set with the name ``change_set_name``.
-
-        :param change_set_name: The name of the Change Set.
-        :type change_set_name: str
-        """
         create_change_set_kwargs = {
             "StackName": self.stack.external_name,
             "Parameters": self._format_parameters(self.stack.parameters),
@@ -469,12 +608,6 @@ class StackActions(object):
         )
 
     def delete_change_set(self, change_set_name):
-        """
-        Deletes the Change Set ``change_set_name``.
-
-        :param change_set_name: The name of the Change Set.
-        :type change_set_name: str
-        """
         self.logger.debug(
             "%s - Deleting Change Set '%s'", self.stack.name, change_set_name
         )
@@ -494,14 +627,6 @@ class StackActions(object):
         )
 
     def describe_change_set(self, change_set_name):
-        """
-        Describes the Change Set ``change_set_name``.
-
-        :param change_set_name: The name of the Change Set.
-        :type change_set_name: str
-        :returns: The description of the Change Set.
-        :rtype: dict
-        """
         self.logger.debug(
             "%s - Describing Change Set '%s'", self.stack.name, change_set_name
         )
@@ -515,14 +640,6 @@ class StackActions(object):
         )
 
     def execute_change_set(self, change_set_name):
-        """
-        Executes the Change Set ``change_set_name``.
-
-        :param change_set_name: The name of the Change Set.
-        :type change_set_name: str
-        :returns: The Stack status
-        :rtype: str
-        """
         self._protect_execution()
         self.logger.debug(
             "%s - Executing Change Set '%s'", self.stack.name, change_set_name
@@ -540,12 +657,6 @@ class StackActions(object):
         return status
 
     def list_change_sets(self):
-        """
-        Lists the Stack's Change Sets.
-
-        :returns: The Stack's Change Sets.
-        :rtype: dict or list
-        """
         self.logger.debug("%s - Listing change sets", self.stack.name)
         try:
             response = self.connection_manager.call(
@@ -560,21 +671,9 @@ class StackActions(object):
             return []
 
     def generate(self):
-        """
-        Returns the Template for the Stack
-        """
         return self.stack.template.body
 
     def validate(self):
-        """
-        Validates the Stack's CloudFormation Template.
-
-        Raises an error if the Template is invalid.
-
-        :returns: Validation information about the Template.
-        :rtype: dict
-        :raises: botocore.exceptions.ClientError
-        """
         self.logger.debug("%s - Validating Template", self.stack.name)
         response = self.connection_manager.call(
             service="cloudformation",
@@ -587,13 +686,6 @@ class StackActions(object):
         return response
 
     def estimate_cost(self):
-        """
-        Estimates a Stack's cost.
-
-        :returns: An estimate of the Stack's cost.
-        :rtype: dict
-        :raises: botocore.exceptions.ClientError
-        """
         self.logger.debug("%s - Estimating template cost", self.stack.name)
 
         parameters = [
@@ -615,12 +707,6 @@ class StackActions(object):
         return response
 
     def get_status(self):
-        """
-        Returns the Stack's status.
-
-        :returns: The Stack's status.
-        :rtype: sceptre.provider.stack_status.StackStatus
-        """
         try:
             return self._get_status()
         except StackDoesNotExistError:
