@@ -11,9 +11,9 @@ from mock import patch, sentinel, Mock
 from freezegun import freeze_time
 from botocore.exceptions import ClientError
 
-import sceptre.providers.template
-from sceptre.providers.template import Template
-from sceptre.providers.connection_manager import ConnectionManager
+import sceptre.providers.aws.template
+from sceptre.providers.aws.template import Template
+from sceptre.providers.aws.connection_manager import ConnectionManager
 from sceptre.exceptions import UnsupportedTemplateFileTypeError
 from sceptre.exceptions import TemplateSceptreHandlerError
 
@@ -43,7 +43,7 @@ class TestTemplate(object):
 
     def test_repr(self):
         representation = self.template.__repr__()
-        assert representation == "sceptre.providers.template.Template(" \
+        assert representation == "sceptre.providers.aws.template.Template(" \
             "name='template', path='/folder/template.py'"\
             ", sceptre_user_data={}, s3_details=None)"
 
@@ -53,7 +53,7 @@ class TestTemplate(object):
         assert body == sentinel.body
 
     @freeze_time("2012-01-01")
-    @patch("sceptre.providers.template.Template._bucket_exists")
+    @patch("sceptre.providers.aws.template.Template._bucket_exists")
     def test_upload_to_s3_with_valid_s3_details(self, mock_bucket_exists):
         self.template._body = '{"template": "mock"}'
         mock_bucket_exists.return_value = True
@@ -96,14 +96,14 @@ class TestTemplate(object):
         }
 
         self.template.connection_manager.call.side_effect = ClientError(
-                {
-                    "Error": {
-                        "Code": 500,
-                        "Message": "Bucket Unreadable"
-                    }
-                },
-                sentinel.operation
-            )
+            {
+                "Error": {
+                    "Code": 500,
+                    "Message": "Bucket Unreadable"
+                }
+            },
+            sentinel.operation
+        )
         with pytest.raises(ClientError) as e:
             self.template._create_bucket()
             assert e.value.response["Error"]["Code"] == 500
@@ -153,7 +153,7 @@ class TestTemplate(object):
             kwargs={"Bucket": "bucket-name"}
         )
 
-    @patch("sceptre.providers.template.Template.upload_to_s3")
+    @patch("sceptre.providers.aws.template.Template.upload_to_s3")
     def test_get_boto_call_parameter_with_s3_details(self, mock_upload_to_s3):
         # self.stack._template = Mock(spec=Template)
         mock_upload_to_s3.return_value = sentinel.template_url
@@ -336,7 +336,7 @@ def test_render_jinja_template(filename, sceptre_user_data, expected):
         os.getcwd(),
         "tests/fixtures/templates"
     )
-    result = sceptre.providers.template.Template._render_jinja_template(
+    result = sceptre.providers.aws.template.Template._render_jinja_template(
         template_dir=jinja_template_dir,
         filename=filename,
         jinja_vars={"sceptre_user_data": sceptre_user_data}

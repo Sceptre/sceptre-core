@@ -4,8 +4,8 @@ import importlib
 
 from mock import sentinel, MagicMock
 from sceptre.resolvers import Resolver
-from sceptre.providers.stack import Stack
-from sceptre.providers.template import Template
+from sceptre.providers.aws.stack import Stack
+from sceptre.providers.aws.template import Template
 
 
 def stack_factory(**kwargs):
@@ -88,7 +88,7 @@ class TestStack(object):
 
     def test_stack_repr(self):
         assert self.stack.__repr__() == \
-            "sceptre.providers.stack.Stack(" \
+            "sceptre.providers.aws.stack.Stack(" \
             "name='dev/app/stack', " \
             "project_code=sentinel.project_code, " \
             "template_path=sentinel.template_path, " \
