@@ -9,10 +9,10 @@ sceptre.plan package
 Submodules
 ----------
 
-sceptre.providers.actions module
+sceptre.providers.aws.actions module
 ---------------------------
 
-.. automodule:: sceptre.providers.actions
+.. automodule:: sceptre.providers.aws.actions
     :members:
     :undoc-members:
     :show-inheritance:

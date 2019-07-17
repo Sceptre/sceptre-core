@@ -1,23 +1,16 @@
 # -*- coding: utf-8 -*-
 
 """
-sceptre.providers.connection_manager
+sceptre.providers.aws.connection_manager
 
 This module implements a ConnectionManager class, which simplifies and manages
 Boto3 calls.
 """
 
-import functools
+import abc
+import six
 import logging
 import threading
-import time
-import boto3
-
-from os import environ
-from botocore.exceptions import ClientError
-
-from sceptre.helpers import mask_key
-from sceptre.exceptions import InvalidAWSCredentialsError, RetryLimitExceededError
 
 
 def _retry_boto_call(func):
@@ -34,31 +27,10 @@ def _retry_boto_call(func):
     :rtype: function
     :raises: sceptre.exceptions.RetryLimitExceededException
     """
-    logger = logging.getLogger(__name__)
-
-    @functools.wraps(func)
-    def decorated(*args, **kwargs):
-        max_retries = 30
-        attempts = 1
-        while attempts < max_retries:
-            try:
-                return func(*args, **kwargs)
-            except ClientError as e:
-                if e.response["Error"]["Code"] == "Throttling":
-                    logger.error("Request limit exceeded, pausing...")
-                    time.sleep(attempts)
-                    attempts += 1
-                else:
-                    raise
-        raise RetryLimitExceededError(
-            "Exceeded request limit {0} times. Aborting.".format(
-                max_retries
-            )
-        )
-
-    return decorated
+    pass  # pragma: no cover
 
 
+@six.add_metaclass(abc.ABCMeta)
 class ConnectionManager(object):
     """
     The Connection Manager is used to create boto3 clients for
@@ -89,12 +61,7 @@ class ConnectionManager(object):
             self._stack_keys[stack_name] = (region, profile)
 
     def __repr__(self):
-        return (
-            "sceptre.providers.connection_manager.ConnectionManager(region='{0}', "
-            "profile='{1}', stack_name='{2}')".format(
-                self.region, self.profile, self.stack_name
-            )
-        )
+        pass  # pragma: no cover
 
     def _get_session(self, profile, region=None):
         """
@@ -109,52 +76,7 @@ class ConnectionManager(object):
         :rtype: boto3.session.Session
         :raises: botocore.exceptions.ClientError
         """
-        with self._session_lock:
-            self.logger.debug("Getting Boto3 session")
-            key = (region, profile)
-
-            if self._boto_sessions.get(key) is None:
-                self.logger.debug("No Boto3 session found, creating one...")
-                self.logger.debug("Using cli credentials...")
-
-                # Credentials from env take priority over profile
-                config = {
-                    "profile_name": profile,
-                    "region_name": region,
-                    "aws_access_key_id": environ.get("AWS_ACCESS_KEY_ID"),
-                    "aws_secret_access_key": environ.get(
-                        "AWS_SECRET_ACCESS_KEY"
-                    ),
-                    "aws_session_token": environ.get("AWS_SESSION_TOKEN")
-                }
-
-                session = boto3.session.Session(**config)
-                self._boto_sessions[key] = session
-
-                if session.get_credentials() is None:
-                    raise InvalidAWSCredentialsError(
-                        "Session credentials were not found. Profile: {0}. Region: {1}.".format(
-                            config["profile_name"], config["region_name"]
-                        )
-                    )
-
-                self.logger.debug(
-                    "Using credential set from %s: %s",
-                    session.get_credentials().method,
-                    {
-                        "AccessKeyId": mask_key(
-                            session.get_credentials().access_key
-                        ),
-                        "SecretAccessKey": mask_key(
-                            session.get_credentials().secret_key
-                        ),
-                        "Region": session.region_name
-                    }
-                )
-
-                self.logger.debug("Boto3 session created")
-
-            return self._boto_sessions[key]
+        pass  # pragma: no cover
 
     def _get_client(self, service, region, profile, stack_name):
         """
@@ -168,16 +90,7 @@ class ConnectionManager(object):
         :returns: The Boto3 client.
         :rtype: boto3.client.Client
         """
-        with self._client_lock:
-            key = (service, region, profile, stack_name)
-            if self._clients.get(key) is None:
-                self.logger.debug(
-                    "No %s client found, creating one...", service
-                )
-                self._clients[key] = self._get_session(
-                    profile, region
-                ).client(service)
-            return self._clients[key]
+        pass  # pragma: no cover
 
     @_retry_boto_call
     def call(
@@ -198,14 +111,4 @@ class ConnectionManager(object):
         :returns: The response from the Boto3 call.
         :rtype: dict
         """
-        if region is None and profile is None:
-            if stack_name and stack_name in self._stack_keys:
-                region, profile = self._stack_keys[stack_name]
-            else:
-                region = self.region
-                profile = self.profile
-
-        if kwargs is None:  # pragma: no cover
-            kwargs = {}
-        client = self._get_client(service, region, profile, stack_name)
-        return getattr(client, command)(**kwargs)
+        pass  # pragma: no cover

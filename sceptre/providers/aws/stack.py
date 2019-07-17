@@ -10,16 +10,16 @@ This module implements a Stack class, which stores a Stack's data.
 import logging
 from typing import Mapping, Sequence
 
-from sceptre.providers.connection_manager import ConnectionManager
+from sceptre.providers.stack import Stack
+from sceptre.providers.aws.connection_manager import ConnectionManager
+from sceptre.providers.aws.template import Template
 from sceptre.helpers import get_external_stack_name
 from sceptre.helpers import sceptreise_path
-
 from sceptre.hooks import HookProperty
 from sceptre.resolvers import ResolvableProperty
-from sceptre.providers.template import Template
 
 
-class Stack(object):
+class Stack(Stack):
     """
     Stack stores information about a particular CloudFormation Stack.
 
