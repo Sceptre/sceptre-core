@@ -50,6 +50,11 @@ setup(
         "sceptre": "sceptre"
     },
     py_modules=["sceptre"],
+    entry_points={
+        "sceptre.providerss": [
+            "aws=sceptre.providers.aws"
+        ]
+    },
     data_files=[
         (path.join("sceptre", "provider", "stack_policies"), [
             path.join("sceptre", "provider", "stack_policies", "lock.json"),

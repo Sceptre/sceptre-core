@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 """
-sceptre.provider.template
+sceptre.providers.template
 
 This module implements a Template class, which stores a CloudFormation template
 and implements methods for uploading it to S3.
@@ -34,7 +34,7 @@ class Template(object):
     :type sceptre_user_data: dict
 
     :param connection_manager:
-    :type connection_manager: sceptre.provider.connection_manager.ConnectionManager
+    :type connection_manager: sceptre.providers.connection_manager.ConnectionManager
 
     :param s3_details:
     :type s3_details: dict
@@ -57,7 +57,7 @@ class Template(object):
 
     def __repr__(self):
         return (
-            "sceptre.provider.template.Template(name='{0}', path='{1}', "
+            "sceptre.providers.template.Template(name='{0}', path='{1}', "
             "sceptre_user_data={2}, s3_details={3})".format(
                 self.name, self.path, self.sceptre_user_data, self.s3_details
             )
