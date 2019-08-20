@@ -4,6 +4,18 @@ Categories: Added, Removed, Changed, Fixed, Nonfunctional, Deprecated
 
 ## Unreleased
 
+### Deprecated
+
+- Support for Python 2
+
+### Added
+
+- Provider modules
+
+### Removed
+
+- Builtin support for AWS
+
 ## 0.0.2 (2019.07.16)
 
 ### Fixed
