@@ -28,7 +28,7 @@ class Resolver(ResolverData):
     :param argument: The argument of the resolver.
     :type argument: str
     :param stack: The associated stack of the resolver.
-    :type stack: sceptre.providers.aws.stack.Stack
+    :type stack: sceptre.providers.stack.Stack
     """
 
     __metaclass__ = abc.ABCMeta

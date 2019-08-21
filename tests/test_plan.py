@@ -2,7 +2,7 @@ import pytest
 from mock import MagicMock, patch, sentinel
 
 from sceptre.context import SceptreContext
-from sceptre.providers.aws.stack import Stack
+from sceptre.providers.stack import Stack
 from sceptre.config.reader import ConfigReader
 from sceptre.plan.plan import SceptrePlan
 
