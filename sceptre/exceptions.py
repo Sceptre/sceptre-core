@@ -154,8 +154,8 @@ class PathConversionError(SceptreException):
     pass
 
 
-class InvalidAWSCredentialsError(SceptreException):
+class InvalidProviderCredentialsError(SceptreException):
     """
-    Error raised when AWS credentials are invalid.
+    Error raised when Provider credentials are invalid.
     """
     pass
