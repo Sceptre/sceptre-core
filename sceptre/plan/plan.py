@@ -214,7 +214,7 @@ class SceptrePlan(object):
         """
         Applies a Stack policy.
 
-        :param policy_path: the path of json file containing a aws policy
+        :param policy_path: the path of json file containing a Provider policy
         :type policy_path: str
         :returns: A dictionary of Stacks
         :rtype: dict
