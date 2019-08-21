@@ -19,7 +19,6 @@ help:
 	@echo "lint - check style with flake8"
 	@echo "test - run tests quickly with the default Python"
 	@echo "test-all - run tests on every Python version with tox"
-	@echo "test-integration - run integration tests"
 	@echo "coverage - check code coverage quickly with the default Python"
 	@echo "coverage-ci - check code coverage and generate cobertura report"
 	@echo "dist - package"
@@ -60,9 +59,6 @@ test:
 
 test-all:
 	tox
-
-test-integration: install
-	behave integration-tests/
 
 coverage-all:
 		coverage erase

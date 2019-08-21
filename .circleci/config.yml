@@ -114,29 +114,6 @@ jobs:
             . venv/bin/activate
             make sonar
 
-  integration-tests:
-    parallelism: 2
-    docker:
-      - image: cloudreach/sceptre-circleci:0.4
-        environment:
-          AWS_DEFAULT_REGION: eu-west-1
-    steps:
-      - attach_workspace:
-          at: /home/circleci
-      - run:
-          name: 'Integration Testing'
-          command: |
-            . ./venv/bin/activate
-            behave --junit \
-                   --junit-directory build/behave \
-                   $(circleci tests glob "integration-tests/features/*.feature" | circleci tests split --split-by=timings)
-      - store_test_results:
-          path: build/behave
-          destination: build/behave
-      - store_artifacts:
-          path: build/behave
-          destination: build/behave
-
   build-docker-image:
     executor: docker-publisher
     steps:
@@ -228,22 +205,11 @@ workflows:
             - build
             - lint-and-unit-tests
 
-      - integration-tests:
-          context: sceptre-core
-          requires:
-            - build
-          filters:
-            tags:
-              only: /.*/
-            branches:
-              ignore: /^pull\/.*/
-
       - deploy-pypi-approval:
           context: sceptre-core
           type: approval
           requires:
             - lint-and-unit-tests
-            - integration-tests
             - sonar
           filters:
             tags:
@@ -265,7 +231,6 @@ workflows:
           context: sceptre-core
           requires:
             - lint-and-unit-tests
-            - integration-tests
             - sonar
           filters:
             tags:
