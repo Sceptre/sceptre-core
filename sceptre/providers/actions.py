@@ -10,7 +10,7 @@ import abc
 import logging
 import six
 
-from sceptre.providers.aws.connection_manager import ConnectionManager
+from sceptre.providers.connection_manager import ConnectionManager
 from sceptre.hooks import add_stack_hooks
 
 
