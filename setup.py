@@ -12,7 +12,6 @@ with open("CHANGELOG.md") as history_file:
     history = history_file.read()
 
 install_requirements = [
-    "boto3>=1.3,<2.0",
     "PyYaml>=5.1,<6.0",
     "Jinja2>=2.8,<3",
     "packaging==16.8",
@@ -22,13 +21,9 @@ install_requirements = [
 
 test_requirements = [
     "pytest>=3.2",
-    "troposphere>=2.0.0",
-    "moto==1.3.8",
     "mock==2.0.0",
     "behave==1.2.5",
     "freezegun==0.3.12",
-    "sceptre-aws-stackoutput-external-resolver==1.0.0",
-    "sceptre-aws-stackoutput-resolver==1.0.0"
 ]
 
 setup_requirements = [
