@@ -147,7 +147,7 @@ class StackActions(object):
         Applies a Stack Policy.
 
         :param policy_path: The relative path of JSON file containing\
-                the AWS Policy to apply.
+                the Provider Policy to apply.
         :type policy_path: str
         """
         pass  # pragma: no cover

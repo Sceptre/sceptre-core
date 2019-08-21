@@ -12,10 +12,13 @@
 
 # About
 
-Sceptre is a tool to drive
-[AWS CloudFormation](https://aws.amazon.com/cloudformation). It automates the
-mundane, repetitive and error-prone tasks, enabling you to concentrate on
-building better infrastructure.
+Sceptre is a tool to drive Cloud Natice IaC tooling such as
+[AWS CloudFormation](https://aws.amazon.com/cloudformation),
+[Google Deployment Manager](https://cloud.google.com/deployment-manager/docs/)
+and
+[Azure Resource Manager](https://docs.microsoft.com/en-us/azure/azure-resource-manager/resource-group-overview).
+It automates the mundane, repetitive and error-prone tasks, enabling you to
+concentrate on building better infrastructure.
 
 # Install
 
@@ -86,7 +89,7 @@ To use our Docker image follow these instructions:
 
 2. Run the image. You will need to mount the working directory where your
    project resides to a directory called `project`. You will also need to mount
-   a volume with your AWS config to your docker container. E.g.
+   a volume with your Provider config to your docker container. E.g.
 
 If you want to use a custom ENTRYPOINT simply amend the Docker command:
 

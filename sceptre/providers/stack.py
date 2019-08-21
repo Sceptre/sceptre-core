@@ -34,7 +34,7 @@ class Stack(object):
             or Python template to build the Stack from.
     :type template_path: str
 
-    :param region: The AWS region to build Stacks in.
+    :param region: The region to build Stacks in.
     :type region: str
 
     :param template_bucket_name: The name of the S3 bucket the Template is uploaded to.
@@ -89,8 +89,8 @@ class Stack(object):
             CloudFormation when a Stack fails to create.
     :type on_failure: str
 
-    :param profile: The name of the profile as defined in ~/.aws/config and\
-            ~/.aws/credentials.
+    :param profile: The name of the profile as defined in your local provider\
+            config folder e.g. ~/aws/config
     :type profile: str
 
     :param stack_timeout: A timeout in minutes before considering the Stack\
