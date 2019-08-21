@@ -3,7 +3,6 @@
 
 from sceptre import __version__
 from setuptools import setup, find_packages
-from os import path
 
 with open("README.md") as readme_file:
     readme = readme_file.read()
@@ -50,12 +49,6 @@ setup(
             "aws=sceptre.providers.aws"
         ]
     },
-    data_files=[
-        (path.join("sceptre", "providers", "aws", "stack_policies"), [
-            path.join("sceptre", "providers", "aws", "stack_policies", "lock.json"),
-            path.join("sceptre", "providers", "aws", "stack_policies", "unlock.json")
-        ])
-    ],
     include_package_data=True,
     zip_safe=False,
     keywords="sceptre",
