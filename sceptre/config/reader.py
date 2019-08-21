@@ -25,7 +25,7 @@ from sceptre.exceptions import InvalidSceptreDirectoryError
 from sceptre.exceptions import VersionIncompatibleError
 from sceptre.exceptions import ConfigFileNotFoundError
 from sceptre.helpers import sceptreise_path
-from sceptre.providers.aws.stack import Stack
+from sceptre.providers.stack import Stack
 from sceptre.config import strategies
 
 ConfigAttributes = collections.namedtuple("Attributes", "required optional")
@@ -438,7 +438,7 @@ class ConfigReader(object):
         :param stack_group_config: The Stack group config to use as defaults.
         :type stack_group_config: dict
         :returns: Stack object
-        :rtype: sceptre.providers.aws.stack.Stack
+        :rtype: sceptre.providers.stack.Stack
         """
 
         directory, filename = path.split(rel_path)

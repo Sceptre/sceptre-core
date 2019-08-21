@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 """
-sceptre.providers.aws.connection_manager
+sceptre.providers.connection_manager
 
 This module implements a ConnectionManager class, which simplifies and manages
 Boto3 calls.

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 """
-sceptre.providers.aws.actions
+sceptre.providers.actions
 
 This module implements the StackActions class which provides the functionality
 available to a Stack.
@@ -21,7 +21,7 @@ class StackActions(object):
     deleting the Stack.
 
     :param stack: A Stack object
-    :type stack: sceptre.providers.aws.stack.Stack
+    :type stack: sceptre.providers.stack.Stack
     """
 
     __metaclass__ = abc.ABCMeta
@@ -40,7 +40,7 @@ class StackActions(object):
         Creates a Stack.
 
         :returns: The Stack's status.
-        :rtype: sceptre.providers.aws.stack_status.StackStatus
+        :rtype: sceptre.providers.stack_status.StackStatus
         """
         pass  # pragma: no cover
 
@@ -50,7 +50,7 @@ class StackActions(object):
         Updates the Stack.
 
         :returns: The Stack's status.
-        :rtype: sceptre.providers.aws.stack_status.StackStatus
+        :rtype: sceptre.providers.stack_status.StackStatus
         """
         pass  # pragma: no cover
 
@@ -60,7 +60,7 @@ class StackActions(object):
         Deletes the Stack.
 
         :returns: The Stack's status.
-        :rtype: sceptre.providers.aws.stack_status.StackStatus
+        :rtype: sceptre.providers.stack_status.StackStatus
         """
         pass  # pragma: no cover
 
@@ -74,7 +74,7 @@ class StackActions(object):
         performed, launch exits gracefully.
 
         :returns: The Stack's status.
-        :rtype: sceptre.providers.aws.stack_status.StackStatus
+        :rtype: sceptre.providers.stack_status.StackStatus
         """
         pass  # pragma: no cover
 
@@ -83,7 +83,7 @@ class StackActions(object):
         Cancels a Stack update.
 
         :returns: The cancelled Stack status.
-        :rtype: sceptre.providers.aws.stack_status.StackStatus
+        :rtype: sceptre.providers.stack_status.StackStatus
         """
         pass  # pragma: no cover
 
@@ -243,6 +243,6 @@ class StackActions(object):
         Returns the Stack's status.
 
         :returns: The Stack's status.
-        :rtype: sceptre.providers.aws.stack_status.StackStatus
+        :rtype: sceptre.providers.stack_status.StackStatus
         """
         pass  # pragma: no cover

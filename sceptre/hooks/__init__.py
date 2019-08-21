@@ -19,7 +19,7 @@ class Hook(HookData):
     :param argument: The argument of the hook.
     :type argument: str
     :param stack: The associated stack of the hook.
-    :type stack: sceptre.providers.aws.stack.Stack
+    :type stack: sceptre.providers.stack.Stack
     """
     __metaclass__ = abc.ABCMeta
 
