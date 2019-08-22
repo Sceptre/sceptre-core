@@ -321,7 +321,7 @@ class SceptrePlan(object):
 
         :returns: A dictionary of Stacks and their template validation information.
         :rtype: dict
-        :raises: botocore.exceptions.ClientError
+        :raises: sceptre.exceptions.ClientError
         """
         self.resolve(command=self.validate.__name__)
         return self._execute(*args)
@@ -332,7 +332,7 @@ class SceptrePlan(object):
 
         :returns: A dictionary of Stacks and their estimated costs.
         :rtype: dict
-        :raises: botocore.exceptions.ClientError
+        :raises: sceptre.exceptions.ClientError
         """
         self.resolve(command=self.estimate_cost.__name__)
         return self._execute(*args)

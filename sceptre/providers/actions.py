@@ -224,7 +224,7 @@ class StackActions(object):
 
         :returns: Validation information about the Template.
         :rtype: dict
-        :raises: botocore.exceptions.ClientError
+        :raises: sceptre.exceptions.ClientError
         """
         pass  # pragma: no cover
 
@@ -234,7 +234,7 @@ class StackActions(object):
 
         :returns: An estimate of the Stack's cost.
         :rtype: dict
-        :raises: botocore.exceptions.ClientError
+        :raises: sceptre.exceptions.ClientError
         """
         pass  # pragma: no cover
 

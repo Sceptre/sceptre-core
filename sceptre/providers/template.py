@@ -85,7 +85,7 @@ class Template(object):
 
         :returns: The URL of the Template object in S3.
         :rtype: str
-        :raises: botocore.exceptions.ClientError
+        :raises: sceptre.exceptions.ClientError
 
         """
         pass
@@ -96,7 +96,7 @@ class Template(object):
 
         :returns: Boolean whether the bucket exists
         :rtype: bool
-        :raises: botocore.exception.ClientError
+        :raises: sceptre.exceptions.ClientError
 
         """
         pass
@@ -105,19 +105,19 @@ class Template(object):
         """
         Create the s3 bucket ``bucket_name``.
 
-        :raises: botocore.exception.ClientError
+        :raises: sceptre.exceptions.ClientError
 
         """
         pass
 
-    def get_boto_call_parameter(self):
+    def get_provider_call_parameter(self):
         """
-        Returns the CloudFormation template location.
+        Returns the template location.
 
-        Uploads the template to S3 and returns the object's URL, or returns
+        Uploads the template and returns the object's URL, or returns
         the template itself.
 
-        :returns: The boto call parameter for the template.
+        :returns: The call parameter for the template.
         :rtype: dict
         """
         pass
@@ -128,7 +128,7 @@ class Template(object):
         Renders a jinja template.
 
         Sceptre supports passing sceptre_user_data to JSON and YAML
-        CloudFormation templates using Jinja2 templating.
+        templates using Jinja2 templating.
 
         :param template_dir: The directory containing the template.
         :type template_dir: str
@@ -136,7 +136,7 @@ class Template(object):
         :type filename: str
         :param jinja_vars: Dict of variables to render into the template.
         :type jinja_vars: dict
-        :returns: The body of the CloudFormation template.
+        :returns: The body of the template.
         :rtype: str
         """
         pass
