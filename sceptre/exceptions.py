@@ -159,3 +159,10 @@ class InvalidProviderCredentialsError(SceptreException):
     Error raised when Provider credentials are invalid.
     """
     pass
+
+
+class ClientException(SceptreException):
+    """
+    Error raised when connecting to a Provider Client
+    """
+    pass
