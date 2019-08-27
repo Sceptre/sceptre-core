@@ -1,9 +1,5 @@
 # -*- coding: utf-8 -*-
 from os import sep
-from functools import partial
-
-import six
-import yaml
 
 from sceptre.exceptions import PathConversionError
 
