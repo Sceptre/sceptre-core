@@ -3,7 +3,7 @@
 """
 sceptre.providers.template
 
-This module implements a Template class, which stores a CloudFormation template
+This module implements a Template class, which stores a Provider template
 and implements methods for uploading it to S3.
 """
 

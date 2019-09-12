@@ -76,7 +76,7 @@ class SceptrePlan(object):
 
     def template(self, *args):
         """
-        Returns the CloudFormation Template used to create the Stack.
+        Returns the Provider Template used to create the Stack.
 
         :returns: A dictionary of Stacks and their templates.
         :rtype: dict
@@ -173,7 +173,7 @@ class SceptrePlan(object):
         """
         Returns a dictionary contianing the Stack events.
 
-        :returns: A dictionary of Stacks and their CloudFormation events.
+        :returns: A dictionary of Stacks and their Provider events.
         :rtype: dict
         """
         self.resolve(command=self.describe_events.__name__)
@@ -315,7 +315,7 @@ class SceptrePlan(object):
 
     def validate(self, *args):
         """
-        Validates the Stack's CloudFormation template.
+        Validates the Stack's Provider template.
 
         Raises an error if the Template is invalid.
 

@@ -110,9 +110,9 @@ class StackActions(object):
 
     def describe_events(self):
         """
-        Returns the CloudFormation events for a Stack.
+        Returns the Provider events for a Stack.
 
-        :returns: CloudFormation events for a Stack.
+        :returns: Provider events for a Stack.
         :rtype: dict
         """
         pass  # pragma: no cover
@@ -218,7 +218,7 @@ class StackActions(object):
 
     def validate(self):
         """
-        Validates the Stack's CloudFormation Template.
+        Validates the Stack's Provider Template.
 
         Raises an error if the Template is invalid.
 
