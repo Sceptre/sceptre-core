@@ -17,7 +17,7 @@ from sceptre.resolvers import ResolvableProperty
 
 class Stack(object):
     """
-    Stack stores information about a particular CloudFormation Stack.
+    Stack stores information about a particular Provider Stack.
     """
     parameters = ResolvableProperty("parameters")
     _sceptre_user_data = ResolvableProperty("_sceptre_user_data")
@@ -80,7 +80,7 @@ class Stack(object):
     @abc.abstractmethod
     def template(self):
         """
-        Returns the CloudFormation Template used to create the Stack.
+        Returns the Provider Template used to create the Stack.
 
         :returns: The Stack's template.
         :rtype: str

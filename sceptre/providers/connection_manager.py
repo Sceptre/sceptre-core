@@ -15,7 +15,7 @@ import threading
 
 def _retry_provider_call(func):
     """
-    Retries a Boto3 call up to 30 times if request rate limits are hit.
+    Retries a Provider call up to 30 times if request rate limits are hit.
 
     The time waited between retries increases linearly. If rate limits are
     hit 30 times, _retry_provider_call raises a
