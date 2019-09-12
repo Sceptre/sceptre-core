@@ -5,16 +5,11 @@ import pytest
 from os.path import join, sep
 
 from sceptre.exceptions import PathConversionError
-from sceptre.helpers import get_external_stack_name
 from sceptre.helpers import normalise_path
 from sceptre.helpers import sceptreise_path
 
 
 class TestHelpers(object):
-
-    def test_get_external_stack_name(self):
-        result = get_external_stack_name("prj", "dev/ew1/jump-host")
-        assert result == "prj-dev-ew1-jump-host"
 
     def test_normalise_path_with_valid_path(self):
         path = normalise_path("valid/path")

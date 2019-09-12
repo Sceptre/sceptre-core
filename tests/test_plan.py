@@ -3,6 +3,7 @@ from mock import MagicMock, patch, sentinel
 
 from sceptre.context import SceptreContext
 from sceptre.providers.stack import Stack
+from sceptre.providers.stack import StackConfigData
 from sceptre.config.reader import ConfigReader
 from sceptre.plan.plan import SceptrePlan
 
@@ -11,7 +12,7 @@ class TestSceptrePlan(object):
 
     def setup_method(self, test_method):
         self.patcher_SceptrePlan = patch("sceptre.plan.plan.SceptrePlan")
-        self.stack = Stack(
+        self.stack_config = StackConfigData(
             name='dev/app/stack', project_code=sentinel.project_code,
             template_path=sentinel.template_path, region=sentinel.region,
             profile=sentinel.profile, parameters={"key1": "val1"},
@@ -23,6 +24,7 @@ class TestSceptrePlan(object):
             on_failure=sentinel.on_failure,
             stack_timeout=sentinel.stack_timeout
         )
+        self.stack = Stack(self.stack_config)
         self.mock_context = MagicMock(spec=SceptreContext)
         self.mock_config_reader = MagicMock(spec=ConfigReader)
         self.mock_context.project_path = sentinel.project_path
