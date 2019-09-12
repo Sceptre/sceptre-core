@@ -6,6 +6,7 @@ import pytest
 import yaml
 import errno
 
+from sceptre.config.reader import ConfigReader
 from sceptre.context import SceptreContext
 from sceptre.exceptions import VersionIncompatibleError
 from sceptre.exceptions import ConfigFileNotFoundError
@@ -14,7 +15,6 @@ from sceptre.exceptions import InvalidConfigFileError
 
 from freezegun import freeze_time
 from click.testing import CliRunner
-from sceptre.config.reader import ConfigReader
 
 
 class TestConfigReader(object):
@@ -211,17 +211,21 @@ class TestConfigReader(object):
 
     @patch("sceptre.config.reader.ConfigReader._collect_s3_details")
     @patch("sceptre.config.reader.Stack")
+    @patch("sceptre.config.reader.StackConfigData")
     def test_construct_stacks_constructs_stack(
-        self, mock_Stack, mock_collect_s3_details
+        self, mock_StackData, mock_Stack, mock_collect_s3_details
     ):
+        mock_StackData.return_value = sentinel.stack_data
         mock_Stack.return_value = sentinel.stack
-        sentinel.stack.dependencies = []
-
         mock_collect_s3_details.return_value = sentinel.s3_details
+
+        sentinel.stack.config = mock_StackData
+        sentinel.stack.config.dependencies = []
+
         self.context.project_path = os.path.abspath("tests/fixtures-vpc")
         self.context.command_path = "account/stack-group/region/vpc.yaml"
         stacks = ConfigReader(self.context).construct_stacks()
-        mock_Stack.assert_any_call(
+        mock_StackData.assert_any_call(
             name="account/stack-group/region/vpc",
             project_code="account_project_code",
             template_path=os.path.join(
@@ -248,6 +252,8 @@ class TestConfigReader(object):
                 "custom_key": "custom_value"
             }
         )
+
+        mock_Stack.assert_called_with(sentinel.stack_data)
 
         assert stacks == ({sentinel.stack}, {sentinel.stack})
 

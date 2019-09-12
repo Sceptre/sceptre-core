@@ -26,6 +26,7 @@ from sceptre.exceptions import VersionIncompatibleError
 from sceptre.exceptions import ConfigFileNotFoundError
 from sceptre.helpers import sceptreise_path
 from sceptre.providers.stack import Stack
+from sceptre.providers.stack import StackConfigData
 from sceptre.config import strategies
 
 ConfigAttributes = collections.namedtuple("Attributes", "required optional")
@@ -229,12 +230,12 @@ class ConfigReader(object):
         stacks = set()
         for stack in stack_map.values():
             if not self.context.ignore_dependencies:
-                stack.dependencies = [
+                stack.config.dependencies = [
                     stack_map[sceptreise_path(dep)]
-                    for dep in stack.dependencies
+                    for dep in stack.config.dependencies
                 ]
             else:
-                stack.dependencies = []
+                stack.config.dependencies = []
             stacks.add(stack)
 
         return stacks, command_stacks
@@ -467,7 +468,7 @@ class ConfigReader(object):
         s3_details = self._collect_s3_details(
             stack_name, config
         )
-        stack = Stack(
+        stack_config_data = StackConfigData(
             name=stack_name,
             project_code=config["project_code"],
             template_path=abs_template_path,
@@ -490,7 +491,7 @@ class ConfigReader(object):
             stack_timeout=config.get("stack_timeout", 0),
             stack_group_config=parsed_stack_group_config
         )
-
+        stack = Stack(stack_config_data)
         del self.templating_vars["stack_group_config"]
         return stack
 
