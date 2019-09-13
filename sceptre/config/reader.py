@@ -469,27 +469,29 @@ class ConfigReader(object):
             stack_name, config
         )
         stack_config_data = StackConfigData(
-            name=stack_name,
-            project_code=config["project_code"],
-            template_path=abs_template_path,
-            region=config["region"],
-            template_bucket_name=config.get("template_bucket_name"),
-            template_key_prefix=config.get("template_key_prefix"),
-            required_version=config.get("required_version"),
-            profile=config.get("profile"),
-            parameters=config.get("parameters", {}),
-            sceptre_user_data=config.get("sceptre_user_data", {}),
-            hooks=config.get("hooks", {}),
-            s3_details=s3_details,
-            dependencies=config.get("dependencies", []),
-            role_arn=config.get("role_arn"),
-            protected=config.get("protect", False),
-            tags=config.get("stack_tags", {}),
-            external_name=config.get("stack_name"),
-            notifications=config.get("notifications"),
-            on_failure=config.get("on_failure"),
-            stack_timeout=config.get("stack_timeout", 0),
-            stack_group_config=parsed_stack_group_config
+            {
+                "name": stack_name,
+                "project_code": config["project_code"],
+                "template_path": abs_template_path,
+                "region": config["region"],
+                "template_bucket_name": config.get("template_bucket_name"),
+                "template_key_prefix": config.get("template_key_prefix"),
+                "required_version": config.get("required_version"),
+                "profile": config.get("profile"),
+                "parameters": config.get("parameters", {}),
+                "sceptre_user_data": config.get("sceptre_user_data", {}),
+                "hooks": config.get("hooks", {}),
+                "s3_details": s3_details,
+                "dependencies": config.get("dependencies", []),
+                "role_arn": config.get("role_arn"),
+                "protected": config.get("protect", False),
+                "tags": config.get("stack_tags", {}),
+                "external_name": config.get("stack_name"),
+                "notifications": config.get("notifications"),
+                "on_failure": config.get("on_failure"),
+                "stack_timeout": config.get("stack_timeout", 0),
+                "stack_group_config": parsed_stack_group_config
+            }
         )
         stack = Stack(stack_config_data)
         del self.templating_vars["stack_group_config"]

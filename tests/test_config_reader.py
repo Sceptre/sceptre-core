@@ -226,30 +226,31 @@ class TestConfigReader(object):
         self.context.command_path = "account/stack-group/region/vpc.yaml"
         stacks = ConfigReader(self.context).construct_stacks()
         mock_StackData.assert_any_call(
-            name="account/stack-group/region/vpc",
-            project_code="account_project_code",
-            template_path=os.path.join(
-                self.context.project_path, self.context.templates_path, "vpc.json"
-            ),
-            region="region_region",
-            profile="account_profile",
-            parameters={"param1": "val1"},
-            sceptre_user_data={},
-            hooks={},
-            s3_details=sentinel.s3_details,
-            dependencies=["child/level", "top/level"],
-            role_arn=None,
-            protected=False,
-            tags={},
-            external_name=None,
-            notifications=None,
-            on_failure=None,
-            stack_timeout=0,
-            required_version='>=0.0.1',
-            template_bucket_name='stack_group_template_bucket_name',
-            template_key_prefix=None,
-            stack_group_config={
-                "custom_key": "custom_value"
+            {
+                "name": "account/stack-group/region/vpc",
+                "project_code": "account_project_code",
+                "template_path": os.path.join(self.context.project_path,
+                                              self.context.templates_path, "vpc.json"),
+                "region": "region_region",
+                "profile": "account_profile",
+                "parameters": {"param1": "val1"},
+                "sceptre_user_data": {},
+                "hooks": {},
+                "s3_details": sentinel.s3_details,
+                "dependencies": ["child/level", "top/level"],
+                "role_arn": None,
+                "protected": False,
+                "tags": {},
+                "external_name": None,
+                "notifications": None,
+                "on_failure": None,
+                "stack_timeout": 0,
+                "required_version": '>=0.0.1',
+                "template_bucket_name": 'stack_group_template_bucket_name',
+                "template_key_prefix": None,
+                "stack_group_config": {
+                        "custom_key": "custom_value"
+                }
             }
         )
 

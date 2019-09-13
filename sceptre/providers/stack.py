@@ -100,6 +100,18 @@ class Stack(object):
                 value()
 
 
-class StackConfigData(object):
-    def __init__(self, **kwargs):
-        self.__dict__.update(kwargs)
+class StackConfigData(dict):
+    def __getattr__(self, attr):
+        if attr in self:
+            return self[attr]
+        else:
+            raise AttributeError("No attribute {} on StackConfigData".format(attr))
+
+    def __setattr__(self, attr, value):
+        self[attr] = value
+
+    def __delattr__(self, attr):
+        if attr in self:
+            del self[attr]
+        else:
+            raise AttributeError("No attribute {} on StackConfigData".format(attr))
