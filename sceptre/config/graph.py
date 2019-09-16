@@ -74,7 +74,7 @@ class StackGraph(object):
         """
 
         for stack in stacks:
-            self._generate_edges(stack, stack.dependencies)
+            self._generate_edges(stack, stack.config.dependencies)
         self.graph.remove_edges_from(nx.selfloop_edges(self.graph))
 
     def _generate_edges(self, stack, dependencies):
