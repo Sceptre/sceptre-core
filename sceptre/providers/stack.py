@@ -52,7 +52,7 @@ class Stack(object):
         """
         Implements a hash for stack for equality check
         """
-        return hash(str(self.config))
+        return hash(str(self))
 
     @abc.abstractmethod
     def get_external_stack_name(self):
