@@ -52,7 +52,7 @@ clean-test:
 	rm -f test-results.xml
 
 lint:
-	flake8 .
+	python3 -m flake8 .
 
 test:
 	pytest --junitxml=test-results/junit.xml
