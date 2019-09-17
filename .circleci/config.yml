@@ -10,7 +10,7 @@ executors:
 jobs:
   build:
     docker:
-      - image: cloudreach/sceptre-circleci:0.4
+      - image: cloudreach/sceptre-circleci:0.5.0
     steps:
       - checkout
       - run:
@@ -25,9 +25,9 @@ jobs:
           name: 'Installing Requirements'
           command: |
             . ./venv/bin/activate
-            pip install -r requirements/prod.txt
-            pip install -r requirements/dev.txt
-            pip install awscli
+            pip3 install -r requirements/prod.txt
+            pip3 install -r requirements/dev.txt
+            pip3 install awscli
       - save_cache:
           key:
             sceptre-{{ .Environment.CACHE_VERSION }}-requirements-{{ arch }}-{{
@@ -39,7 +39,7 @@ jobs:
           name: 'Installing Sceptre'
           command: |
             . ./venv/bin/activate
-            pip install .
+            pip3 install .
       - persist_to_workspace:
           root: /home/circleci
           paths:
@@ -47,7 +47,7 @@ jobs:
 
   lint-and-unit-tests:
     docker:
-      - image: cloudreach/sceptre-circleci:0.4
+      - image: cloudreach/sceptre-circleci:0.5.0
     steps:
       - attach_workspace:
           at: /home/circleci
@@ -133,7 +133,7 @@ jobs:
 
   deploy-pypi:
     docker:
-      - image: cloudreach/sceptre-circleci:0.4
+      - image: cloudreach/sceptre-circleci:0.5.0
     steps:
       - attach_workspace:
           at: /home/circleci
@@ -146,7 +146,7 @@ jobs:
           name: 'Upload Distributions'
           command: |
             . ./venv/bin/activate
-            pip install twine
+            pip3 install twine
             twine upload -u $PYPI_USERNAME -p $PYPI_PASSWORD dist/*
 
   deploy-latest-dockerhub:
