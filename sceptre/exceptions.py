@@ -166,3 +166,10 @@ class ClientException(SceptreException):
     Error raised when connecting to a Provider Client
     """
     pass
+
+
+class InvalidProviderSchemaError(SceptreException):
+    """
+    Error raised when a ProviderSchema does not have required keys.
+    """
+    pass
