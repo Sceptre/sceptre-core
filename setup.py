@@ -12,6 +12,7 @@ with open("CHANGELOG.md") as history_file:
 
 install_requirements = [
     "PyYaml>=5.1,<6.0",
+    "jsonschema>=3.0.2,<4.0.0",
     "Jinja2>=2.8,<3",
     "packaging==16.8",
     "six>=1.11.0,<2.0.0",
