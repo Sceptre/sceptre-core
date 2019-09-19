@@ -28,7 +28,7 @@ class ConnectionManager(ABC):
         self.logger = logging.getLogger(__name__)
         self.config = config
 
-    def _retry_provider_call(func):
+    def _retry_provider_call(self, func):
         """
         Retries a Provider call if request rate limits are hit.
 
@@ -45,8 +45,8 @@ class ConnectionManager(ABC):
 
         @functools.wraps(func)
         def decorated(*args, **kwargs):
-            max_retries = 30
-            attempts = 1
+            max_retries = 29
+            attempts = 0
             while attempts < max_retries:
                 try:
                     return func(*args, **kwargs)
@@ -57,7 +57,6 @@ class ConnectionManager(ABC):
             )
         return decorated
 
-    @_retry_provider_call
     @property
     @abstractmethod
     def call(self):
