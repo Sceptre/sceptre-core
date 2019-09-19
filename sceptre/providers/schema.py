@@ -52,8 +52,7 @@ class Schema(ProviderSchema):
                     schema_type, self.schema[schema_type]
                 )
             )
-        else:
-            return True
+        return True
 
     @property
     def path(self):
@@ -67,8 +66,7 @@ class Schema(ProviderSchema):
                 "ProviderSchema is the wrong file type, it must be {}".format(
                     self.VALID_SCHEMA_EXTENSION)
             )
-        else:
-            self.__path = schema_path
+        self.__path = schema_path
 
     @property
     def schema(self):
@@ -83,13 +81,11 @@ class Schema(ProviderSchema):
             raise FileNotFoundError(
                 "ProviderSchema file {} not found".format(schema_path)
             )
-        else:
-            loaded_schema = json.load(s)
-            if self._is_schema_valid(loaded_schema):
-                self.__schema = loaded_schema
+        loaded_schema = json.load(s)
+        if self._is_schema_valid(loaded_schema):
+            self.__schema = loaded_schema
 
     def _is_schema_valid(self, schema):
         if "stack" in schema.keys():
             return True
-        else:
-            raise InvalidProviderSchemaError("The ProviderSchema does not contain valid keys")
+        raise InvalidProviderSchemaError("The ProviderSchema does not contain valid keys")
