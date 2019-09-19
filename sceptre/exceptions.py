@@ -161,7 +161,7 @@ class InvalidProviderCredentialsError(SceptreException):
     pass
 
 
-class ClientException(SceptreException):
+class ClientError(SceptreException):
     """
     Error raised when connecting to a Provider Client
     """
