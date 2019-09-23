@@ -58,7 +58,7 @@ test:
 	pytest --junitxml=test-results/junit.xml
 
 test-all:
-	tox
+	tox -- tests/ --ignore=env/ --ignore=venv/ --junitxml=test-results/junit.xml -s
 
 coverage-all:
 		coverage erase
