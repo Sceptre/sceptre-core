@@ -9,7 +9,6 @@ executing the command specified in a SceptrePlan.
 import logging
 
 from concurrent.futures import ThreadPoolExecutor, as_completed
-from sceptre.providers.actions import StackActions
 from sceptre.providers.stack_status import StackStatus
 
 
@@ -41,7 +40,7 @@ class SceptrePlanExecutor(object):
         Execute is responsible executing the sets of Stacks in `launch_order`
         concurrently, in the correct order.
 
-        :param \*args: Any arguments that should be passed through to the\
+        :param args: Any arguments that should be passed through to the\
                 StackAction being called.
         """
         responses = {}
@@ -58,6 +57,5 @@ class SceptrePlanExecutor(object):
         return responses
 
     def _execute(self, stack, *args):
-        actions = StackActions(stack)
-        result = getattr(actions, self.command)(*args)
+        result = getattr(stack, self.command)(*args)
         return stack, result
