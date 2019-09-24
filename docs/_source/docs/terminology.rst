@@ -66,7 +66,8 @@ and access the results from each stack. For example,
 
    responses = plan.launch()
 
-## SceptrePlanExecutor
+SceptrePlanExecutor
+-------------------
 
 You won’t be able to interact with the ``SceptrePlanExecutor`` directly but
 this part of the code is responsible for taking a ``SceptrePlan`` and ensuring
@@ -85,11 +86,3 @@ execution phase to ensure that stack dependency relationships are complete and
 correct. Previously, in ``v1`` stack dependencies were available between
 ``Environments`` and even within ``Environments`` they could be temperamental,
 this concept resolves this issue.
-
-StackActions
-------------
-
-The ``StackActions`` class takes a ``Stack`` object and uses the data held on
-the ``Stack`` when calling AWS. StackActions is used by the
-``SceptrePlanExecutor``. To add new functionality you can add a method to
-``StackActions`` and it will become available to all ``Stacks`` in Sceptre.
