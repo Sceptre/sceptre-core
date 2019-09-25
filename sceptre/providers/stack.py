@@ -8,7 +8,7 @@ This module implements a Stack class, which stores a Stack's data.
 """
 
 import logging
-from abc import abstractmethod
+from abc import ABC, abstractmethod
 from typing import Mapping, Sequence
 
 
@@ -17,7 +17,7 @@ from sceptre.hooks import add_stack_hooks
 from sceptre.resolvers import ResolvableProperty
 
 
-class Stack(object):
+class Stack(ABC):
     """
     Stack stores information about a particular Provider Stack.
     """
