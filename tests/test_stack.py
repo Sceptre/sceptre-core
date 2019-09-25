@@ -1,19 +1,20 @@
 import pytest
 
 from sceptre.providers.stack import StackConfigData
-from sceptre.providers.stack import Stack
+from tests.helpers import StackImp
 
 
 class TestStack(object):
+
     def test_stack_instantiates_correctly_with_stack_config_data(self):
         stack_config = StackConfigData(name="hello")
-        stack = Stack(stack_config)
+        stack = StackImp(stack_config)
         assert stack.config == stack_config
 
     def test_stack_raises_type_error_when_instantiated_without_stack_config_data(self):
         bad_config = {}
         with pytest.raises(TypeError):
-            Stack(bad_config)
+            StackImp(bad_config)
 
 
 class TestStackConfigData(object):
