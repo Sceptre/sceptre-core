@@ -7,9 +7,10 @@ This module implements a Stack class, which stores a Stack's data.
 
 """
 
-import abc
 import logging
+from abc import abstractmethod
 from typing import Mapping, Sequence
+
 
 from sceptre.hooks import HookProperty
 from sceptre.hooks import add_stack_hooks
@@ -31,7 +32,7 @@ class Stack(object):
             raise TypeError("Config must be of type StackConfigData")
         self.config = config
 
-    @abc.abstractmethod
+    @abstractmethod
     def __repr__(self):
         """
         implementes the obj repr for a stack.
@@ -43,7 +44,7 @@ class Stack(object):
         """
         return self.config.name
 
-    @abc.abstractmethod
+    @abstractmethod
     def __eq__(self, stack):
         """
         Should implement an equality check for stack data
@@ -55,17 +56,11 @@ class Stack(object):
         """
         return hash(str(self))
 
-    @abc.abstractmethod
+    @abstractmethod
     def get_external_stack_name(self):
-        pass
-
-    @property
-    @abc.abstractmethod
-    def connection_manager(self):
         """
-        Returns ConnectionManager.
+        Implements the external name for the stack
         """
-        pass
 
     @property
     def sceptre_user_data(self):
@@ -78,15 +73,14 @@ class Stack(object):
         return self._sceptre_user_data
 
     @property
-    @abc.abstractmethod
+    @abstractmethod
     def template(self):
         """
         Returns the Provider Template used to create the Stack.
 
         :returns: The Stack's template.
-        :rtype: str
+        :rtype: SceptreTemplate
         """
-        pass
 
     def _resolve_sceptre_user_data(self):
         data = self._sceptre_user_data
@@ -101,6 +95,7 @@ class Stack(object):
                 value()
 
     @add_stack_hooks
+    @abstractmethod
     def create(self):
         """
         Creates a Stack.
@@ -108,9 +103,9 @@ class Stack(object):
         :returns: The Stack's status.
         :rtype: sceptre.providers.stack_status.StackStatus
         """
-        pass  # pragma: no cover
 
     @add_stack_hooks
+    @abstractmethod
     def update(self):
         """
         Updates the Stack.
@@ -118,9 +113,9 @@ class Stack(object):
         :returns: The Stack's status.
         :rtype: sceptre.providers.stack_status.StackStatus
         """
-        pass  # pragma: no cover
 
     @add_stack_hooks
+    @abstractmethod
     def delete(self):
         """
         Deletes the Stack.
@@ -128,8 +123,8 @@ class Stack(object):
         :returns: The Stack's status.
         :rtype: sceptre.providers.stack_status.StackStatus
         """
-        pass  # pragma: no cover
 
+    @abstractmethod
     def launch(self):
         """
         Launches the Stack.
@@ -142,8 +137,8 @@ class Stack(object):
         :returns: The Stack's status.
         :rtype: sceptre.providers.stack_status.StackStatus
         """
-        pass  # pragma: no cover
 
+    @abstractmethod
     def cancel_stack_update(self):
         """
         Cancels a Stack update.
@@ -151,20 +146,20 @@ class Stack(object):
         :returns: The cancelled Stack status.
         :rtype: sceptre.providers.stack_status.StackStatus
         """
-        pass  # pragma: no cover
 
+    @abstractmethod
     def lock(self):
         """
         Locks the Stack by applying a deny-all updates Stack Policy.
         """
-        pass  # pragma: no cover
 
+    @abstractmethod
     def unlock(self):
         """
         Unlocks the Stack by applying an allow-all updates Stack Policy.
         """
-        pass  # pragma: no cover
 
+    @abstractmethod
     def describe(self):
         """
         Returns the a description of the Stack.
@@ -172,8 +167,8 @@ class Stack(object):
         :returns: A Stack description.
         :rtype: dict
         """
-        pass  # pragma: no cover
 
+    @abstractmethod
     def describe_events(self):
         """
         Returns the Provider events for a Stack.
@@ -181,8 +176,8 @@ class Stack(object):
         :returns: Provider events for a Stack.
         :rtype: dict
         """
-        pass  # pragma: no cover
 
+    @abstractmethod
     def describe_resources(self):
         """
         Returns the logical and physical resource IDs of the Stack's resources.
@@ -190,8 +185,8 @@ class Stack(object):
         :returns: Information about the Stack's resources.
         :rtype: dict
         """
-        pass  # pragma: no cover
 
+    @abstractmethod
     def describe_outputs(self):
         """
         Returns the Stack's outputs.
@@ -199,15 +194,15 @@ class Stack(object):
         :returns: The Stack's outputs.
         :rtype: list
         """
-        pass  # pragma: no cover
 
+    @abstractmethod
     def continue_update_rollback(self):
         """
         Rolls back a Stack in the UPDATE_ROLLBACK_FAILED state to
         UPDATE_ROLLBACK_COMPLETE.
         """
-        pass  # pragma: no cover
 
+    @abstractmethod
     def set_policy(self):
         """
         Applies a Stack Policy.
@@ -216,8 +211,8 @@ class Stack(object):
                 the Provider Policy to apply.
         :type policy_path: str
         """
-        pass  # pragma: no cover
 
+    @abstractmethod
     def get_policy(self):
         """
         Returns a Stack's Policy.
@@ -225,8 +220,8 @@ class Stack(object):
         :returns: The Stack's Stack Policy.
         :rtype: str
         """
-        pass  # pragma: no cover
 
+    @abstractmethod
     def create_change_set(self):
         """
         Creates a Change Set with the name ``change_set_name``.
@@ -234,8 +229,8 @@ class Stack(object):
         :param change_set_name: The name of the Change Set.
         :type change_set_name: str
         """
-        pass  # pragma: no cover
 
+    @abstractmethod
     def delete_change_set(self):
         """
         Deletes the Change Set ``change_set_name``.
@@ -243,8 +238,8 @@ class Stack(object):
         :param change_set_name: The name of the Change Set.
         :type change_set_name: str
         """
-        pass  # pragma: no cover
 
+    @abstractmethod
     def describe_change_set(self):
         """
         Describes the Change Set ``change_set_name``.
@@ -254,8 +249,8 @@ class Stack(object):
         :returns: The description of the Change Set.
         :rtype: dict
         """
-        pass  # pragma: no cover
 
+    @abstractmethod
     def execute_change_set(self):
         """
         Executes the Change Set ``change_set_name``.
@@ -265,8 +260,8 @@ class Stack(object):
         :returns: The Stack status
         :rtype: str
         """
-        pass  # pragma: no cover
 
+    @abstractmethod
     def list_change_sets(self):
         """
         Lists the Stack's Change Sets.
@@ -274,14 +269,14 @@ class Stack(object):
         :returns: The Stack's Change Sets.
         :rtype: dict or list
         """
-        pass  # pragma: no cover
 
+    @abstractmethod
     def generate(self):
         """
         Returns the Template for the Stack
         """
-        pass  # pragma: no cover
 
+    @abstractmethod
     def validate(self):
         """
         Validates the Stack's Provider Template.
@@ -292,8 +287,8 @@ class Stack(object):
         :rtype: dict
         :raises: sceptre.exceptions.ClientError
         """
-        pass  # pragma: no cover
 
+    @abstractmethod
     def estimate_cost(self):
         """
         Estimates a Stack's cost.
@@ -302,8 +297,8 @@ class Stack(object):
         :rtype: dict
         :raises: sceptre.exceptions.ClientError
         """
-        pass  # pragma: no cover
 
+    @abstractmethod
     def get_status(self):
         """
         Returns the Stack's status.
@@ -311,7 +306,6 @@ class Stack(object):
         :returns: The Stack's status.
         :rtype: sceptre.providers.stack_status.StackStatus
         """
-        pass  # pragma: no cover
 
 
 class StackConfigData(dict):
