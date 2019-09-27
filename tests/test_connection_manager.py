@@ -11,9 +11,6 @@ class TestConnectionManager(object):
         connection_config = {"profile": "prod", "region": "eu-west-1"}
 
         class ExampleConnectionManager(ConnectionManager):
-            def __init__(self, config):
-                super().__init__(config)
-
             def call(self):
                 pass
 
@@ -24,9 +21,6 @@ class TestConnectionManager(object):
         connection_config = ("region", "eu-west-1")
 
         class ExampleConnectionManager(ConnectionManager):
-            def __init__(self, config):
-                super().__init__(config)
-
             def call(self):
                 pass
 
@@ -37,9 +31,6 @@ class TestConnectionManager(object):
         connection_config = {}
 
         class ExampleConnectionManager(ConnectionManager):
-            def __init__(self, config):
-                super().__init__(config)
-
             def call(self):
                 pass
 
@@ -53,9 +44,6 @@ class TestConnectionManager(object):
         mock_fn.side_effect = ClientError
 
         class ExampleConnectionManager(ConnectionManager):
-            def __init__(self, config):
-                super().__init__(config)
-
             def call(self):
                 pass
 
