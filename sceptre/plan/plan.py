@@ -9,8 +9,8 @@ nessessary information for a command to execute.
 from os import path, walk
 
 from sceptre.exceptions import ConfigFileNotFoundError
-from sceptre.config.graph import StackGraph
 from sceptre.config.reader import ConfigReader
+from sceptre.plan.graph import StackGraph
 from sceptre.plan.executor import SceptrePlanExecutor
 from sceptre.helpers import sceptreise_path
 
