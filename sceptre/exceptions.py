@@ -173,3 +173,10 @@ class InvalidProviderSchemaError(SceptreException):
     Error raised when a ProviderSchema does not have required keys.
     """
     pass
+
+
+class SceptreYamlError(SceptreException):
+    """
+    Error raised when a SceptreYamlParser cannot parse a file stream correctly.
+    """
+    pass
