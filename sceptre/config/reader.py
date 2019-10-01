@@ -112,7 +112,7 @@ class ConfigReader(object):
     def __init__(self, context):
         self.logger = logging.getLogger(__name__)
         self.context = context
-        self.full_config_path = self.context.full_config_path()
+        self.full_config_path = self.context.full_config_path
         if not self.context.user_variables:
             self.context.user_variables = {}
         self.templating_vars = {"var": self.context.user_variables}
@@ -192,9 +192,9 @@ class ConfigReader(object):
         stack_map = {}
         command_stacks = set()
         if self.context.ignore_dependencies:
-            root = self.context.full_command_path()
+            root = self.context.full_command_path
         else:
-            root = self.context.full_config_path()
+            root = self.context.full_config_path
 
         if path.isfile(root):
             todo = {root}
@@ -212,7 +212,7 @@ class ConfigReader(object):
         while todo:
             abs_path = todo.pop()
             rel_path = path.relpath(
-                abs_path, start=self.context.full_config_path())
+                abs_path, start=self.context.full_config_path)
             directory, filename = path.split(rel_path)
 
             if directory in stack_group_configs:
@@ -224,7 +224,7 @@ class ConfigReader(object):
             stack = self._construct_stack(rel_path, stack_group_config)
             stack_map[sceptreise_path(rel_path)] = stack
 
-            if abs_path.startswith(self.context.full_command_path()):
+            if abs_path.startswith(self.context.full_command_path):
                 command_stacks.add(stack)
 
         stacks = set()
