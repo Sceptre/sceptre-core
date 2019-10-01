@@ -111,6 +111,7 @@ class SceptreContext(object):
     def __hash__(self):
         return hash(str(self))
 
+    @property
     def full_config_path(self):
         """
         Returns the config path in the format: ``project_path/config_path``.
@@ -120,6 +121,7 @@ class SceptreContext(object):
         """
         return path.join(self.project_path, self.config_path)
 
+    @property
     def full_command_path(self):
         """
         Returns the command path in the format:
@@ -131,6 +133,7 @@ class SceptreContext(object):
         return path.join(self.project_path, self.config_path,
                          self.command_path)
 
+    @property
     def full_templates_path(self):
         """
         Returns the templates path in the format: project_path/templates_path.

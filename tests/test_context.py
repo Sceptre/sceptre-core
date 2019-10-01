@@ -44,7 +44,7 @@ class TestSceptreContext(object):
         )
 
         full_config_path = path.join("project_path", self.context.config_path)
-        assert context.full_config_path() == full_config_path
+        assert context.full_config_path == full_config_path
 
     def test_full_command_path_returns_correct_path(self):
         context = SceptreContext(
@@ -60,7 +60,7 @@ class TestSceptreContext(object):
                                       self.context.config_path,
                                       "command")
 
-        assert context.full_command_path() == full_command_path
+        assert context.full_command_path == full_command_path
 
     def test_full_templates_path_returns_correct_path(self):
         context = SceptreContext(
@@ -73,7 +73,7 @@ class TestSceptreContext(object):
             ignore_dependencies=sentinel.ignore_dependencies
         )
         full_templates_path = path.join("project_path", self.context.templates_path)
-        assert context.full_templates_path() == full_templates_path
+        assert context.full_templates_path == full_templates_path
 
     def test_context_repr(self):
         assert self.context.__repr__() == \
