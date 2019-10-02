@@ -23,3 +23,9 @@ class TestFileData(object):
         path.write('data')
         fd = FileData(path, "hello")
         assert str(fd) == "path: {}, stream: {}".format(path, 'hello')
+
+    def test_basename_return_correctly(self, tmpdir):
+        path = tmpdir.mkdir("dummy_path").join('stack.yaml')
+        path.write('data')
+        fd = FileData(path, "data")
+        assert fd.file_name == 'stack.yaml'

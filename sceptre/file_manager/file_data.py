@@ -18,3 +18,7 @@ class FileData(object):
 
     def __str__(self):
         return "path: {}, stream: {}".format(self.path, self.stream)
+
+    @property
+    def file_name(self):
+        return os.path.basename(self.path)
