@@ -28,7 +28,7 @@ class SceptreYamlParser(object):
         :param entry_point_groups: Names of entry point groups.
         :type entry_point_groups: list
         """
-        self.logger.debug(
+        self.logger.info(
             "Adding yaml constructors for the entry point groups {0}".format(
                 entry_point_groups
             )

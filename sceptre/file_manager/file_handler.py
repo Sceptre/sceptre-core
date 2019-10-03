@@ -1,4 +1,7 @@
 import logging
+import os
+
+import jinja2
 
 from sceptre.exceptions import SceptreYamlError
 
@@ -23,10 +26,22 @@ class FileHandler(object):
     def parse(self, file_data):
         parser = SceptreYamlParser()
         try:
-            yaml = parser.load(file_data.stream)
+            parser.load(file_data.stream)
         except SceptreYamlError:
             raise SceptreYamlError(
                 "There was a problem parsing the stream {}".format(file_data.path)
             )
+        rendered_template = self.__render(file_data)
+        yaml = parser.load(rendered_template)
         parsed = FileData(file_data.path, yaml)
         return parsed
+
+    def __render(self, file_data):
+        jinja_env = jinja2.Environment(
+            loader=jinja2.FileSystemLoader(file_data.dirname),
+            undefined=jinja2.StrictUndefined
+        )
+        template = jinja_env.get_template(file_data.basename)
+        return template.render(
+            environment_variable=os.environ
+        )
