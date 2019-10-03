@@ -8,6 +8,8 @@ class FileData(object):
         else:
             raise OSError('The path supplied to FileData is not a valid file path.')
         self.stream = stream
+        self.basename = os.path.basename(self.path)
+        self.dirname = os.path.dirname(self.path)
 
     def __repr__(self):
         return ("sceptre.file_manager.file_data.FileData("
@@ -18,7 +20,3 @@ class FileData(object):
 
     def __str__(self):
         return "path: {}, stream: {}".format(self.path, self.stream)
-
-    @property
-    def file_name(self):
-        return os.path.basename(self.path)

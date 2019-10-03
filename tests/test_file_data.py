@@ -28,4 +28,4 @@ class TestFileData(object):
         path = tmpdir.mkdir("dummy_path").join('stack.yaml')
         path.write('data')
         fd = FileData(path, "data")
-        assert fd.file_name == 'stack.yaml'
+        assert fd.basename == 'stack.yaml'

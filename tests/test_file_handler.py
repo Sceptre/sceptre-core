@@ -4,6 +4,7 @@ from mock import patch
 from sceptre.exceptions import SceptreYamlError
 
 from sceptre.file_manager.file_handler import FileHandler
+from sceptre.file_manager.file_handler import FileData
 
 
 class TestFileHandler(object):
@@ -25,22 +26,39 @@ class TestFileHandler(object):
         with pytest.raises(FileNotFoundError):
             self.fh.open('no_file.yaml')
 
-    @patch('sceptre.file_manager.file_data.FileData')
-    def test_valid_yaml_file_parses_successfully(self, mock_file_data, tmpdir):
+    def test_valid_yaml_file_parses_successfully(self, tmpdir):
         path = tmpdir.mkdir("dummy_path").join('stack.yaml')
-        path.write("hello")
-        mock_file_data.path = path
-        mock_file_data.stream = """---
+        stream = """---
 keyA: valueA
 listB:
   - itemA
   - itemB
   - itemC
 """
-        parsed = self.fh.parse(mock_file_data)
-        assert mock_file_data.called_once()
+        path.write(stream)
+        fd = FileData(path, stream)
+        parsed = self.fh.parse(fd)
         assert parsed.stream == {
             'keyA': 'valueA',
+            'listB': ['itemA', 'itemB', 'itemC']
+        }
+
+    @patch('resolver.environment_variable.EnvironmentVariable')
+    def test_valid_yaml_file_parses_successfully_custom_tags(self, mock_env_resolver, tmpdir):
+        mock_env_resolver.return_value = 'env_var'
+        path = tmpdir.mkdir("dummy_path").join('stack.yaml')
+        stream = """---
+keyA: !environment_variable env_var
+listB:
+  - itemA
+  - itemB
+  - itemC
+"""
+        path.write(stream)
+        fd = FileData(path, stream)
+        parsed = self.fh.parse(fd)
+        assert parsed.stream == {
+            'keyA': 'env_var',
             'listB': ['itemA', 'itemB', 'itemC']
         }
 
