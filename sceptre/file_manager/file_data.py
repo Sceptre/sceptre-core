@@ -6,7 +6,9 @@ class FileData(object):
         if os.path.isfile(path):
             self.path = path
         else:
-            raise OSError('The path supplied to FileData is not a valid file path.')
+            raise OSError(
+                'The path {} supplied to FileData is not a valid file path.'.format(path)
+            )
         self.stream = stream
         self.basename = os.path.basename(self.path)
         self.dirname = os.path.dirname(self.path)
