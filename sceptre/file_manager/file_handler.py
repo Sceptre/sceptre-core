@@ -26,22 +26,24 @@ class FileHandler(object):
     def parse(self, file_data):
         parser = SceptreYamlParser()
         try:
-            parser.load(file_data.stream)
+            yaml = parser.load(file_data.stream)
         except SceptreYamlError:
             raise SceptreYamlError(
                 "There was a problem parsing the stream {}".format(file_data.path)
             )
-        rendered_template = self.__render(file_data)
-        yaml = parser.load(rendered_template)
         parsed = FileData(file_data.path, yaml)
         return parsed
 
-    def __render(self, file_data):
+    def render(self, file_data, context):
+        template_vars = {"var": context.user_variables}
         jinja_env = jinja2.Environment(
             loader=jinja2.FileSystemLoader(file_data.dirname),
             undefined=jinja2.StrictUndefined
         )
         template = jinja_env.get_template(file_data.basename)
-        return template.render(
+        rendered = template.render(
+            template_vars,
+            command_path=context.command_path.split(os.path.sep),
             environment_variable=os.environ
         )
+        return FileData(file_data.path, rendered)
