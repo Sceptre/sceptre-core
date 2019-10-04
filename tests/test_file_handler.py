@@ -112,3 +112,22 @@ listB:
             'keyA': 'command',
             'listB': ['path', 'itemB', 'itemC']
         }
+
+    @patch('sceptre.context.SceptreContext')
+    def test_render_succesfully_render_stack_config(self, mock_context, tmpdir):
+        mock_context.command_path = "command/path/stack.yaml"
+        path = tmpdir.mkdir("dummy_path").join('stack.yaml')
+        stream = """---
+keyA: {{ stack_config.region }}
+listB:
+  - itemB
+  - itemC
+"""
+        path.write(stream)
+        fd = FileData(path, stream)
+        rendered = self.fh.render(fd, mock_context, {"stack_config": {"region": "eu-west-1"}})
+        parsed = self.fh.parse(rendered)
+        assert parsed.stream == {
+            'keyA': 'eu-west-1',
+            'listB': ['itemB', 'itemC']
+        }
