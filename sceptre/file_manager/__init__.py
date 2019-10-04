@@ -8,27 +8,6 @@ import os
 from sceptre.file_manager.file_handler import FileHandler
 from sceptre.file_manager import strategies
 
-STRATEGIES = {
-    'dependencies': strategies.list_join,
-    'hooks': strategies.child_wins,
-    'notifications': strategies.child_wins,
-    'on_failure': strategies.child_wins,
-    'parameters': strategies.child_wins,
-    'profile': strategies.child_wins,
-    'project_code': strategies.child_wins,
-    'protect': strategies.child_wins,
-    'region': strategies.child_wins,
-    'required_version': strategies.child_wins,
-    'role_arn': strategies.child_wins,
-    'sceptre_user_data': strategies.child_wins,
-    'stack_name': strategies.child_wins,
-    'stack_tags': strategies.child_wins,
-    'stack_timeout': strategies.child_wins,
-    'template_bucket_name': strategies.child_wins,
-    'template_key_value': strategies.child_wins,
-    'template_path': strategies.child_wins
-}
-
 
 class FileManager(object):
     def __init__(self, context):
@@ -93,11 +72,21 @@ class FileManager(object):
         return config
 
     def __merge_config(self, existing, current):
+        STRATEGIES = {
+            list: strategies.list_join,
+            dict: strategies.dict_merge,
+            str: strategies.child_wins,
+            object: strategies.child_wins
+        }
+
         existing_config = copy.deepcopy(existing)
         current_config = copy.deepcopy(current)
-        for key, strategy in STRATEGIES.items():
-            value = strategy(existing_config.get(key), current_config.get(key))
-            if value:
-                current_config[key] = value
-            existing_config.update(current_config)
+        for k, v in copy.deepcopy(existing_config).items():
+            for t, strategy in STRATEGIES.items():
+                if isinstance(type(v).__name__, t):
+                    value = strategy(existing_config.get(k), current_config.get(k))
+                    if value:
+                        current_config[k] = value
+
+        existing_config.update(current_config)
         return existing_config
