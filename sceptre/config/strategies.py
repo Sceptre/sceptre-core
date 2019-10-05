@@ -53,8 +53,7 @@ def dict_merge(a, b):
         return b
 
     if b is not None:
-        a.update(b)
-        return a
+        return {**a, **b}
 
     return a
 
