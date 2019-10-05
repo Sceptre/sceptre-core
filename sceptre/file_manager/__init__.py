@@ -83,7 +83,7 @@ class FileManager(object):
         current_config = copy.deepcopy(current)
         for k, v in copy.deepcopy(existing_config).items():
             for t, strategy in STRATEGIES.items():
-                if isinstance(type(v).__name__, t):
+                if type(v) == t:
                     value = strategy(existing_config.get(k), current_config.get(k))
                     if value:
                         current_config[k] = value

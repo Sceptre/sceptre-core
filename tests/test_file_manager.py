@@ -9,13 +9,25 @@ class TestFileManager(object):
         baseconfig = """---
 region: eu-west-1
 template_path: templates/vpc.json
+
 """
         configA = """---
 profile: dev
+map:
+    1: 2
+list:
+    - a
+    - b
 """
 
         configB = """---
 region: us-east-2
+map:
+    3: 4
+    5: 6
+list:
+    - c
+    - d
 """
 
         stackA = """---
@@ -63,6 +75,8 @@ itemB: valueB
             "/var/data/config/c/stack.yaml": {
                 'itemB': 'valueB',
                 'stack_config': {
+                    'map': {1: 2, 3: 4, 5: 6},
+                    'list': ['c', 'd', 'a', 'b'],
                     'region': 'us-east-2',
                     'profile': 'dev',
                     'template_path': 'templates/vpc.json',
@@ -72,6 +86,8 @@ itemB: valueB
             "/var/data/config/c/d/e/stack.yaml": {
                 'itemA': 'valueA',
                 'stack_config': {
+                    'map': {3: 4, 5: 6},
+                    'list': ['c', 'd'],
                     'region': 'us-east-2',
                     'template_path': 'templates/vpc.json',
                 }
