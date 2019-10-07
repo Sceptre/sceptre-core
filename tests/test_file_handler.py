@@ -76,6 +76,10 @@ keyA: valueA
     @patch('sceptre.context.SceptreContext')
     def test_render_succesfully_renders_vars(self, mock_context, tmpdir):
         mock_context.user_variables = {"test_var": "resolvedVariable"}
+        variables = {
+            "var": mock_context.user_variables,
+            "stack_config": {}
+        }
         path = tmpdir.mkdir("dummy_path").join('stack.yaml')
         stream = """---
 keyA: valueA
@@ -86,7 +90,7 @@ listB:
 """
         path.write(stream)
         fd = FileData(path, stream)
-        rendered = self.fh.render(fd, mock_context)
+        rendered = self.fh.render(fd, mock_context, variables=variables)
         parsed = self.fh.parse(rendered)
         assert parsed.stream == {
             'keyA': 'valueA',

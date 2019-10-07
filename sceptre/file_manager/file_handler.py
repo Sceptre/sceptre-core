@@ -34,11 +34,7 @@ class FileHandler(object):
         parsed = FileData(file_data.path, yaml)
         return parsed
 
-    def render(self, file_data, context, vars={}):
-        template_vars = {"var": context.user_variables}
-        for k, v in vars.items():
-            template_vars.update({k: v})
-
+    def render(self, file_data, context, variables={}):
         jinja_env = jinja2.Environment(
             loader=jinja2.FileSystemLoader(file_data.dirname),
             undefined=jinja2.StrictUndefined
@@ -46,7 +42,7 @@ class FileHandler(object):
 
         template = jinja_env.get_template(file_data.basename)
         rendered = template.render(
-            template_vars,
+            variables,
             command_path=context.command_path.split(os.path.sep),
             environment_variable=os.environ
         )

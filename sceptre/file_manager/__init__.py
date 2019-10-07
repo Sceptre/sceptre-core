@@ -20,9 +20,13 @@ class FileManager(object):
         stacks = {}
         for stack_path in self.__get_all_stack_paths():
             stack_config = self.__generate_stack_config(stack_path)
-            variables = {"stack_config": stack_config}
+            variables = {
+                "var": self.context.user_variables,
+                "stack_config": stack_config
+            }
             opened_stack = self.file_handler.open(stack_path)
-            rendered_stack = self.file_handler.render(opened_stack, self.context, vars=variables)
+            rendered_stack = self.file_handler.render(
+                opened_stack, self.context, variables=variables)
             parsed_stack = self.file_handler.parse(rendered_stack)
             parsed_stack.stream["stack_config"] = stack_config
             stacks.update({parsed_stack.path: parsed_stack.stream})
