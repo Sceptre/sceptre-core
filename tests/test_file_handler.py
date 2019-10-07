@@ -76,9 +76,11 @@ keyA: valueA
     @patch('sceptre.context.SceptreContext')
     def test_render_succesfully_renders_vars(self, mock_context, tmpdir):
         mock_context.user_variables = {"test_var": "resolvedVariable"}
+        mock_context.command_path = "a/b/"
         variables = {
             "var": mock_context.user_variables,
-            "stack_config": {}
+            "stack_config": {},
+            "command_path": mock_context.command_path
         }
         path = tmpdir.mkdir("dummy_path").join('stack.yaml')
         stream = """---
@@ -90,7 +92,7 @@ listB:
 """
         path.write(stream)
         fd = FileData(path, stream)
-        rendered = self.fh.render(fd, mock_context, variables=variables)
+        rendered = self.fh.render(fd, variables=variables)
         parsed = self.fh.parse(rendered)
         assert parsed.stream == {
             'keyA': 'valueA',
@@ -110,7 +112,7 @@ listB:
 """
         path.write(stream)
         fd = FileData(path, stream)
-        rendered = self.fh.render(fd, mock_context)
+        rendered = self.fh.render(fd, {"command_path": mock_context.command_path})
         parsed = self.fh.parse(rendered)
         assert parsed.stream == {
             'keyA': 'command',
@@ -129,7 +131,12 @@ listB:
 """
         path.write(stream)
         fd = FileData(path, stream)
-        rendered = self.fh.render(fd, mock_context, {"stack_config": {"region": "eu-west-1"}})
+        rendered = self.fh.render(fd, {
+            "var": {},
+            "stack_config": {"region": "eu-west-1"},
+            "command_path": mock_context.command_path
+        }
+        )
         parsed = self.fh.parse(rendered)
         assert parsed.stream == {
             'keyA': 'eu-west-1',
