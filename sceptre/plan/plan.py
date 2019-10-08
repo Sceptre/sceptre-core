@@ -43,8 +43,6 @@ class SceptrePlan(object):
             return [self.command_stacks]
 
         graph = self.graph.filtered(self.command_stacks, reverse)
-        if self.context.ignore_dependencies:
-            return [self.command_stacks]
 
         launch_order = []
         while graph.graph:
