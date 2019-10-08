@@ -15,6 +15,7 @@ class FileManager(object):
         self.file_handler = FileHandler()
         self.context = context
         self.all_stacks = self.__get_all_stacks()
+        self.command_stacks = self.__get_command_stacks()
 
     def __get_all_stacks(self):
         stacks = {}
@@ -33,16 +34,15 @@ class FileManager(object):
             stacks.update({parsed_stack.path: parsed_stack.stream})
         return stacks
 
+    def __get_command_stacks(self):
+        command_stacks = {}
+        for path, config in self.all_stacks.items():
+            if path.startswith(self.context.full_command_path):
+                command_stacks.update({path: config})
+        return command_stacks
+
     def __get_all_stack_paths(self):
-        if self.context.ignore_dependencies:
-            root = self.context.full_command_path
-        else:
-            root = self.context.full_config_path
-
-        if os.path.isfile(root):
-            return {root}
-
-        return self.__walk(root, '^(?!config.|\\.).*')
+        return self.__walk(self.context.full_config_path, '^(?!config.|\\.).*')
 
     def __generate_stack_config(self, stack_path):
         config = self.__resolve_base_config()

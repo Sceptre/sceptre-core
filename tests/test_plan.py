@@ -2,8 +2,8 @@ import pytest
 from mock import MagicMock, patch, sentinel
 
 from sceptre.context import SceptreContext
+from sceptre.file_manager import FileManager
 from sceptre.providers.stack import StackConfigData
-from sceptre.config.reader import ConfigReader
 from sceptre.plan.plan import SceptrePlan
 from tests.helpers import StackImp
 
@@ -26,7 +26,7 @@ class TestSceptrePlan(object):
         )
         self.stack = StackImp(self.stack_config)
         self.mock_context = MagicMock(spec=SceptreContext)
-        self.mock_config_reader = MagicMock(spec=ConfigReader)
+        self.mock_file_manager = MagicMock(spec=FileManager)
         self.mock_context.project_path = sentinel.project_path
         self.mock_context.command_path = sentinel.command_path
         self.mock_context.config_file = sentinel.config_file
@@ -35,7 +35,6 @@ class TestSceptrePlan(object):
         self.mock_context.user_variables = {}
         self.mock_context.options = {}
         self.mock_context.no_colour = True
-        self.mock_config_reader.context = self.mock_context
 
     def test_planner_executes_without_params(self):
         plan = MagicMock(spec=SceptrePlan)
