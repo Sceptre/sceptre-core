@@ -6,10 +6,9 @@ sceptre.plan.plan
 This module implements a SceptrePlan, which is responsible for holding all
 nessessary information for a command to execute.
 """
-from os import path, walk
 
 from sceptre.exceptions import ConfigFileNotFoundError
-from sceptre.config.reader import ConfigReader
+from sceptre.file_manager import FileManager
 from sceptre.plan.graph import StackGraph
 from sceptre.plan.executor import SceptrePlanExecutor
 from sceptre.helpers import sceptreise_path
@@ -30,16 +29,16 @@ class SceptrePlan(object):
         self.reverse = None
         self.launch_order = None
 
-        config_reader = ConfigReader(context)
-        all_stacks, command_stacks = config_reader.construct_stacks()
-        self.graph = StackGraph(all_stacks)
-        self.command_stacks = command_stacks
+        self.file_manager = FileManager(context)
+        self.all_stacks = self.file_manager.all_stacks
+        self.command_stacks = self.file_manager.command_stacks
+        self.graph = StackGraph(self.all_stacks)
 
-    def _execute(self, *args):
+    def __execute(self, *args):
         executor = SceptrePlanExecutor(self.command, self.launch_order)
         return executor.execute(*args)
 
-    def _generate_launch_order(self, reverse=False):
+    def __generate_launch_order(self, reverse=False):
         if self.context.ignore_dependencies:
             return [self.command_stacks]
 
@@ -61,7 +60,9 @@ class SceptrePlan(object):
         if not launch_order:
             raise ConfigFileNotFoundError(
                 "No stacks detected from the given path '{}'. Valid stack paths are: {}"
-                .format(sceptreise_path(self.context.command_path), self._valid_stack_paths())
+                .format(sceptreise_path(self.context.command_path),
+                        self.file_manager.all_stacks.keys()
+                        )
             )
 
         return launch_order
@@ -72,7 +73,7 @@ class SceptrePlan(object):
 
         self.command = command
         self.reverse = reverse
-        self.launch_order = self._generate_launch_order(reverse)
+        self.launch_order = self.__generate_launch_order(reverse)
 
     def template(self, *args):
         """
@@ -82,7 +83,7 @@ class SceptrePlan(object):
         :rtype: dict
         """
         self.resolve(command=self.template.__name__)
-        return self._execute(*args)
+        return self.__execute(*args)
 
     def create(self, *args):
         """
@@ -92,7 +93,7 @@ class SceptrePlan(object):
         :rtype: dict
         """
         self.resolve(command=self.create.__name__)
-        return self._execute(*args)
+        return self.__execute(*args)
 
     def update(self, *args):
         """
@@ -102,7 +103,7 @@ class SceptrePlan(object):
         :rtype: dict
         """
         self.resolve(command=self.update.__name__)
-        return self._execute(*args)
+        return self.__execute(*args)
 
     def cancel_stack_update(self, *args):
         """
@@ -112,7 +113,7 @@ class SceptrePlan(object):
         :rtype: dict
         """
         self.resolve(command=self.cancel_stack_update.__name__)
-        return self._execute(*args)
+        return self.__execute(*args)
 
     def launch(self, *args):
         """
@@ -127,7 +128,7 @@ class SceptrePlan(object):
         :rtype: dict
         """
         self.resolve(command=self.launch.__name__)
-        return self._execute(*args)
+        return self.__execute(*args)
 
     def delete(self, *args):
         """
@@ -137,7 +138,7 @@ class SceptrePlan(object):
         :rtype: dict
         """
         self.resolve(command=self.delete.__name__, reverse=True)
-        return self._execute(*args)
+        return self.__execute(*args)
 
     def lock(self, *args):
         """
@@ -147,7 +148,7 @@ class SceptrePlan(object):
         :rtype: dict
         """
         self.resolve(command=self.lock.__name__)
-        return self._execute(*args)
+        return self.__execute(*args)
 
     def unlock(self, *args):
         """
@@ -157,7 +158,7 @@ class SceptrePlan(object):
         :rtype: dict
         """
         self.resolve(command=self.unlock.__name__)
-        return self._execute(*args)
+        return self.__execute(*args)
 
     def describe(self, *args):
         """
@@ -167,7 +168,7 @@ class SceptrePlan(object):
         :rtype: dict
         """
         self.resolve(command=self.describe.__name__)
-        return self._execute(*args)
+        return self.__execute(*args)
 
     def describe_events(self, *args):
         """
@@ -177,7 +178,7 @@ class SceptrePlan(object):
         :rtype: dict
         """
         self.resolve(command=self.describe_events.__name__)
-        return self._execute(*args)
+        return self.__execute(*args)
 
     def describe_resources(self, *args):
         """
@@ -187,7 +188,7 @@ class SceptrePlan(object):
         :rtype: dict
         """
         self.resolve(command=self.describe_resources.__name__)
-        return self._execute(*args)
+        return self.__execute(*args)
 
     def describe_outputs(self, *args):
         """
@@ -197,7 +198,7 @@ class SceptrePlan(object):
         :rtype: dict
         """
         self.resolve(command=self.describe_outputs.__name__)
-        return self._execute(*args)
+        return self.__execute(*args)
 
     def continue_update_rollback(self, *args):
         """
@@ -208,7 +209,7 @@ class SceptrePlan(object):
         :rtype: dict
        """
         self.resolve(command=self.continue_update_rollback.__name__)
-        return self._execute(*args)
+        return self.__execute(*args)
 
     def set_policy(self, *args):
         """
@@ -220,7 +221,7 @@ class SceptrePlan(object):
         :rtype: dict
         """
         self.resolve(command=self.set_policy.__name__)
-        return self._execute(*args)
+        return self.__execute(*args)
 
     def get_policy(self, *args):
         """
@@ -230,7 +231,7 @@ class SceptrePlan(object):
         :rtype: dict
         """
         self.resolve(command=self.get_policy.__name__)
-        return self._execute(*args)
+        return self.__execute(*args)
 
     def create_change_set(self, *args):
         """
@@ -242,7 +243,7 @@ class SceptrePlan(object):
         :rtype: dict
         """
         self.resolve(command=self.create_change_set.__name__)
-        return self._execute(*args)
+        return self.__execute(*args)
 
     def delete_change_set(self, *args):
         """
@@ -254,7 +255,7 @@ class SceptrePlan(object):
         :rtype: dict
         """
         self.resolve(command=self.delete_change_set.__name__)
-        return self._execute(*args)
+        return self.__execute(*args)
 
     def describe_change_set(self, *args):
         """
@@ -266,7 +267,7 @@ class SceptrePlan(object):
         :rtype: dict
         """
         self.resolve(command=self.describe_change_set.__name__)
-        return self._execute(*args)
+        return self.__execute(*args)
 
     def execute_change_set(self, *args):
         """
@@ -278,7 +279,7 @@ class SceptrePlan(object):
         :rtype: dict
         """
         self.resolve(command=self.execute_change_set.__name__)
-        return self._execute(*args)
+        return self.__execute(*args)
 
     def list_change_sets(self, *args):
         """
@@ -288,7 +289,7 @@ class SceptrePlan(object):
         :rtype: dict
         """
         self.resolve(command=self.list_change_sets.__name__)
-        return self._execute(*args)
+        return self.__execute(*args)
 
     def get_status(self, *args):
         """
@@ -299,7 +300,7 @@ class SceptrePlan(object):
         :raises: sceptre.exceptions.StackDoesNotExistError
         """
         self.resolve(command=self.get_status.__name__)
-        return self._execute(*args)
+        return self.__execute(*args)
 
     def wait_for_cs_completion(self, *args):
         """
@@ -311,7 +312,7 @@ class SceptrePlan(object):
         :rtype: sceptre.providers.stack_status.StackChangeSetStatus
         """
         self.resolve(command=self.wait_for_cs_completion.__name__)
-        return self._execute(*args)
+        return self.__execute(*args)
 
     def validate(self, *args):
         """
@@ -324,7 +325,7 @@ class SceptrePlan(object):
         :raises: sceptre.exceptions.ClientError
         """
         self.resolve(command=self.validate.__name__)
-        return self._execute(*args)
+        return self.__execute(*args)
 
     def estimate_cost(self, *args):
         """
@@ -335,7 +336,7 @@ class SceptrePlan(object):
         :raises: sceptre.exceptions.ClientError
         """
         self.resolve(command=self.estimate_cost.__name__)
-        return self._execute(*args)
+        return self.__execute(*args)
 
     def generate(self, *args):
         """
@@ -345,12 +346,4 @@ class SceptrePlan(object):
         :rtype: dict
         """
         self.resolve(command=self.generate.__name__)
-        return self._execute(*args)
-
-    def _valid_stack_paths(self):
-        return [
-            sceptreise_path(path.relpath(path.join(dirpath, f), self.context.config_path))
-            for dirpath, dirnames, files in walk(self.context.config_path)
-            for f in files
-            if not f.endswith(self.context.config_file)
-        ]
+        return self.__execute(*args)
