@@ -180,3 +180,11 @@ class SceptreYamlError(SceptreException):
     Error raised when a SceptreYamlParser cannot parse a file stream correctly.
     """
     pass
+
+
+class DuplicateProviderRegistrationError(SceptreException):
+    """
+    Error raised when two Providers attempt to register themselves on the
+    ProviderRegistry with the same registry_key.
+    """
+    pass

@@ -1,10 +1,35 @@
 from abc import ABC, abstractmethod
 
+from sceptre.exceptions import DuplicateProviderRegistrationError
+
 from sceptre.providers.schema import ProviderSchema
 from sceptre.providers.connection_manager import ConnectionManager
 
 
-class ProviderInterface(ABC):
+class ProviderRegistry:
+    __registry = {}
+
+    @classmethod
+    def register(cls, provider, provider_key):
+        if provider_key in cls.__registry:
+            raise DuplicateProviderRegistrationError("Provider {} already exists. You cannot have\
+                                                     duplicate providers in the ProviderRegistry."
+                                                     .format(provider_key))
+        cls.__registry[provider_key] = provider
+
+    @classmethod
+    def registry(cls):
+        return cls.__registry.copy()
+
+
+class SceptreProvider(ABC):
+
+    @property
+    @abstractmethod
+    def name(self):
+        """
+        Returns the name of the Provider
+        """
 
     @property
     @abstractmethod
@@ -21,10 +46,26 @@ class ProviderInterface(ABC):
         """
 
 
-class Provider(ProviderInterface):
-    def __init__(self, schema, connection_manager):
+class Provider(SceptreProvider):
+
+    def __init_subclass__(cls, registry_key, **kwargs):
+        ProviderRegistry.register(cls, registry_key)
+        super().__init_subclass__(**kwargs)
+
+    def __init__(self, name, schema, connection_manager):
+        self.name = name
         self.schema = schema
         self.connection_manager = connection_manager
+
+    @property
+    def name(self):
+        return self.__name
+
+    @name.setter
+    def name(self, name):
+        if name is None:
+            raise ValueError('A provider name must not be none')
+        self.__name = name
 
     @property
     def schema(self):

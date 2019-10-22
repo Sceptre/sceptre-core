@@ -1,74 +1,86 @@
 import pytest
-import mock
+from unittest import mock
 
+from sceptre.providers import ProviderRegistry
 from sceptre.providers.schema import ProviderSchema, Schema
 from sceptre.providers import Provider
 from sceptre.providers.connection_manager import ConnectionManager
 
 
-class TestProvider(object):
-
-    @mock.patch('json.load')
-    @mock.patch('builtins.open')
-    def test_provider_instantiates_with_correct_property_types(
-            self, mock_open, mock_json
-    ):
+@pytest.fixture(autouse=True, scope="class")
+def schema():
+    with mock.patch('json.load') as mock_json:
         mock_json.return_value = {
             "stack": {
                 "type": "object", "properties": {
-                        "name": "string"
+                    "name": "string"
                 }
             }
         }
-        schema = Schema("path/schema.json")
+        with mock.patch('builtins.open', mock.mock_open(read_data=mock_json)):
+            return Schema("path/schema.json")
 
-        class ExampleConnectionManager(ConnectionManager):
-            def __init__(self, config):
-                super().__init__(config)
 
-            def call(self):
-                pass
-        connection_manager = ExampleConnectionManager({"region": "eu-west-2"})
+@pytest.fixture()
+def connection_manger():
+    class ExampleConnectionManager(ConnectionManager):
+        def call(self):
+            pass
 
-        provider = Provider(schema, connection_manager)
+    cm = ExampleConnectionManager({"region": "eu-west-2"})
+    return cm
+
+
+@pytest.fixture(scope="module")
+def provider():
+    class ProviderA(Provider, registry_key='A'):
+        pass
+
+    return ProviderA
+
+
+class TestProvider(object):
+    def test_provider_instantiates_with_provider_name(
+            self, schema, connection_manger
+    ):
+        provider = Provider('A', schema, connection_manger)
+        assert provider.name == 'A'
+
+    def test_provider_raises_value_error_if_provider_name_is_none(
+            self, schema, provider
+    ):
+        connection_manager = {}
+        with pytest.raises(ValueError):
+            provider(None, schema, connection_manager)
+
+    def test_provider_instantiates_with_correct_schema_type(
+            self, schema, connection_manger, provider
+    ):
+
+        provider = Provider('C', schema, connection_manger)
         assert isinstance(provider.schema, ProviderSchema)
+
+    def test_provider_instantiates_with_correct_connection_manager_type(
+            self, schema, connection_manger
+    ):
+        provider = Provider('D', schema, connection_manger)
         assert isinstance(provider.connection_manager, ConnectionManager)
 
-    @mock.patch('json.load')
-    @mock.patch('builtins.open')
     def test_provider_raises_type_error_with_incorrect_connection_manager_property_type(
-            self, mock_open, mock_json
+            self, schema
     ):
-        mock_json.return_value = {
-            "stack": {
-                "type": "object",
-                "properties": {
-                        "name": "string"
-                }
-            }
-        }
-        schema = Schema("path/schema.json")
-
         connection_manager = {}
-
         with pytest.raises(TypeError):
-            provider = Provider(schema, connection_manager)
-            assert isinstance(provider.schema, ProviderSchema)
-            assert provider.schema == schema
+            Provider('E', schema, connection_manager)
 
-    def test_provider_raises_type_error_with_incorrect_schema_property_type(self):
+    def test_provider_raises_type_error_incorrect_schema_property_type(self, connection_manger):
         schema = {}
-
-        class ExampleConnectionManager(ConnectionManager):
-            def __init__(self, config):
-                super().__init__(config)
-
-            def call(self):
-                pass
-
-        connection_manager = ExampleConnectionManager({"region": "eu-west-2"})
-
         with pytest.raises(TypeError):
-            provider = Provider(schema, connection_manager)
-            assert isinstance(provider.connection_manager, ConnectionManager)
-            assert provider.connection_manager == connection_manager
+            Provider('F', schema, connection_manger)
+
+
+class TestProviderRegistry(object):
+    def test_registry_automatically_registers_subclass(self, schema,
+                                                       connection_manger,
+                                                       provider):
+        assert ProviderRegistry.registry()["A"] == provider
