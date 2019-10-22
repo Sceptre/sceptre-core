@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from mock import sentinel, MagicMock
+from unittest.mock import sentinel, MagicMock
 
 from sceptre.context import SceptreContext
 from sceptre.resolvers import Resolver, ResolverData, ResolvableProperty

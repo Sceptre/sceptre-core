@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from mock import MagicMock
+from unittest.mock import MagicMock
 
 from sceptre.context import SceptreContext
 from sceptre.hooks import Hook, HookData, HookProperty, add_stack_hooks, execute_hooks
