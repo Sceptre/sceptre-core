@@ -1,5 +1,6 @@
 import pytest
-import mock
+from unittest import mock
+
 from sceptre.providers.connection_manager import ConnectionManager
 from sceptre.exceptions import ClientError
 from sceptre.exceptions import RetryLimitExceededError

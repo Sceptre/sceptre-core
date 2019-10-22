@@ -21,7 +21,6 @@ install_requirements = [
 
 test_requirements = [
     "pytest>=3.2",
-    "mock==2.0.0",
     "behave==1.2.5",
     "freezegun==0.3.12",
     "pyfakefs==3.6",

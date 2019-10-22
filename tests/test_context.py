@@ -1,5 +1,5 @@
 from os import path
-from mock import sentinel
+from unittest.mock import sentinel
 import importlib
 
 from sceptre.context import SceptreContext
@@ -89,12 +89,12 @@ class TestSceptreContext(object):
 
     def test_repr_can_eval_correctly(self):
         sceptre = importlib.import_module('sceptre')
-        mock = importlib.import_module('mock')
+        mock = importlib.import_module('unittest.mock')
         evaluated_context = eval(
             repr(self.context),
             {
                 'sceptre': sceptre,
-                'sentinel': mock.mock.sentinel
+                'sentinel': mock.sentinel
             }
         )
         assert isinstance(evaluated_context, SceptreContext)
