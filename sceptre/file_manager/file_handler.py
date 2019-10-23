@@ -1,7 +1,10 @@
 import logging
 import os
 
-import jinja2
+from jinja2 import Environment
+from jinja2 import StrictUndefined
+from jinja2 import FileSystemLoader
+from jinja2 import select_autoescape
 
 from sceptre.exceptions import SceptreYamlError
 
@@ -35,9 +38,13 @@ class FileHandler(object):
         return parsed
 
     def render(self, file_data, variables={}):
-        jinja_env = jinja2.Environment(
-            loader=jinja2.FileSystemLoader(file_data.dirname),
-            undefined=jinja2.StrictUndefined
+        jinja_env = Environment(
+            autoescape=select_autoescape(
+                disabled_extensions=('yaml',),
+                default=True,
+            ),
+            loader=FileSystemLoader(file_data.dirname),
+            undefined=StrictUndefined
         )
 
         template = jinja_env.get_template(file_data.basename)
