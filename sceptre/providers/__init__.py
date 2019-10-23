@@ -21,6 +21,10 @@ class ProviderRegistry:
     def registry(cls):
         return cls.__registry.copy()
 
+    @classmethod
+    def remove_provider(cls, key):
+        cls.__registry.pop(key)
+
 
 class SceptreProvider(ABC):
 
@@ -47,6 +51,7 @@ class SceptreProvider(ABC):
 
 
 class Provider(SceptreProvider):
+    command_registry = {}
 
     def __init_subclass__(cls, registry_key, **kwargs):
         ProviderRegistry.register(cls, registry_key)
