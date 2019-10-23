@@ -7,7 +7,7 @@ from sceptre.providers.schema import Schema
 from sceptre.exceptions import InvalidProviderSchemaError
 
 
-class TestSchema(object):
+class TestSchema:
     def setup_method(self, test_method):
         pass
 

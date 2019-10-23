@@ -4,7 +4,7 @@ from sceptre.providers.stack import StackConfigData
 from tests.helpers import StackImp
 
 
-class TestStack(object):
+class TestStack:
 
     def test_stack_instantiates_correctly_with_stack_config_data(self):
         stack_config = StackConfigData(name="hello")
@@ -17,7 +17,7 @@ class TestStack(object):
             StackImp(bad_config)
 
 
-class TestStackConfigData(object):
+class TestStackConfigData:
     def test_stack_config_data_dict_accessible_with_dot_notation(self):
         stack_config = StackConfigData(name="hello")
         assert stack_config.name == "hello"

@@ -3,7 +3,7 @@ import pytest
 from sceptre.file_manager.file_data import FileData
 
 
-class TestFileData(object):
+class TestFileData:
     def test_file_data_instantiation_fails_with_invalid_path(self):
         with pytest.raises(OSError):
             FileData('path', 'data')

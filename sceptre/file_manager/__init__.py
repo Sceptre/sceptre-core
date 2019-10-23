@@ -9,7 +9,7 @@ from sceptre.file_manager.file_handler import FileHandler
 from sceptre.file_manager import strategies
 
 
-class FileManager(object):
+class FileManager:
     def __init__(self, context):
         self.logger = logging.getLogger(__name__)
         self.file_handler = FileHandler()

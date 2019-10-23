@@ -5,7 +5,7 @@ import importlib
 from sceptre.context import SceptreContext
 
 
-class TestSceptreContext(object):
+class TestSceptreContext:
 
     def setup_method(self, test_method):
         self.context = SceptreContext(

@@ -12,7 +12,7 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 from sceptre.providers.stack_status import StackStatus
 
 
-class SceptrePlanExecutor(object):
+class SceptrePlanExecutor:
 
     def __init__(self, command, launch_order):
         """

@@ -12,7 +12,7 @@ import networkx as nx
 from sceptre.exceptions import CircularDependenciesError
 
 
-class StackGraph(object):
+class StackGraph:
     """
     A Directed Acyclic Graph representing the relationship between a Stack
     and its dependencies. Responsible for initalising the graph based on a set

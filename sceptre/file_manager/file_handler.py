@@ -12,7 +12,7 @@ from sceptre.file_manager.file_data import FileData
 from sceptre.file_manager.parsers import SceptreYamlParser
 
 
-class FileHandler(object):
+class FileHandler:
 
     def __init__(self):
         self.logger = logging.getLogger(__name__)

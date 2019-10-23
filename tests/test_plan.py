@@ -8,7 +8,7 @@ from sceptre.plan.plan import SceptrePlan
 from tests.helpers import StackImp
 
 
-class TestSceptrePlan(object):
+class TestSceptrePlan:
 
     def setup_method(self, test_method):
         self.patcher_SceptrePlan = patch("sceptre.plan.plan.SceptrePlan")

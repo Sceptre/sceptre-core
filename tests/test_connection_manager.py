@@ -6,7 +6,7 @@ from sceptre.exceptions import ClientError
 from sceptre.exceptions import RetryLimitExceededError
 
 
-class TestConnectionManager(object):
+class TestConnectionManager:
 
     def test_connection_manager_instantiates_with_config(self):
         connection_config = {"profile": "prod", "region": "eu-west-1"}

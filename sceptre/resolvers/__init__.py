@@ -13,7 +13,7 @@ class RecursiveGet(Exception):
     pass
 
 
-class ResolverData(object):
+class ResolverData:
     def __init__(self, context):
         if isinstance(context, SceptreContext):
             self.context = context
@@ -57,7 +57,7 @@ class Resolver(ResolverData):
         pass  # pragma: no cover
 
 
-class ResolvableProperty(object):
+class ResolvableProperty:
     """
     This is a descriptor class used to store an attribute that may contain
     Resolver objects. When retrieving the dictionary or list, any Resolver
@@ -107,7 +107,7 @@ class ResolvableProperty(object):
         _call_func_on_values(setup, value, Resolver)
         setattr(instance, self.name, value)
 
-    class ResolveLater(object):
+    class ResolveLater:
         """
         Represents a value that could not yet be resolved but can be
         resolved in the future.

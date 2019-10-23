@@ -7,7 +7,7 @@ from sceptre.file_manager.file_handler import FileHandler
 from sceptre.file_manager.file_handler import FileData
 
 
-class TestFileHandler(object):
+class TestFileHandler:
     def setup_method(self):
         self.fh = FileHandler()
 

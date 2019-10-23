@@ -2,7 +2,7 @@ from unittest.mock import patch
 from sceptre.file_manager import FileManager
 
 
-class TestFileManager(object):
+class TestFileManager:
 
     @patch('sceptre.context.SceptreContext')
     def test_get_all_stacks_as_map(self, mock_context, fs):

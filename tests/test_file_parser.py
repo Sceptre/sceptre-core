@@ -5,7 +5,7 @@ from sceptre.exceptions import SceptreYamlError
 from sceptre.file_manager.parsers import SceptreYamlParser
 
 
-class TestSceptreYamlParser(object):
+class TestSceptreYamlParser:
     def test_load_yaml_file(self):
         parser = SceptreYamlParser()
         stream = """---

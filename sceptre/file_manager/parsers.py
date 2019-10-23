@@ -7,7 +7,7 @@ import yaml
 from sceptre.exceptions import SceptreYamlError
 
 
-class SceptreYamlParser(object):
+class SceptreYamlParser:
     def __init__(self):
         self.logger = logging.getLogger(__name__)
         self.__add_yaml_constructors(["sceptre.hooks", "sceptre.resolvers"])

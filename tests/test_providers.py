@@ -7,7 +7,7 @@ from sceptre.providers import Provider
 from sceptre.providers.connection_manager import ConnectionManager
 
 
-class TestProvider(object):
+class TestProvider:
     def test_provider_instantiates_with_provider_name(
             self, schema, connection_manager
     ):
@@ -47,7 +47,7 @@ class TestProvider(object):
             Provider('F', schema, connection_manager)
 
 
-class TestProviderRegistry(object):
+class TestProviderRegistry:
     def test_registry_automatically_registers_subclass(self, schema,
                                                        connection_manager,
                                                        provider):
