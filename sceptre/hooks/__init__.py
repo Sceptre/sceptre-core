@@ -6,7 +6,7 @@ from sceptre.context import SceptreContext
 from sceptre.helpers import _call_func_on_values
 
 
-class HookData(object):
+class HookData:
     def __init__(self, context):
         if isinstance(context, SceptreContext):
             self.context = context
@@ -44,7 +44,7 @@ class Hook(HookData):
         pass  # pragma: no cover
 
 
-class HookProperty(object):
+class HookProperty:
     """
     This is a descriptor class used to store an attribute that may contain
     Hook objects. Used to setup Hooks when added as a attribute. Supports

@@ -12,7 +12,7 @@ from os import path
 from sceptre.helpers import normalise_path
 
 
-class SceptreContext(object):
+class SceptreContext:
     """
     SceptreContext is a place that holds data that is relevant to the
     project, including references to the project paths such as the path to your

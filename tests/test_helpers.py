@@ -9,7 +9,7 @@ from sceptre.helpers import normalise_path
 from sceptre.helpers import sceptreise_path
 
 
-class TestHelpers(object):
+class TestHelpers:
 
     def test_normalise_path_with_valid_path(self):
         path = normalise_path("valid/path")

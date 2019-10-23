@@ -5,7 +5,7 @@ from troposphere import Template, Parameter, Ref, Output
 from troposphere.ec2 import VPC, InternetGateway, VPCGatewayAttachment
 
 
-class VpcTemplate(object):
+class VpcTemplate:
 
     def __init__(self):
         self.template = Template()

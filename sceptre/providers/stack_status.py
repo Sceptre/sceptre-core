@@ -8,7 +8,7 @@ ChangeSet status values.
 """
 
 
-class StackStatus(object):
+class StackStatus:
     """
     StackStatus stores simplified Stack statuses.
     """
@@ -18,7 +18,7 @@ class StackStatus(object):
     PENDING = "pending"
 
 
-class StackChangeSetStatus(object):
+class StackChangeSetStatus:
     """
     StackChangeSetStatus stores simplified ChangeSet statuses.
     """

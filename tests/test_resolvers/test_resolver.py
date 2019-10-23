@@ -11,7 +11,7 @@ class MockResolverData(ResolverData):
         self.context = MagicMock(spec=SceptreContext)
 
 
-class TestResolverData(object):
+class TestResolverData:
     def setup_method(self, test_method):
         self.mock_context = MagicMock(SceptreContext)
 
@@ -33,12 +33,12 @@ class MockResolver(Resolver):
         pass
 
 
-class MockClass(object):
+class MockClass:
     resolvable_property = ResolvableProperty("resolvable_property")
     config = MagicMock()
 
 
-class TestResolver(object):
+class TestResolver:
 
     def setup_method(self, test_method):
         self.mock_resolver = MockResolver(
@@ -52,7 +52,7 @@ class TestResolver(object):
         assert issubclass(Resolver, ResolverData)
 
 
-class TestResolvablePropertyDescriptor(object):
+class TestResolvablePropertyDescriptor:
 
     def setup_method(self, test_method):
         self.mock_object = MockClass()

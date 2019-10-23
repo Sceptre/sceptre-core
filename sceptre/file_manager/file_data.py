@@ -1,7 +1,7 @@
 import os
 
 
-class FileData(object):
+class FileData:
     def __init__(self, path, stream):
         if os.path.isfile(path):
             self.path = path

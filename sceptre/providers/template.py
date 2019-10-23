@@ -14,7 +14,7 @@ import six
 
 
 @six.add_metaclass(abc.ABCMeta)
-class Template(object):
+class Template:
     """
     Template represents a IaC Template. It is responsible for
     loading, storing and optionally uploading local templates for use by the Provider.

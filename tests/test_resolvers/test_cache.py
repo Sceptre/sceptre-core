@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 
-class TestResolverCache(object):
+class TestResolverCache:
     def setup_method(self, setup_method):
         pass
 

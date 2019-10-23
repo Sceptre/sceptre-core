@@ -18,7 +18,7 @@ class MockHook(Hook):
         pass
 
 
-class TestHooksFunctions(object):
+class TestHooksFunctions:
     def setup_method(self, test_method):
         pass
 
@@ -66,7 +66,7 @@ class TestHooksFunctions(object):
         hook_2.run.called_once_with()
 
 
-class TestHookData(object):
+class TestHookData:
     def setup_method(self):
         self.mock_context = MagicMock(spec=SceptreContext)
 
@@ -77,7 +77,7 @@ class TestHookData(object):
         assert self.hook_data.context == self.mock_context
 
 
-class TestHook(object):
+class TestHook:
     def setup_method(self, test_method):
         self.hook = MockHook()
 
@@ -86,12 +86,12 @@ class TestHook(object):
         assert isinstance(self.hook, Hook)
 
 
-class MockClass(object):
+class MockClass:
     hook_property = HookProperty("hook_property")
     config = MagicMock()
 
 
-class TestHookPropertyDescriptor(object):
+class TestHookPropertyDescriptor:
 
     def setup_method(self, test_method):
         self.mock_object = MockClass()
