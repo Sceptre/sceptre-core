@@ -24,7 +24,6 @@ test_requirements = [
     "behave==1.2.5",
     "freezegun==0.3.12",
     "pyfakefs==3.6",
-    "sceptre-environment-variable-resolver==1.0.0"
 ]
 
 setup_requirements = [
