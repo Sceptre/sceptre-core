@@ -11,7 +11,7 @@ region: eu-west-1
 template_path: templates/vpc.json
 
 """
-        configA = """---
+        config_a = """---
 profile: dev
 map:
     1: 2
@@ -20,7 +20,7 @@ list:
     - b
 """
 
-        configB = """---
+        config_b = """---
 region: us-east-2
 map:
     3: 4
@@ -30,20 +30,20 @@ list:
     - d
 """
 
-        stackA = """---
-itemA: valueA
+        stack_a = """---
+itemA: value_a
 """
-        stackB = """---
-itemB: valueB
+        stack_b = """---
+itemB: value_b
 """
         fs.create_file('/var/data/config/config.yaml', contents=baseconfig)
-        fs.create_file('/var/data/config/stack.yaml', contents=stackA)
-        fs.create_file('/var/data/config/stackB.yaml', contents=stackA)
-        fs.create_file('/var/data/config/b/stack.yaml', contents=stackA)
-        fs.create_file('/var/data/config/c/stack.yaml', contents=stackB)
-        fs.create_file('/var/data/config/c/config.yaml', contents=configA)
-        fs.create_file('/var/data/config/c/d/e/stack.yaml', contents=stackA)
-        fs.create_file('/var/data/config/c/d/e/config.yaml', contents=configB)
+        fs.create_file('/var/data/config/stack.yaml', contents=stack_a)
+        fs.create_file('/var/data/config/stack_b.yaml', contents=stack_a)
+        fs.create_file('/var/data/config/b/stack.yaml', contents=stack_a)
+        fs.create_file('/var/data/config/c/stack.yaml', contents=stack_b)
+        fs.create_file('/var/data/config/c/config.yaml', contents=config_a)
+        fs.create_file('/var/data/config/c/d/e/stack.yaml', contents=stack_a)
+        fs.create_file('/var/data/config/c/d/e/config.yaml', contents=config_b)
 
         mock_context.full_command_path = '/var/data/config'
         mock_context.full_config_path = '/var/data/config'
@@ -52,28 +52,28 @@ itemB: valueB
 
         assert fm.all_stacks == {
             "/var/data/config/stack.yaml": {
-                'itemA': 'valueA',
+                'itemA': 'value_a',
                 'stack_config': {
                     "region": "eu-west-1",
                     'template_path': 'templates/vpc.json',
                 }
             },
-            "/var/data/config/stackB.yaml": {
-                'itemA': 'valueA',
+            "/var/data/config/stack_b.yaml": {
+                'itemA': 'value_a',
                 'stack_config': {
                     "region": "eu-west-1",
                     'template_path': 'templates/vpc.json',
                 }
             },
             "/var/data/config/b/stack.yaml": {
-                'itemA': 'valueA',
+                'itemA': 'value_a',
                 'stack_config': {
                     "region": "eu-west-1",
                     "template_path": 'templates/vpc.json'
                 }
             },
             "/var/data/config/c/stack.yaml": {
-                'itemB': 'valueB',
+                'itemB': 'value_b',
                 'stack_config': {
                     'map': {1: 2, 3: 4, 5: 6},
                     'list': ['c', 'd', 'a', 'b'],
@@ -84,7 +84,7 @@ itemB: valueB
                 }
             },
             "/var/data/config/c/d/e/stack.yaml": {
-                'itemA': 'valueA',
+                'itemA': 'value_a',
                 'stack_config': {
                     'map': {3: 4, 5: 6},
                     'list': ['c', 'd'],
@@ -101,7 +101,7 @@ region: eu-west-1
 template_path: templates/vpc.json
 
 """
-        configA = """---
+        config_a = """---
 profile: dev
 map:
     1: 2
@@ -110,7 +110,7 @@ list:
     - b
 """
 
-        configB = """---
+        config_b = """---
 region: us-east-2
 map:
     3: 4
@@ -120,20 +120,20 @@ list:
     - d
 """
 
-        stackA = """---
-itemA: valueA
+        stack_a = """---
+itemA: value_a
 """
-        stackB = """---
-itemB: valueB
+        stack_b = """---
+itemB: value_b
 """
         fs.create_file('/var/data/config/config.yaml', contents=baseconfig)
-        fs.create_file('/var/data/config/stack.yaml', contents=stackA)
-        fs.create_file('/var/data/config/stackB.yaml', contents=stackA)
-        fs.create_file('/var/data/config/b/stack.yaml', contents=stackA)
-        fs.create_file('/var/data/config/c/stack.yaml', contents=stackB)
-        fs.create_file('/var/data/config/c/config.yaml', contents=configA)
-        fs.create_file('/var/data/config/c/d/e/stack.yaml', contents=stackA)
-        fs.create_file('/var/data/config/c/d/e/config.yaml', contents=configB)
+        fs.create_file('/var/data/config/stack.yaml', contents=stack_a)
+        fs.create_file('/var/data/config/stack_b.yaml', contents=stack_a)
+        fs.create_file('/var/data/config/b/stack.yaml', contents=stack_a)
+        fs.create_file('/var/data/config/c/stack.yaml', contents=stack_b)
+        fs.create_file('/var/data/config/c/config.yaml', contents=config_a)
+        fs.create_file('/var/data/config/c/d/e/stack.yaml', contents=stack_a)
+        fs.create_file('/var/data/config/c/d/e/config.yaml', contents=config_b)
 
         mock_context.full_command_path = '/var/data/config/c'
         mock_context.full_config_path = '/var/data/config'
@@ -142,7 +142,7 @@ itemB: valueB
 
         assert fm.command_stacks == {
             "/var/data/config/c/stack.yaml": {
-                'itemB': 'valueB',
+                'itemB': 'value_b',
                 'stack_config': {
                     'map': {1: 2, 3: 4, 5: 6},
                     'list': ['c', 'd', 'a', 'b'],
@@ -153,7 +153,7 @@ itemB: valueB
                 }
             },
             "/var/data/config/c/d/e/stack.yaml": {
-                'itemA': 'valueA',
+                'itemA': 'value_a',
                 'stack_config': {
                     'map': {3: 4, 5: 6},
                     'list': ['c', 'd'],
@@ -173,7 +173,7 @@ region: eu-west-1
 template_path: templates/vpc.json
 
 """
-        configA = """---
+        config_a = """---
 profile: dev
 map:
     1: 2
@@ -182,7 +182,7 @@ list:
     - b
 """
 
-        configB = """---
+        config_b = """---
 region: us-east-2
 map:
     3: 4
@@ -192,20 +192,20 @@ list:
     - d
 """
 
-        stackA = """---
-itemA: valueA
+        stack_a = """---
+itemA: value_a
 """
-        stackB = """---
-itemB: valueB
+        stack_b = """---
+itemB: value_b
 """
         fs.create_file('/var/data/config/config.yaml', contents=baseconfig)
-        fs.create_file('/var/data/config/stack.yaml', contents=stackA)
-        fs.create_file('/var/data/config/stackB.yaml', contents=stackA)
-        fs.create_file('/var/data/config/b/stack.yaml', contents=stackA)
-        fs.create_file('/var/data/config/c/stack.yaml', contents=stackB)
-        fs.create_file('/var/data/config/c/config.yaml', contents=configA)
-        fs.create_file('/var/data/config/c/d/e/stack.yaml', contents=stackA)
-        fs.create_file('/var/data/config/c/d/e/config.yaml', contents=configB)
+        fs.create_file('/var/data/config/stack.yaml', contents=stack_a)
+        fs.create_file('/var/data/config/stack_b.yaml', contents=stack_a)
+        fs.create_file('/var/data/config/b/stack.yaml', contents=stack_a)
+        fs.create_file('/var/data/config/c/stack.yaml', contents=stack_b)
+        fs.create_file('/var/data/config/c/config.yaml', contents=config_a)
+        fs.create_file('/var/data/config/c/d/e/stack.yaml', contents=stack_a)
+        fs.create_file('/var/data/config/c/d/e/config.yaml', contents=config_b)
 
         mock_context.full_command_path = '/var/data/config/c/d/e'
         mock_context.full_config_path = '/var/data/config'
@@ -214,7 +214,7 @@ itemB: valueB
 
         assert fm.command_stacks == {
             "/var/data/config/c/d/e/stack.yaml": {
-                'itemA': 'valueA',
+                'itemA': 'value_a',
                 'stack_config': {
                     'map': {3: 4, 5: 6},
                     'list': ['c', 'd'],
