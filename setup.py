@@ -46,11 +46,6 @@ setup(
         "sceptre": "sceptre"
     },
     py_modules=["sceptre"],
-    entry_points={
-        "sceptre.provider": [
-            "aws=sceptre.provider"
-        ]
-    },
     include_package_data=True,
     zip_safe=False,
     keywords="sceptre",
