@@ -12,7 +12,7 @@ from abc import ABC, abstractmethod
 from typing import Mapping, Sequence
 
 
-from sceptre.hooks import HookProperty
+from sceptre.hook import HookProperty
 from sceptre.resolver import ResolvableProperty
 
 

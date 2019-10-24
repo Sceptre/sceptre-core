@@ -106,14 +106,14 @@ Users can define their own custom hooks, allowing users to extend hooks and
 integrate additional functionality into Sceptre projects.
 
 A hook is a Python class which inherits from abstract base class ``Hook`` found
-in the ``sceptre.hooks module``.
+in the ``sceptre.hook module``.
 
 Hooks are require to implement a ``run()`` function that takes no parameters
 and to call the base class initializer.
 
 Hooks may have access to ``argument``, and ``stack`` as object attributes. For example ``self.stack``.
 
-Sceptre uses the ``sceptre.hooks`` entry point to locate hook classes. Your
+Sceptre uses the ``sceptre.hook`` entry point to locate hook classes. Your
 custom hook can be written anywhere and is installed as Python package.
 In case you are not familiar with python packaging, `this is great place to start`_.
 
@@ -133,7 +133,7 @@ custom_hook.py
 
 .. code-block:: python
 
-    from sceptre.hooks import Hook
+    from sceptre.hook import Hook
 
     class CustomHook(Hook):
         """
@@ -179,7 +179,7 @@ setup.py
        name='custom_hook_package',
        py_modules=['<custom_hook_module_name>'],
        entry_points={
-           'sceptre.hooks': [
+           'sceptre.hook': [
                '<custom_hook_command_name> = <custom_hook_module_name>:CustomHook',
            ],
        }
