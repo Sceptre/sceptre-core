@@ -2,7 +2,7 @@
 from unittest.mock import MagicMock
 
 from sceptre.context import SceptreContext
-from sceptre.hooks import Hook, HookData, HookProperty, add_stack_hooks, execute_hooks
+from sceptre.hook import Hook, HookData, HookProperty, add_stack_hooks, execute_hooks
 
 
 class MockHookData(HookData):

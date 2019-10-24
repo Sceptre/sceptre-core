@@ -1,7 +1,7 @@
-sceptre.hooks package
+sceptre.hook package
 =====================
 
-.. automodule:: sceptre.hooks
+.. automodule:: sceptre.hook
     :members:
     :undoc-members:
     :show-inheritance:
@@ -9,18 +9,18 @@ sceptre.hooks package
 Submodules
 ----------
 
-sceptre.hooks.asg\_scaling\_processes module
+sceptre.hook.asg\_scaling\_processes module
 --------------------------------------------
 
-.. automodule:: sceptre.hooks.asg_scaling_processes
+.. automodule:: sceptre.hook.asg_scaling_processes
     :members:
     :undoc-members:
     :show-inheritance:
 
-sceptre.hooks.cmd module
+sceptre.hook.cmd module
 ------------------------
 
-.. automodule:: sceptre.hooks.cmd
+.. automodule:: sceptre.hook.cmd
     :members:
     :undoc-members:
     :show-inheritance:

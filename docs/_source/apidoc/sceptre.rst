@@ -13,7 +13,7 @@ Subpackages
 
     sceptre.cli
     sceptre.config
-    sceptre.hooks
+    sceptre.hook
     sceptre.plan
     sceptre.resolver
 

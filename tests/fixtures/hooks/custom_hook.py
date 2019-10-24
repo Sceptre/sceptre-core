@@ -1,6 +1,6 @@
 from __future__ import print_function
 
-from sceptre.hooks import Hook
+from sceptre.hook import Hook
 
 
 class CustomHook(Hook):
