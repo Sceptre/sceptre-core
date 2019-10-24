@@ -13,7 +13,7 @@ from typing import Mapping, Sequence
 
 
 from sceptre.hooks import HookProperty
-from sceptre.resolvers import ResolvableProperty
+from sceptre.resolver import ResolvableProperty
 
 
 class Stack(ABC):

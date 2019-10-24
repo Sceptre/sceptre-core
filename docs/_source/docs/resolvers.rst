@@ -114,7 +114,7 @@ Users can define their own resolvers which are used by Sceptre to resolve the
 value of a parameter before it is passed to the CloudFormation template.
 
 A resolver is a Python class which inherits from abstract base class
-``Resolver`` found in the ``sceptre.resolvers module``.
+``Resolver`` found in the ``sceptre.resolver module``.
 
 Resolvers are require to implement a ``resolve()`` function that takes no
 parameters and to call the base class initializer on initialisation.
@@ -123,7 +123,7 @@ Resolvers may have access to ``argument``, ``stack_config``,
 ``stack_group_config`` and ``connection_manager`` as an attribute of ``self``.
 For example ``self.stack_config``.
 
-Sceptre uses the ``sceptre.resolvers`` entry point to locate resolver classes.
+Sceptre uses the ``sceptre.resolver`` entry point to locate resolver classes.
 Your custom resolver can be written anywhere and is installed as Python
 package.
 In case you are not familiar with python packaging, `this is great place to start`_.
@@ -146,7 +146,7 @@ custom_resolver.py
 
 .. code-block:: python
 
-        from sceptre.resolvers import Resolver
+        from sceptre.resolver import Resolver
 
 
         class CustomResolver(Resolver):
@@ -197,7 +197,7 @@ setup.py
        name='<custom_resolver_package_name>',
        py_modules=['<custom_resolver_module_name>'],
        entry_points={
-           'sceptre.resolvers': [
+           'sceptre.resolver': [
                '<custom_resolver_command_name> = <custom_resolver_module_namef>:CustomResolver',
            ],
        }

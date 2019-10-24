@@ -10,7 +10,7 @@ from sceptre.exceptions import SceptreYamlError
 class SceptreYamlParser:
     def __init__(self):
         self.logger = logging.getLogger(__name__)
-        self.__add_yaml_constructors(["sceptre.hooks", "sceptre.resolvers"])
+        self.__add_yaml_constructors(["sceptre.hooks", "sceptre.resolver"])
 
     def load(self, stream):
         try:
