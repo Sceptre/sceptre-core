@@ -43,12 +43,12 @@ listB:
             'listB': ['itemA', 'itemB', 'itemC']
         }
 
-    @patch('resolver.environment_variable.EnvironmentVariable')
-    def test_valid_yaml_file_parses_custom_yaml_tags(self, mock_env_resolver, tmpdir):
-        mock_env_resolver.return_value = 'env_var'
+    @patch('resolver.test_resolver_fixture.TestResolver')
+    def test_valid_yaml_file_parses_custom_yaml_tags(self, mock_resolver, tmpdir):
+        mock_resolver.return_value = 'env_var'
         path = tmpdir.mkdir("dummy_path").join('stack.yaml')
         stream = """---
-keyA: !environment_variable env_var
+keyA: !test_resolver_fixture
 listB:
   - itemA
   - itemB
