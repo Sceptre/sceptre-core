@@ -23,7 +23,7 @@ Submodules
 sceptre.connection\_manager module
 ----------------------------------
 
-.. automodule:: sceptre.providers.connection_manager
+.. automodule:: sceptre.provider.connection_manager
     :members:
     :undoc-members:
     :show-inheritance:
@@ -52,34 +52,34 @@ sceptre.helpers module
     :undoc-members:
     :show-inheritance:
 
-sceptre.providers.stack module
+sceptre.provider.stack module
 --------------------
 
-.. automodule:: sceptre.providers.stack
+.. automodule:: sceptre.provider.stack
     :members:
     :undoc-members:
     :show-inheritance:
 
-sceptre.providers.stack\_status module
+sceptre.provider.stack\_status module
 ----------------------------
 
-.. automodule:: sceptre.providers.stack_status
+.. automodule:: sceptre.provider.stack_status
     :members:
     :undoc-members:
     :show-inheritance:
 
-sceptre.providers.stack\_status\_colourer module
+sceptre.provider.stack\_status\_colourer module
 --------------------------------------
 
-.. automodule:: sceptre.providers.stack_status_colourer
+.. automodule:: sceptre.provider.stack_status_colourer
     :members:
     :undoc-members:
     :show-inheritance:
 
-sceptre.providers.template module
+sceptre.provider.template module
 -----------------------
 
-.. automodule:: sceptre.providers.template
+.. automodule:: sceptre.provider.template
     :members:
     :undoc-members:
     :show-inheritance:

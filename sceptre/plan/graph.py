@@ -85,7 +85,7 @@ class StackGraph:
         Stack config depends on.
 
         :param stack: A Sceptre Stack
-        :type stack: sceptre.providers.stack.Stack
+        :type stack: sceptre.provider.stack.Stack
         :param dependencies: a collection of dependency paths
         :type dependencies: list
         """

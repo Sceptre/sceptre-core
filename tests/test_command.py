@@ -1,6 +1,6 @@
 import pytest
 
-from sceptre.providers import Command
+from sceptre.provider import Command
 
 
 @pytest.fixture

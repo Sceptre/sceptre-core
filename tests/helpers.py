@@ -1,4 +1,4 @@
-from sceptre.providers.stack import Stack
+from sceptre.provider.stack import Stack
 
 
 class StackImp(Stack):

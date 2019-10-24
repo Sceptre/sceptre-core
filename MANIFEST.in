@@ -4,8 +4,8 @@ include CHANGELOG.md
 include LICENSE
 include README.md
 include requirements/prod.txt
-include sceptre.providers.stack_policies/lock.json
-include sceptre.providers.stack_policies/unlock.json
+include sceptre.provider.stack_policies/lock.json
+include sceptre.provider.stack_policies/unlock.json
 
 recursive-include tests *
 recursive-exclude * __pycache__

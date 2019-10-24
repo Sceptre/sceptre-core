@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 """
-sceptre.providers.stack_status
+sceptre.provider.stack_status
 
 This module implemets structs for simplified Stack status and simplified
 ChangeSet status values.

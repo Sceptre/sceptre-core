@@ -1,6 +1,6 @@
 import pytest
 
-from sceptre.providers.stack import StackConfigData
+from sceptre.provider.stack import StackConfigData
 from tests.helpers import StackImp
 
 

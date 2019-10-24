@@ -1,10 +1,10 @@
 import pytest
 
 from sceptre.exceptions import DuplicateProviderRegistrationError
-from sceptre.providers import ProviderRegistry
-from sceptre.providers.schema import ProviderSchema
-from sceptre.providers import Provider
-from sceptre.providers.connection_manager import ConnectionManager
+from sceptre.provider import ProviderRegistry
+from sceptre.provider.schema import ProviderSchema
+from sceptre.provider import Provider
+from sceptre.provider.connection_manager import ConnectionManager
 
 
 class TestProvider:

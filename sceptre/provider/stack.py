@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 """
-sceptre.providers.stack
+sceptre.provider.stack
 
 This module implements a Stack class, which stores a Stack's data.
 
