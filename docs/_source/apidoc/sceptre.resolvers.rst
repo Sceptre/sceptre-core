@@ -1,7 +1,7 @@
-sceptre.resolvers package
+sceptre.resolver package
 =========================
 
-.. automodule:: sceptre.resolvers
+.. automodule:: sceptre.resolver
     :members:
     :undoc-members:
     :show-inheritance:
@@ -9,28 +9,26 @@ sceptre.resolvers package
 Submodules
 ----------
 
-sceptre.resolvers.environment\_variable module
+sceptre.resolver.environment\_variable module
 ----------------------------------------------
 
-.. automodule:: sceptre.resolvers.environment_variable
+.. automodule:: sceptre.resolver.environment_variable
     :members:
     :undoc-members:
     :show-inheritance:
 
-sceptre.resolvers.file\_contents module
+sceptre.resolver.file\_contents module
 ---------------------------------------
 
-.. automodule:: sceptre.resolvers.file_contents
+.. automodule:: sceptre.resolver.file_contents
     :members:
     :undoc-members:
     :show-inheritance:
 
-sceptre.resolvers.stack\_output module
+sceptre.resolver.stack\_output module
 --------------------------------------
 
-.. automodule:: sceptre.resolvers.stack_output
+.. automodule:: sceptre.resolver.stack_output
     :members:
     :undoc-members:
     :show-inheritance:
-
-

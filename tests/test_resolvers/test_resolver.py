@@ -3,7 +3,7 @@
 from unittest.mock import sentinel, MagicMock
 
 from sceptre.context import SceptreContext
-from sceptre.resolvers import Resolver, ResolverData, ResolvableProperty
+from sceptre.resolver import Resolver, ResolverData, ResolvableProperty
 
 
 class MockResolverData(ResolverData):

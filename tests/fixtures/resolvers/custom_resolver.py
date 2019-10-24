@@ -1,4 +1,4 @@
-from sceptre.resolvers import Resolver
+from sceptre.resolver import Resolver
 
 
 class CustomResolver(Resolver):
