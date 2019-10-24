@@ -4,8 +4,8 @@ from abc import ABC, abstractmethod
 
 from sceptre.exceptions import DuplicateProviderRegistrationError
 
-from sceptre.providers.schema import ProviderSchema
-from sceptre.providers.connection_manager import ConnectionManager
+from sceptre.provider.schema import ProviderSchema
+from sceptre.provider.connection_manager import ConnectionManager
 
 
 class ProviderRegistry:
@@ -115,8 +115,8 @@ class Command:
         command_name = cls.__to_camel_case(cls.__name__)
         if not isinstance(provider, SceptreProvider):
             raise TypeError("The provider {} supplied to the Command {} \
-                            is not of Type sceptre.providers.Provider".format(provider,
-                                                                              command_name)
+                            is not of Type sceptre.provider.Provider".format(provider,
+                                                                             command_name)
                             )
         provider.command_registry.update({command_type: {command_name: cls}})
         super().__init_subclass__(**kwargs)

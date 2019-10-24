@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 """
-sceptre.providers.connection_manager
+sceptre.provider.connection_manager
 
 This module implements a ConnectionManager class, which simplifies and manages
 Provider calls.

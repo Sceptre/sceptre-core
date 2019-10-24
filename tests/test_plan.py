@@ -3,7 +3,7 @@ from unittest.mock import MagicMock, patch, sentinel
 
 from sceptre.context import SceptreContext
 from sceptre.file_manager import FileManager
-from sceptre.providers.stack import StackConfigData
+from sceptre.provider.stack import StackConfigData
 from sceptre.plan.plan import SceptrePlan
 from tests.helpers import StackImp
 

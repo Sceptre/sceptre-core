@@ -1,10 +1,10 @@
 from unittest import mock
 import pytest
 
-from sceptre.providers.schema import Schema
-from sceptre.providers.connection_manager import ConnectionManager
-from sceptre.providers import Provider
-from sceptre.providers import ProviderRegistry
+from sceptre.provider.schema import Schema
+from sceptre.provider.connection_manager import ConnectionManager
+from sceptre.provider import Provider
+from sceptre.provider import ProviderRegistry
 
 
 @pytest.fixture(autouse=True, scope="session")

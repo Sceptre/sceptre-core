@@ -3,7 +3,7 @@ from unittest import mock
 
 from jsonschema import ValidationError
 
-from sceptre.providers.schema import Schema
+from sceptre.provider.schema import Schema
 from sceptre.exceptions import InvalidProviderSchemaError
 
 
