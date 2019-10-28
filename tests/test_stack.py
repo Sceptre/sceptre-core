@@ -1,31 +1,38 @@
 import pytest
+import hashlib
 
 from sceptre.provider.stack import StackConfigData
-from tests.helpers import StackImp
+from sceptre.provider.stack import Stack
 
 
 class TestStack:
 
     def test_stack_instantiates_correctly_with_stack_config_data(self):
         stack_config = StackConfigData(name="hello")
-        stack = StackImp(stack_config)
+        stack = Stack("/var/a/b/c.yaml", stack_config)
         assert stack.config == stack_config
 
     def test_stack_raises_type_error_when_instantiated_without_stack_config_data(self):
         bad_config = {}
         with pytest.raises(TypeError):
-            StackImp(bad_config)
+            Stack("/var/a/b/c.yaml", bad_config)
+
+    def test_stack_instantiates_with_hashed_id(self):
+        stack_config = StackConfigData(name="hello")
+        stack = Stack("/var/a/b/c/d.yaml", stack_config)
+        hashed_id = hashlib.sha256("/var/a/b/c/d.yaml".encode('utf-8')).hexdigest()
+        assert stack.id == hashed_id
 
 
 class TestStackConfigData:
     def test_stack_config_data_dict_accessible_with_dot_notation(self):
-        stack_config = StackConfigData(name="hello")
+        stack_config = StackConfigData({"name": "hello"})
         assert stack_config.name == "hello"
 
     def test_stack_config_missing_attr_raises_attribute_error(self):
         stack_config = StackConfigData(name="hello")
         with pytest.raises(AttributeError):
-            stack_config.region == "hello"
+            stack_config.region
 
     def test_stack_config_delete_attr_raises_attribute_error(self):
         stack_config = StackConfigData(name="hello")
