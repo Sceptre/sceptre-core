@@ -2,7 +2,7 @@ import logging
 
 from sceptre.provider.stack import StackConfigData
 from sceptre.provider.stack import Stack
-from sceptre.plan.graph import StackGraph
+from sceptre.core.graph import StackGraph
 
 
 class SceptreCore:

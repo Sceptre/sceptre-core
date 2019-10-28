@@ -9,7 +9,7 @@ nessessary information for a command to execute.
 
 from sceptre.exceptions import ConfigFileNotFoundError
 from sceptre.file_manager import FileManager
-from sceptre.plan.graph import StackGraph
+from sceptre.core.graph import StackGraph
 from sceptre.plan.executor import SceptrePlanExecutor
 from sceptre.helpers import sceptreise_path
 
