@@ -5,7 +5,7 @@ from sceptre.context import SceptreContext
 from sceptre.file_manager import FileManager
 from sceptre.provider.stack import StackConfigData
 from sceptre.plan.plan import SceptrePlan
-from tests.helpers import StackImp
+from sceptre.provider.stack import Stack
 
 
 class TestSceptrePlan:
@@ -24,7 +24,7 @@ class TestSceptrePlan:
             on_failure=sentinel.on_failure,
             stack_timeout=sentinel.stack_timeout
         )
-        self.stack = StackImp(self.stack_config)
+        self.stack = Stack("/var/a/b/c.yaml", self.stack_config)
         self.mock_context = MagicMock(spec=SceptreContext)
         self.mock_file_manager = MagicMock(spec=FileManager)
         self.mock_context.project_path = sentinel.project_path
