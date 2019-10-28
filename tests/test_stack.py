@@ -1,5 +1,4 @@
 import pytest
-import hashlib
 
 from sceptre.provider.stack import StackConfigData
 from sceptre.provider.stack import Stack
@@ -20,8 +19,7 @@ class TestStack:
     def test_stack_instantiates_with_hashed_id(self):
         stack_config = StackConfigData(name="hello")
         stack = Stack("/var/a/b/c/d.yaml", stack_config)
-        hashed_id = hashlib.sha256("/var/a/b/c/d.yaml".encode('utf-8')).hexdigest()
-        assert stack.id == hashed_id
+        assert stack.id == "/var/a/b/c/d.yaml"
 
 
 class TestStackConfigData:
@@ -31,8 +29,7 @@ class TestStackConfigData:
 
     def test_stack_config_missing_attr_raises_attribute_error(self):
         stack_config = StackConfigData(name="hello")
-        with pytest.raises(AttributeError):
-            stack_config.region
+        assert stack_config.region is None
 
     def test_stack_config_delete_attr_raises_attribute_error(self):
         stack_config = StackConfigData(name="hello")
@@ -44,5 +41,4 @@ class TestStackConfigData:
         stack_config = StackConfigData(name="hello")
         assert stack_config.name == "hello"
         del(stack_config.name)
-        with pytest.raises(AttributeError):
-            stack_config.name
+        stack_config.name is None
