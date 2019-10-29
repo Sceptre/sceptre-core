@@ -8,6 +8,8 @@ This module implements a Stack class, which stores a Stack's data.
 
 import logging
 
+from sceptre.provider import ProviderRegistry
+
 
 class Stack:
     """
@@ -20,15 +22,18 @@ class Stack:
             raise TypeError("Config must be of type StackConfigData")
         self.config = config
         self.id = stack_id
+        self.provider = ProviderRegistry.get_provider(config.provider)
 
     def __repr__(self):
         return(
             "sceptre.provider.stack.Stack("
             "id={stack_id}, "
-            "config={config}"
+            "config={config}, "
+            "provider={provider}"
             ")".format(
                 stack_id=self.id,
-                config=self.config
+                config=self.config,
+                provider=self.provider
             )
         )
 

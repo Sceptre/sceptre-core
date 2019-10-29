@@ -6,8 +6,7 @@ from sceptre.provider.stack import Stack
 
 class TestStack:
 
-    def test_stack_instantiates_correctly_with_stack_config_data(self):
-        stack_config = StackConfigData(name="hello")
+    def test_stack_instantiates_correctly_with_stack_config_data(self, stack_config, provider):
         stack = Stack("/var/a/b/c.yaml", stack_config)
         assert stack.config == stack_config
 
@@ -16,8 +15,7 @@ class TestStack:
         with pytest.raises(TypeError):
             Stack("/var/a/b/c.yaml", bad_config)
 
-    def test_stack_instantiates_with_hashed_id(self):
-        stack_config = StackConfigData(name="hello")
+    def test_stack_instantiates_with_hashed_id(self, stack_config, provider):
         stack = Stack("/var/a/b/c/d.yaml", stack_config)
         assert stack.id == "/var/a/b/c/d.yaml"
 

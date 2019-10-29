@@ -8,6 +8,7 @@ acyclic graph of a Stack's dependencies.
 """
 
 import logging
+import re
 import networkx as nx
 from sceptre.exceptions import CircularDependenciesError
 
@@ -28,11 +29,15 @@ class StackGraph:
         """
         self.logger = logging.getLogger(__name__)
         self.__graph = nx.DiGraph()
-        self._generate_graph(stacks)
+        self.__generate_graph(stacks)
 
     @property
     def graph(self):
         return self.__graph
+
+    @graph.setter
+    def graph(self, graph):
+        self.__graph = graph
 
     def __repr__(self):
         return str(nx.convert.to_dict_of_lists(self.__graph))
@@ -72,22 +77,19 @@ class StackGraph:
         """
         return self.__graph.remove_node(stack)
 
-    def _generate_graph(self, stacks):
-        """
-        Generates the StackGraph.
+    def filter_nodes(self, pattern):
+        matched = set()
+        for node in self.graph:
+            if re.search(pattern, node.id):
+                matched.add(node)
+        return matched
 
-        :param stacks: A set of Stacks
-        :type stacks: set
-        """
-
+    def __generate_graph(self, stacks):
         self.__graph.add_nodes_from(stacks)
-        self._generate_edges()
+        self.__generate_edges()
 
-    def as_pydot(self):
-        return nx.drawing.nx_pydot.to_pydot(self.__graph)
-
-    def _generate_edges(self):
-        for stack in self.__graph.nodes():
+    def __generate_edges(self):
+        for stack in self.__graph.copy().nodes():
             self.logger.debug(
                 "Generate dependencies for stack {0}".format(stack)
             )

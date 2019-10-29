@@ -188,3 +188,10 @@ class DuplicateProviderRegistrationError(SceptreException):
     ProviderRegistry with the same registry_key.
     """
     pass
+
+
+class ProviderNotFoundError(SceptreException):
+    """
+    Error raised when attempting to access a Provider that is not in the ProviderRegsitry.
+    """
+    pass
