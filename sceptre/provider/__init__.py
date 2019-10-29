@@ -3,6 +3,7 @@ import re
 from abc import ABC, abstractmethod
 
 from sceptre.exceptions import DuplicateProviderRegistrationError
+from sceptre.exceptions import ProviderNotFoundError
 
 from sceptre.provider.schema import ProviderSchema
 from sceptre.provider.connection_manager import ConnectionManager
@@ -26,6 +27,14 @@ class ProviderRegistry:
     @classmethod
     def remove_provider(cls, key):
         cls.__registry.pop(key)
+
+    @classmethod
+    def get_provider(cls, name):
+        try:
+            return cls.__registry[name]
+        except KeyError:
+            raise ProviderNotFoundError(
+                "Provider: {} is not found in the ProviderRegistry.".format(name))
 
 
 class SceptreProvider(ABC):
