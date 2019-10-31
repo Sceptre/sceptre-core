@@ -112,6 +112,9 @@ class Provider(SceptreProvider):
 
 
 class Command:
+    def __init__(self, stack):
+        self.stack = stack
+
     @abstractmethod
     def execute(self):
         """

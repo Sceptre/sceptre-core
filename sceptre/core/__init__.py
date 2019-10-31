@@ -20,7 +20,7 @@ class SceptreCore:
 
     def execute(self, command):
         executor = Executor(command, self.execute_order)
-        executor.execute()
+        return executor.execute()
 
     def __generate_stacks(self, stack_map):
         stacks = set()
