@@ -54,5 +54,7 @@ class Executor:
         return responses
 
     def _execute(self, stack, *args):
-        result = getattr(stack, self.command)(*args)
-        return stack, result
+        command_prefix = self.command.split("_")[0]
+        executed_command = \
+            stack.provider.command_registry[command_prefix][self.command](stack).execute()
+        return stack, executed_command

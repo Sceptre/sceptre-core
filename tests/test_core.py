@@ -5,6 +5,16 @@ from sceptre.exceptions import ProviderNotFoundError
 from sceptre.core import SceptreCore
 from sceptre.context import SceptreContext
 from sceptre.provider.stack import Stack
+from sceptre.provider import Command
+
+
+@pytest.fixture()
+def create_stack_command(provider):
+    class CreateStack(Command, provider=provider):
+
+        def execute(cls):
+            return "create_command executed"
+    return CreateStack
 
 
 @pytest.fixture()
@@ -90,8 +100,7 @@ class TestCore:
         with pytest.raises(ConfigFileNotFoundError):
             SceptreCore(stack_map, pattern, sceptre_context)
 
-    def test_provider_not_found_error_raised_with_missing_provider(self, sceptre_context,
-                                                                   provider):
+    def test_provider_not_found_error_raised_with_missing_provider(self, sceptre_context):
         pattern = "/var/data/config/stack.yaml"
         stack_config = {
             "/var/data/config/stack.yaml": {
@@ -104,3 +113,10 @@ class TestCore:
 
         with pytest.raises(ProviderNotFoundError):
             SceptreCore(stack_config, pattern, sceptre_context)
+
+    def test_command_is_executed(self, stack_map, sceptre_context, provider, create_stack_command):
+        pattern = "/var/data/config/stack_b.yaml"
+        core = SceptreCore(stack_map, pattern, sceptre_context)
+        result = core.execute("create_stack")
+        for k, v in result.items():
+            assert v == "create_command executed"
