@@ -2,7 +2,7 @@ import pytest
 
 from sceptre.exceptions import DuplicateProviderRegistrationError
 from sceptre.provider import ProviderRegistry
-from sceptre.provider.schema import ProviderSchema
+from sceptre.provider.schema import SchemaInterface
 from sceptre.provider import Provider
 from sceptre.provider.connection_manager import ConnectionManager
 
@@ -26,7 +26,7 @@ class TestProvider:
     ):
 
         provider = Provider('C', schema, connection_manager)
-        assert isinstance(provider.schema, ProviderSchema)
+        assert isinstance(provider.schema, SchemaInterface)
 
     def test_provider_instantiates_with_correct_connection_manager_type(
             self, schema, connection_manager

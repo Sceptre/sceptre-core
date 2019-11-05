@@ -5,7 +5,7 @@ from abc import ABC, abstractmethod
 from sceptre.exceptions import DuplicateProviderRegistrationError
 from sceptre.exceptions import ProviderNotFoundError
 
-from sceptre.provider.schema import ProviderSchema
+from sceptre.provider.schema import SchemaInterface
 from sceptre.provider.connection_manager import ConnectionManager
 
 
@@ -57,7 +57,7 @@ class SceptreProvider(ABC):
     @abstractmethod
     def schema(self):
         """
-        Returns the ProviderSchema for a given Provider.
+        Returns the Provider Schema for a given Provider.
         """
 
 
@@ -89,9 +89,9 @@ class Provider(SceptreProvider):
 
     @schema.setter
     def schema(self, schema):
-        if not isinstance(schema, ProviderSchema):
+        if not isinstance(schema, SchemaInterface):
             raise TypeError(
-                "The schema provided is not of type ProviderSchema,\
+                "The schema provided is not of type Provider Schema,\
                         it is type {}.".format(type(schema)))
         else:
             self.__schema = schema
