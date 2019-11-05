@@ -1,4 +1,3 @@
-from unittest import mock
 import pytest
 
 from sceptre.provider.schema import Schema
@@ -10,16 +9,14 @@ from sceptre.provider.stack import StackConfigData
 
 @pytest.fixture(autouse=True, scope="session")
 def schema():
-    with mock.patch('json.load') as mock_json:
-        mock_json.return_value = {
-            "stack": {
-                "type": "object", "properties": {
-                    "name": "string"
-                }
+    schema_definition = {
+        "stack": {
+            "type": "object", "properties": {
+                "name": "string"
             }
         }
-        with mock.patch('builtins.open', mock.mock_open(read_data=mock_json)):
-            return Schema("path/schema.json")
+    }
+    return Schema(schema_definition)
 
 
 @pytest.fixture("module")
