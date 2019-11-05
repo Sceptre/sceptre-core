@@ -1,6 +1,7 @@
 import logging
 
 from sceptre.exceptions import ConfigFileNotFoundError
+from sceptre.provider import ProviderRegistry
 from sceptre.provider.stack import StackConfigData
 from sceptre.provider.stack import Stack
 from sceptre.core.graph import StackGraph
@@ -11,6 +12,7 @@ class SceptreCore:
 
     def __init__(self, stack_map, execute_pattern, context):
         self.logger = logging.getLogger(__name__)
+        ProviderRegistry.add_external_providers()
         self.__execute_pattern = execute_pattern
         self.context = context
         self.stacks = self.__generate_stacks(stack_map)

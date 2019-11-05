@@ -58,3 +58,7 @@ class TestProviderRegistry:
         with pytest.raises(DuplicateProviderRegistrationError):
             ProviderRegistry.register(provider, 'a')
             ProviderRegistry.register(provider, 'a')
+
+    def test_external_provider_registers_successfully(self):
+        ProviderRegistry.add_external_providers()
+        assert "provider_test_fixture" in ProviderRegistry.registry()
