@@ -1,6 +1,7 @@
 import re
 
 from abc import ABC, abstractmethod
+from pkg_resources import iter_entry_points
 
 from sceptre.exceptions import DuplicateProviderRegistrationError
 from sceptre.exceptions import ProviderNotFoundError
@@ -11,6 +12,12 @@ from sceptre.provider.connection_manager import ConnectionManager
 
 class ProviderRegistry:
     __registry = {}
+
+    @classmethod
+    def add_external_providers(cls):
+        for entry_point in iter_entry_points(group='provider'):
+            print(entry_point.name)
+            cls.__registry[entry_point.name] = entry_point.load()
 
     @classmethod
     def register(cls, provider, provider_key):
