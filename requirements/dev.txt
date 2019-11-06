@@ -13,6 +13,7 @@ pytest-runner>=3.0.0,<3.1.0
 pytest>=3.2.0,<3.3.0
 readme-renderer>=24.0
 git+git://github.com/sceptre/sceptre-test-resolver-fixture.git@master#egg=sceptre-test-resolver-fixture
+git+git://github.com/sceptre/sceptre-provider-test-fixture.git@master#egg=sceptre-provider-test-fixture
 setuptools>=40.6.2
 Sphinx==1.6.5
 sphinx-click==2.0.1
